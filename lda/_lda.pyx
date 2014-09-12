@@ -7,6 +7,8 @@ cimport cython
 from cython.operator cimport preincrement as inc, predecrement as dec
 from libc.stdlib cimport malloc, free
 
+import scipy.special
+import numpy as np
 
 cdef int searchsorted(double* arr, int length, double value):
     """Cython version of numpy.searchsorted (bisection search)
@@ -66,3 +68,34 @@ def _sample_topics(int[:] WS, int[:] DS, int[:] ZS, int[:, :] nzw, int[:, :] ndz
         inc(nz[z_new])
 
     free(dist_sum)
+
+
+# TODO(abr): Use John Cook's version of lgamma rather than scipy
+def _loglikelihood(int[:, :] nzw, int[:, :] ndz, int[:] nz, int[:] nd, double alpha, double eta):
+    cdef int k, d
+    cdef int D = ndz.shape[0]
+    cdef int n_topics = ndz.shape[1]
+    cdef int vocab_size = nzw.shape[1]
+
+    cdef double ll = 0
+
+    # calculate log p(w|z)
+    cdef double gammaln_eta = scipy.special.gammaln(eta)
+    cdef double gammaln_alpha = scipy.special.gammaln(alpha)
+
+    ll += n_topics * scipy.special.gammaln(eta * vocab_size)
+    for k in range(n_topics):
+        ll -= scipy.special.gammaln(eta * vocab_size + nz[k])
+        for w in range(vocab_size):
+            # if nzw[k, w] == 0 addition and subtraction cancel out
+            if nzw[k, w] > 0:
+                ll += scipy.special.gammaln(eta + nzw[k, w]) - gammaln_eta
+
+    # calculate log p(z)
+    for d in range(D):
+        ll += (scipy.special.gammaln(alpha * n_topics) -
+                scipy.special.gammaln(alpha * n_topics + nd[d]))
+        for k in range(n_topics):
+            if ndz[d, k] > 0:
+                ll += scipy.special.gammaln(alpha + ndz[d, k]) - gammaln_alpha
+    return ll
