@@ -1,5 +1,5 @@
-lda
-===
+lda: Topic modeling with latent Dirichlet allocation
+====================================================
 
 |pypi| |travis| |crate|
 
@@ -31,7 +31,7 @@ conventions found in scikit-learn_.
 Requirements
 ------------
 
-Python 3 is required. The following packages are also required
+Python 2.7 or Python 3.3+ is required. The following packages are also required
 
 - numpy_
 - scipy_
@@ -40,9 +40,10 @@ Python 3 is required. The following packages are also required
 Caveat
 ------
 
-``lda`` aims for simplicity over speed. If you are working with large corpora or
-want to use faster and more sophisticated topic models, consider using hca_ or
-MALLET_. ``hca`` is written in C and ``MALLET_`` is written in Java.
+``lda`` aims for simplicity. If you are working with very large corpora or want
+to use faster and more sophisticated topic models, consider using hca_ or
+MALLET_.  ``hca`` is written in C and ``MALLET_`` is written in Java. Unlike
+``lda``, hca_ can use more than one processor at a time.
 
 Important links
 ---------------
@@ -54,7 +55,7 @@ Important links
 License
 -------
 
-horizont is licensed under Version 2.0 of the Mozilla Public License.
+lda is licensed under Version 2.0 of the Mozilla Public License.
 
 .. _Python: http://www.python.org/
 .. _scikit-learn: http://scikit-learn.org
