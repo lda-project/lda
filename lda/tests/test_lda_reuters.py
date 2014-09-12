@@ -3,13 +3,13 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import os
 
 import numpy as np
+import oslotest.base
 
 import lda
 import lda.utils
-from lda.tests import base
 
 
-class TestLDANewsReuters(base.TestCase):
+class TestLDANewsReuters(oslotest.base.BaseTestCase):
 
     @classmethod
     def setUpClass(cls):

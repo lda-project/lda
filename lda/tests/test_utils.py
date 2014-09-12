@@ -2,14 +2,14 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import io
 import os
-import unittest
 
 import numpy as np
+import oslotest.base
 
 import lda.utils as utils
 
 
-class TestUtils(unittest.TestCase):
+class TestUtils(oslotest.base.BaseTestCase):
 
     np.random.seed(99)
 
@@ -47,8 +47,7 @@ class TestUtils(unittest.TestCase):
     def test_ldac2dtm_offset(self):
         test_dir = os.path.dirname(__file__)
         reuters_ldac_fn = os.path.join(test_dir, 'reuters.ldac')
-        with self.assertRaises(ValueError):
-            utils.ldac2dtm(open(reuters_ldac_fn), offset=1)
+        self.assertRaises(ValueError, utils.ldac2dtm, open(reuters_ldac_fn), offset=1)
 
     def test_ldac2dtm(self):
         test_dir = os.path.dirname(__file__)
