@@ -119,8 +119,43 @@ class LDA:
         self._fit(X)
         return self
 
+    def fit_transform(self, X, y=None):
+        """Apply dimensionality reduction on X
+
+        Parameters
+        ----------
+        X : array-like, shape (n_samples, n_features)
+            New data, where n_samples in the number of samples
+            and n_features is the number of features.
+
+        Returns
+        -------
+        doc_topic : array-like, shape (n_samples, n_topics)
+            Point estimate of the document-topic distributions
+
+        """
+        self._fit(np.atleast_2d(X))
+        return self.doc_topic_
+
+    def transform(self, X, y=None):
+        """Transform the data X according to previously fitted model
+
+        Parameters
+        ----------
+        X : array-like, shape (n_samples, n_features)
+            New data, where n_samples in the number of samples
+            and n_features is the number of features.
+
+        Returns
+        -------
+        doc_topic : array-like, shape (n_samples, n_topics)
+            Point estimate of the document-topic distributions
+
+        """
+        raise NotImplementedError
+
     def _fit(self, X):
-        """Fit the model to the data X.
+        """Fit the model to the data X
 
         Parameters
         ----------
@@ -231,38 +266,3 @@ class LDA:
         eta = np.repeat(self.eta, vocab_size).astype(np.float64)
         lda._lda._sample_topics(self.WS, self.DS, self.ZS, self.nzw_, self.ndz_, self.nz_,
                                 alpha, eta, _rands)
-
-    def transform(self, X, y=None):
-        """Transform the data X according to previously fitted model
-
-        Parameters
-        ----------
-        X : array-like, shape (n_samples, n_features)
-            New data, where n_samples in the number of samples
-            and n_features is the number of features.
-
-        Returns
-        -------
-        doc_topic : array-like, shape (n_samples, n_topics)
-            Point estimate of the document-topic distributions
-
-        """
-        raise NotImplementedError
-
-    def fit_transform(self, X, y=None):
-        """Apply dimensionality reduction on X
-
-        Parameters
-        ----------
-        X : array-like, shape (n_samples, n_features)
-            New data, where n_samples in the number of samples
-            and n_features is the number of features.
-
-        Returns
-        -------
-        doc_topic : array-like, shape (n_samples, n_topics)
-            Point estimate of the document-topic distributions
-
-        """
-        self._fit(np.atleast_2d(X))
-        return self.doc_topic_
