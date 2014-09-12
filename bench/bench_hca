@@ -1,0 +1,2 @@
+#!/bin/sh
+time hca -v -e -C100 -A0.1 -B0.001 -K100 -fldac ../lda/tests/reuters /tmp/hca-test
