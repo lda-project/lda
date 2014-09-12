@@ -1,6 +1,7 @@
 # coding=utf-8
 """Latent Dirichlet allocation using collapsed Gibbs sampling"""
-from __future__ import absolute_import, division, print_function, unicode_literals
+
+from __future__ import absolute_import, division, unicode_literals  # noqa
 import logging
 import sys
 
@@ -10,11 +11,11 @@ import scipy.special
 import lda._lda
 import lda.utils
 
+logger = logging.getLogger('lda')
+
 PY2 = sys.version_info[0] == 2
 if PY2:
-    from itertools import izip as zip
-
-logger = logging.getLogger('lda')
+    range = xrange
 
 
 class LDA:
@@ -88,7 +89,8 @@ class LDA:
     Culotta, 1973–1981, 2009.
     """
 
-    def __init__(self, n_topics=None, n_iter=1000, alpha=0.1, eta=0.01, random_state=None, refresh=10):
+    def __init__(self, n_topics=None, n_iter=1000, alpha=0.1, eta=0.01, random_state=None,
+                 refresh=10):
         self.n_topics = n_topics
         self.n_iter = n_iter
         self.alpha = alpha
@@ -149,12 +151,11 @@ class LDA:
     def _print_status(self, iter):
         ll = self.loglikelihood()
         N = len(self.WS)
-        logger.info("<{}> log likelihood: {:.0f}, log perplexity: {:.4f}".format(iter, ll, -1 * ll / N))
+        logger.info("<{}> log likelihood: {:.0f}, per-word: {:.4f}".format(iter, ll, ll / N))
 
     def _initialize(self, X, random_state):
         D, W = X.shape
         N = int(np.sum(X))
-        random_state = lda.utils.check_random_state(self.random_state)
         n_topics = self.n_topics
         n_iter = self.n_iter
         logger.info("n_documents: {}".format(D))
@@ -163,20 +164,20 @@ class LDA:
         logger.info("n_topics: {}".format(n_topics))
         logger.info("n_iter: {}".format(n_iter))
 
-        self.nzw_ = np.zeros((n_topics, W), dtype=np.intc)
-        self.ndz_ = np.zeros((D, n_topics), dtype=np.intc)
-        self.nz_ = np.zeros(n_topics, dtype=np.intc)
+        self.nzw_ = nzw_ = np.zeros((n_topics, W), dtype=np.intc)
+        self.ndz_ = ndz_ = np.zeros((D, n_topics), dtype=np.intc)
+        self.nz_ = nz_ = np.zeros(n_topics, dtype=np.intc)
 
-        self.WS, self.DS = lda.utils.matrix_to_lists(X)
-        self.ZS = np.zeros_like(self.WS, dtype=np.intc)
-        for i, (w, d) in enumerate(zip(self.WS, self.DS)):
-            # random initialization
-            # FIXME: initialization could occur elsewhere
-            z_new = random_state.randint(n_topics)
-            self.ZS[i] = z_new
-            self.ndz_[d, z_new] += 1
-            self.nzw_[z_new, w] += 1
-            self.nz_[z_new] += 1
+        self.WS, self.DS = WS, DS = lda.utils.matrix_to_lists(X)
+        self.ZS = ZS = np.zeros_like(self.WS, dtype=np.intc)
+        np.testing.assert_equal(N, len(WS))
+        for i in range(N):
+            w, d = WS[i], DS[i]
+            z_new = i % n_topics
+            ZS[i] = z_new
+            ndz_[d, z_new] += 1
+            nzw_[z_new, w] += 1
+            nz_[z_new] += 1
 
     def loglikelihood(self):
         nzw, ndz, nz = self.nzw_, self.ndz_, self.nz_
@@ -184,14 +185,15 @@ class LDA:
         eta = self.eta
         return self._loglikelihood(nzw, ndz, nz, alpha, eta)
 
-    # TODO: Cythonize _loglikelihood
-    # TODO: Use John Cook's version of lgamma rather than scipy
+    # TODO(abr): Cythonize _loglikelihood
+    # TODO(abr): Use John Cook's version of lgamma rather than scipy
     @staticmethod
     def _loglikelihood(nzw, ndz, nz, alpha, eta):
-        """
-        Calculate complete log likelihood, log p(w,z)
+        """Calculate complete log likelihood, log p(w,z)
 
-        log p(w,z) = log p(w|z) + log p(z)
+        Formula:
+
+            log p(w,z) = log p(w|z) + log p(z)
         """
         D, n_topics = ndz.shape
         vocab_size = nzw.shape[1]
@@ -213,7 +215,8 @@ class LDA:
 
         # calculate log p(z)
         for d in range(D):
-            ll += scipy.special.gammaln(alpha * n_topics) - scipy.special.gammaln(alpha * n_topics + nd[d])
+            ll += (scipy.special.gammaln(alpha * n_topics) -
+                   scipy.special.gammaln(alpha * n_topics + nd[d]))
             for k in range(n_topics):
                 if ndz[d, k] > 0:
                     ll += scipy.special.gammaln(alpha + ndz[d, k]) - gammaln_alpha
@@ -221,13 +224,13 @@ class LDA:
 
     def _sample_topics(self, random_state):
         random_state = lda.utils.check_random_state(self.random_state)
-        rands = self._rands
-        # every shuffling is the same permutation; but every time the initial self._rands is different
-        random_state.shuffle(rands)
+        _rands = self._rands
+        random_state.shuffle(_rands)
         n_topics, vocab_size = self.nzw_.shape
         alpha = np.repeat(self.alpha, n_topics).astype(np.float64)
         eta = np.repeat(self.eta, vocab_size).astype(np.float64)
-        lda._lda._sample_topics(self.WS, self.DS, self.ZS, self.nzw_, self.ndz_, self.nz_, alpha, eta, rands)
+        lda._lda._sample_topics(self.WS, self.DS, self.ZS, self.nzw_, self.ndz_, self.nz_,
+                                alpha, eta, _rands)
 
     def transform(self, X, y=None):
         """Transform the data X according to previously fitted model

@@ -1,4 +1,4 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import, unicode_literals  # noqa
 
 import logging
 import numbers
@@ -160,6 +160,6 @@ def ldac2dtm(stream, offset=0):
     dtm = np.zeros((N, V), dtype=np.intc)
     for i, doc in enumerate(data):
         for v, cnt in doc:
-            np.testing.assert_(dtm[i, v] == 0)
+            np.testing.assert_equal(dtm[i, v], 0)
             dtm[i, v] = cnt
     return dtm

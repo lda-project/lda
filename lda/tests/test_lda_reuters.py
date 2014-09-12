@@ -1,5 +1,5 @@
 # coding=utf-8
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import, unicode_literals  # noqa
 import os
 
 import numpy as np
@@ -57,7 +57,6 @@ class TestLDANewsReuters(oslotest.base.BaseTestCase):
 
     def test_lda_random_seed(self):
         dtm = self.dtm
-        model = self.model
         doc_topic = self.doc_topic
         n_iter = self.n_iter
         n_topics = self.n_topics
@@ -68,9 +67,8 @@ class TestLDANewsReuters(oslotest.base.BaseTestCase):
         doc_topic_new = model_new.fit_transform(dtm)
         np.testing.assert_array_equal(doc_topic_new, doc_topic)
 
-    def test_lda_random_seed(self):
+    def test_lda_monotone(self):
         dtm = self.dtm
-        doc_topic = self.doc_topic
         model = self.model
         n_topics = self.n_topics
         random_seed = self.random_seed

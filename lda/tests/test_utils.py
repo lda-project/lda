@@ -1,4 +1,4 @@
-from __future__ import absolute_import, division, print_function, unicode_literals
+from __future__ import absolute_import, division, unicode_literals  # noqa
 
 import io
 import os
@@ -19,7 +19,7 @@ class TestUtils(oslotest.base.BaseTestCase):
     N = W * N_WORDS_PER_DOC
     dtm = np.zeros((D, W), dtype=int)
     for d in range(D):
-        dtm[d] = np.random.multinomial(N_WORDS_PER_DOC, np.ones(W) * 1/W)
+        dtm[d] = np.random.multinomial(N_WORDS_PER_DOC, np.ones(W) / W)
     N_BY_W = np.sum(dtm, axis=0)
     N_BY_D = np.sum(dtm, axis=1)
 
