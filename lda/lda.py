@@ -215,47 +215,15 @@ class LDA:
             nz_[z_new] += 1
 
     def loglikelihood(self):
+        """Calculate complete log likelihood, log p(w,z)
+
+        Formula used is log p(w,z) = log p(w|z) + log p(z)
+        """
         nzw, ndz, nz = self.nzw_, self.ndz_, self.nz_
         alpha = self.alpha
         eta = self.eta
-        return self._loglikelihood(nzw, ndz, nz, alpha, eta)
-
-    # TODO(abr): Cythonize _loglikelihood
-    # TODO(abr): Use John Cook's version of lgamma rather than scipy
-    @staticmethod
-    def _loglikelihood(nzw, ndz, nz, alpha, eta):
-        """Calculate complete log likelihood, log p(w,z)
-
-        Formula:
-
-            log p(w,z) = log p(w|z) + log p(z)
-        """
-        D, n_topics = ndz.shape
-        vocab_size = nzw.shape[1]
-        nd = np.sum(ndz, axis=1)
-
-        ll = 0.0
-
-        # calculate log p(w|z)
-        gammaln_eta = scipy.special.gammaln(eta)
-        gammaln_alpha = scipy.special.gammaln(alpha)
-
-        ll += n_topics * scipy.special.gammaln(eta * vocab_size)
-        for k in range(n_topics):
-            ll -= scipy.special.gammaln(eta * vocab_size + nz[k])
-            for w in range(vocab_size):
-                # if nzw[k, w] == 0 addition and subtraction cancel out
-                if nzw[k, w] > 0:
-                    ll += scipy.special.gammaln(eta + nzw[k, w]) - gammaln_eta
-
-        # calculate log p(z)
-        for d in range(D):
-            ll += (scipy.special.gammaln(alpha * n_topics) -
-                   scipy.special.gammaln(alpha * n_topics + nd[d]))
-            for k in range(n_topics):
-                if ndz[d, k] > 0:
-                    ll += scipy.special.gammaln(alpha + ndz[d, k]) - gammaln_alpha
-        return ll
+        nd = np.sum(ndz, axis=1).astype(np.intc)
+        return lda._lda._loglikelihood(nzw, ndz, nz, nd, alpha, eta)
 
     def _sample_topics(self, random_state):
         random_state = lda.utils.check_random_state(self.random_state)
