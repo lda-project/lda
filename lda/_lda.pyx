@@ -7,7 +7,9 @@ cimport cython
 from cython.operator cimport preincrement as inc, predecrement as dec
 from libc.stdlib cimport malloc, free
 
-import scipy.special
+cdef extern from "gamma.h":
+    cdef double lgamma(double x)
+
 import numpy as np
 
 cdef int searchsorted(double* arr, int length, double value):
@@ -70,8 +72,7 @@ def _sample_topics(int[:] WS, int[:] DS, int[:] ZS, int[:, :] nzw, int[:, :] ndz
     free(dist_sum)
 
 
-# TODO(abr): Use John Cook's version of lgamma rather than scipy
-def _loglikelihood(int[:, :] nzw, int[:, :] ndz, int[:] nz, int[:] nd, double alpha, double eta):
+cpdef double _loglikelihood(int[:, :] nzw, int[:, :] ndz, int[:] nz, int[:] nd, double alpha, double eta):
     cdef int k, d
     cdef int D = ndz.shape[0]
     cdef int n_topics = ndz.shape[1]
@@ -80,22 +81,22 @@ def _loglikelihood(int[:, :] nzw, int[:, :] ndz, int[:] nz, int[:] nd, double al
     cdef double ll = 0
 
     # calculate log p(w|z)
-    cdef double gammaln_eta = scipy.special.gammaln(eta)
-    cdef double gammaln_alpha = scipy.special.gammaln(alpha)
+    cdef double lgamma_eta = lgamma(eta)
+    cdef double lgamma_alpha = lgamma(alpha)
 
-    ll += n_topics * scipy.special.gammaln(eta * vocab_size)
+    ll += n_topics * lgamma(eta * vocab_size)
     for k in range(n_topics):
-        ll -= scipy.special.gammaln(eta * vocab_size + nz[k])
+        ll -= lgamma(eta * vocab_size + nz[k])
         for w in range(vocab_size):
             # if nzw[k, w] == 0 addition and subtraction cancel out
             if nzw[k, w] > 0:
-                ll += scipy.special.gammaln(eta + nzw[k, w]) - gammaln_eta
+                ll += lgamma(eta + nzw[k, w]) - lgamma_eta
 
     # calculate log p(z)
     for d in range(D):
-        ll += (scipy.special.gammaln(alpha * n_topics) -
-                scipy.special.gammaln(alpha * n_topics + nd[d]))
+        ll += (lgamma(alpha * n_topics) -
+                lgamma(alpha * n_topics + nd[d]))
         for k in range(n_topics):
             if ndz[d, k] > 0:
-                ll += scipy.special.gammaln(alpha + ndz[d, k]) - gammaln_alpha
+                ll += lgamma(alpha + ndz[d, k]) - lgamma_alpha
     return ll
