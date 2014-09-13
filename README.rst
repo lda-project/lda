@@ -23,8 +23,8 @@ conventions found in scikit-learn_.
 
     >>> import numpy as np
     >>> import lda
-    >>> X = np.array([[1,1], [2, 1], [3, 1], [4, 1], [5, 8], [6, 1]])
-    >>> model = lda.LDA(n_topics=2, n_iter, random_state=1)
+    >>> X = np.array([[1, 1], [2, 1], [3, 1], [4, 1], [5, 8], [6, 1]])
+    >>> model = lda.LDA(n_topics=2, n_iter=100)
     >>> doc_topic = model.fit_transform(X)  # estimate of document-topic distributions
     >>> model.components_  # estimate of topic-word distributions; model.doc_topic_ is an alias
 
@@ -43,7 +43,7 @@ Caveat
 ``lda`` aims for simplicity. (It happens to be fast, as essential parts are
 written in C via Cython_.) If you are working with a very large corpus you may
 wish to use more sophisticated topic models such as those implemented in hca_
-and MALLET_.  hca_ is written in C and ``MALLET_`` is written in Java.  Unlike
+and MALLET_.  hca_ is written in C and MALLET_ is written in Java.  Unlike
 ``lda``, hca_ can use more than one processor at a time.
 
 Important links
