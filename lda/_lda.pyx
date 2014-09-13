@@ -3,17 +3,16 @@
 #cython: wraparound=False
 #cython: cdivision=True
 
-cimport cython
 from cython.operator cimport preincrement as inc, predecrement as dec
 from libc.stdlib cimport malloc, free
+
 
 cdef extern from "gamma.h":
     cdef double lgamma(double x)
 
-import numpy as np
 
 cdef int searchsorted(double* arr, int length, double value):
-    """Cython version of numpy.searchsorted (bisection search)
+    """Bisection search (c.f. numpy.searchsorted)
 
     Find the index into sorted array `arr` of length `length` such that, if
     `value` were inserted before the index, the order of `arr` would be
