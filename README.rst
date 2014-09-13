@@ -31,7 +31,7 @@ conventions found in scikit-learn_.
 Requirements
 ------------
 
-Python 2.7 or Python 3.3+ is required. The following packages are also required
+Python 2.7 or Python 3.3+ is required. The following packages are required
 
 - numpy_
 - scipy_
@@ -40,9 +40,10 @@ Python 2.7 or Python 3.3+ is required. The following packages are also required
 Caveat
 ------
 
-``lda`` aims for simplicity. If you are working with very large corpora or want
-to use faster and more sophisticated topic models, consider using hca_ or
-MALLET_.  ``hca`` is written in C and ``MALLET_`` is written in Java. Unlike
+``lda`` aims for simplicity. (It happens to be fast, as essential parts are
+written in C via Cython_.) If you are working with a very large corpus you may
+wish to use more sophisticated topic models such as those implemented in hca_
+and MALLET_.  hca_ is written in C and ``MALLET_`` is written in Java.  Unlike
 ``lda``, hca_ can use more than one processor at a time.
 
 Important links
