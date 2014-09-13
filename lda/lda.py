@@ -6,7 +6,6 @@ import logging
 import sys
 
 import numpy as np
-import scipy.special
 
 import lda._lda
 import lda.utils
