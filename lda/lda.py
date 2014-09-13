@@ -88,7 +88,7 @@ class LDA:
     Culotta, 1973–1981, 2009.
     """
 
-    def __init__(self, n_topics=None, n_iter=1000, alpha=0.1, eta=0.01, random_state=None,
+    def __init__(self, n_topics, n_iter=1000, alpha=0.1, eta=0.01, random_state=None,
                  refresh=10):
         self.n_topics = n_topics
         self.n_iter = n_iter
@@ -96,6 +96,9 @@ class LDA:
         self.eta = eta
         self.random_state = random_state
         self.refresh = refresh
+
+        if alpha <= 0 or eta <= 0:
+            raise ValueError("alpha and eta must be greater than zero")
 
         # random numbers that are reused
         rng = lda.utils.check_random_state(random_state)
