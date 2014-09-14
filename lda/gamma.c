@@ -23,7 +23,7 @@
 #define HALF_LOG2_PI 0.91893853320467274178032973640562
 
 
-static double gamma(double x)
+static double lda_gamma(double x)
 {
     /*
      * Split the function domain into three intervals:
@@ -116,11 +116,11 @@ static double gamma(double x)
     if (x > 171.624)
         /* Correct answer too large to display, force +infinity. */
         return 2 * DBL_MAX;
-    return exp(lgamma(x));
+    return exp(lda_lgamma(x));
 }
 
 
-double lgamma(double x)
+double lda_lgamma(double x)
 {
     /*
      * Abramowitz and Stegun 6.1.41
@@ -144,7 +144,7 @@ double lgamma(double x)
     int i;
 
     if (x < 12.0)
-        return log(fabs(gamma(x)));
+        return log(fabs(lda_gamma(x)));
 
     z = 1.0 / (x * x);
     sum = c[7];

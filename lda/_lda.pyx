@@ -8,7 +8,11 @@ from libc.stdlib cimport malloc, free
 
 
 cdef extern from "gamma.h":
-    cdef double lgamma(double x)
+    cdef double lda_lgamma(double x)
+
+
+cdef double lgamma(double x):
+    return lda_lgamma(x)
 
 
 cdef int searchsorted(double* arr, int length, double value):

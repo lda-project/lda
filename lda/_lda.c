@@ -1002,6 +1002,7 @@ static PyObject *strided = 0;
 static PyObject *indirect = 0;
 static PyObject *contiguous = 0;
 static PyObject *indirect_contiguous = 0;
+static double __pyx_f_3lda_4_lda_lgamma(double); /*proto*/
 static int __pyx_f_3lda_4_lda_searchsorted(double *, int, double); /*proto*/
 static double __pyx_f_3lda_4_lda__loglikelihood(__Pyx_memviewslice, __Pyx_memviewslice, __Pyx_memviewslice, __Pyx_memviewslice, double, double, int __pyx_skip_dispatch); /*proto*/
 static struct __pyx_array_obj *__pyx_array_new(PyObject *, Py_ssize_t, char *, char *, char *); /*proto*/
@@ -1294,6 +1295,43 @@ static PyObject *__pyx_codeobj__13;
 /* "lda/_lda.pyx":14
  * 
  * 
+ * cdef double lgamma(double x):             # <<<<<<<<<<<<<<
+ *     return lda_lgamma(x)
+ * 
+ */
+
+static double __pyx_f_3lda_4_lda_lgamma(double __pyx_v_x) {
+  double __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("lgamma", 0);
+
+  /* "lda/_lda.pyx":15
+ * 
+ * cdef double lgamma(double x):
+ *     return lda_lgamma(x)             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  __pyx_r = lda_lgamma(__pyx_v_x);
+  goto __pyx_L0;
+
+  /* "lda/_lda.pyx":14
+ * 
+ * 
+ * cdef double lgamma(double x):             # <<<<<<<<<<<<<<
+ *     return lda_lgamma(x)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "lda/_lda.pyx":18
+ * 
+ * 
  * cdef int searchsorted(double* arr, int length, double value):             # <<<<<<<<<<<<<<
  *     """Bisection search (c.f. numpy.searchsorted)
  * 
@@ -1308,7 +1346,7 @@ static int __pyx_f_3lda_4_lda_searchsorted(double *__pyx_v_arr, int __pyx_v_leng
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("searchsorted", 0);
 
-  /* "lda/_lda.pyx":22
+  /* "lda/_lda.pyx":26
  *     """
  *     cdef int imin, imax, imid
  *     imin = 0             # <<<<<<<<<<<<<<
@@ -1317,7 +1355,7 @@ static int __pyx_f_3lda_4_lda_searchsorted(double *__pyx_v_arr, int __pyx_v_leng
  */
   __pyx_v_imin = 0;
 
-  /* "lda/_lda.pyx":23
+  /* "lda/_lda.pyx":27
  *     cdef int imin, imax, imid
  *     imin = 0
  *     imax = length             # <<<<<<<<<<<<<<
@@ -1326,7 +1364,7 @@ static int __pyx_f_3lda_4_lda_searchsorted(double *__pyx_v_arr, int __pyx_v_leng
  */
   __pyx_v_imax = __pyx_v_length;
 
-  /* "lda/_lda.pyx":24
+  /* "lda/_lda.pyx":28
  *     imin = 0
  *     imax = length
  *     while imin < imax:             # <<<<<<<<<<<<<<
@@ -1337,7 +1375,7 @@ static int __pyx_f_3lda_4_lda_searchsorted(double *__pyx_v_arr, int __pyx_v_leng
     __pyx_t_1 = ((__pyx_v_imin < __pyx_v_imax) != 0);
     if (!__pyx_t_1) break;
 
-    /* "lda/_lda.pyx":25
+    /* "lda/_lda.pyx":29
  *     imax = length
  *     while imin < imax:
  *         imid = imin + ((imax - imin) >> 2)             # <<<<<<<<<<<<<<
@@ -1346,7 +1384,7 @@ static int __pyx_f_3lda_4_lda_searchsorted(double *__pyx_v_arr, int __pyx_v_leng
  */
     __pyx_v_imid = (__pyx_v_imin + ((__pyx_v_imax - __pyx_v_imin) >> 2));
 
-    /* "lda/_lda.pyx":26
+    /* "lda/_lda.pyx":30
  *     while imin < imax:
  *         imid = imin + ((imax - imin) >> 2)
  *         if value > arr[imid]:             # <<<<<<<<<<<<<<
@@ -1356,7 +1394,7 @@ static int __pyx_f_3lda_4_lda_searchsorted(double *__pyx_v_arr, int __pyx_v_leng
     __pyx_t_1 = ((__pyx_v_value > (__pyx_v_arr[__pyx_v_imid])) != 0);
     if (__pyx_t_1) {
 
-      /* "lda/_lda.pyx":27
+      /* "lda/_lda.pyx":31
  *         imid = imin + ((imax - imin) >> 2)
  *         if value > arr[imid]:
  *             imin = imid + 1             # <<<<<<<<<<<<<<
@@ -1368,7 +1406,7 @@ static int __pyx_f_3lda_4_lda_searchsorted(double *__pyx_v_arr, int __pyx_v_leng
     }
     /*else*/ {
 
-      /* "lda/_lda.pyx":29
+      /* "lda/_lda.pyx":33
  *             imin = imid + 1
  *         else:
  *             imax = imid             # <<<<<<<<<<<<<<
@@ -1380,7 +1418,7 @@ static int __pyx_f_3lda_4_lda_searchsorted(double *__pyx_v_arr, int __pyx_v_leng
     __pyx_L5:;
   }
 
-  /* "lda/_lda.pyx":30
+  /* "lda/_lda.pyx":34
  *         else:
  *             imax = imid
  *     return imin             # <<<<<<<<<<<<<<
@@ -1390,7 +1428,7 @@ static int __pyx_f_3lda_4_lda_searchsorted(double *__pyx_v_arr, int __pyx_v_leng
   __pyx_r = __pyx_v_imin;
   goto __pyx_L0;
 
-  /* "lda/_lda.pyx":14
+  /* "lda/_lda.pyx":18
  * 
  * 
  * cdef int searchsorted(double* arr, int length, double value):             # <<<<<<<<<<<<<<
@@ -1404,7 +1442,7 @@ static int __pyx_f_3lda_4_lda_searchsorted(double *__pyx_v_arr, int __pyx_v_leng
   return __pyx_r;
 }
 
-/* "lda/_lda.pyx":33
+/* "lda/_lda.pyx":37
  * 
  * 
  * def _sample_topics(int[:] WS, int[:] DS, int[:] ZS, int[:, :] nzw, int[:, :] ndz, int[:] nz,             # <<<<<<<<<<<<<<
@@ -1458,46 +1496,46 @@ static PyObject *__pyx_pw_3lda_4_lda_1_sample_topics(PyObject *__pyx_self, PyObj
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_DS)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_sample_topics", 1, 9, 9, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_sample_topics", 1, 9, 9, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_ZS)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_sample_topics", 1, 9, 9, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_sample_topics", 1, 9, 9, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_nzw)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_sample_topics", 1, 9, 9, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_sample_topics", 1, 9, 9, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_ndz)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_sample_topics", 1, 9, 9, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_sample_topics", 1, 9, 9, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_nz)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_sample_topics", 1, 9, 9, 5); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_sample_topics", 1, 9, 9, 5); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  6:
         if (likely((values[6] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_alpha)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_sample_topics", 1, 9, 9, 6); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_sample_topics", 1, 9, 9, 6); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  7:
         if (likely((values[7] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_eta)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_sample_topics", 1, 9, 9, 7); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_sample_topics", 1, 9, 9, 7); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  8:
         if (likely((values[8] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_rands)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_sample_topics", 1, 9, 9, 8); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_sample_topics", 1, 9, 9, 8); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_sample_topics") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_sample_topics") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 9) {
       goto __pyx_L5_argtuple_error;
@@ -1512,19 +1550,19 @@ static PyObject *__pyx_pw_3lda_4_lda_1_sample_topics(PyObject *__pyx_self, PyObj
       values[7] = PyTuple_GET_ITEM(__pyx_args, 7);
       values[8] = PyTuple_GET_ITEM(__pyx_args, 8);
     }
-    __pyx_v_WS = __Pyx_PyObject_to_MemoryviewSlice_ds_int(values[0]); if (unlikely(!__pyx_v_WS.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_DS = __Pyx_PyObject_to_MemoryviewSlice_ds_int(values[1]); if (unlikely(!__pyx_v_DS.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_ZS = __Pyx_PyObject_to_MemoryviewSlice_ds_int(values[2]); if (unlikely(!__pyx_v_ZS.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_nzw = __Pyx_PyObject_to_MemoryviewSlice_dsds_int(values[3]); if (unlikely(!__pyx_v_nzw.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_ndz = __Pyx_PyObject_to_MemoryviewSlice_dsds_int(values[4]); if (unlikely(!__pyx_v_ndz.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_nz = __Pyx_PyObject_to_MemoryviewSlice_ds_int(values[5]); if (unlikely(!__pyx_v_nz.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_alpha = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[6]); if (unlikely(!__pyx_v_alpha.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_eta = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[7]); if (unlikely(!__pyx_v_eta.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_rands = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[8]); if (unlikely(!__pyx_v_rands.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 34; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_WS = __Pyx_PyObject_to_MemoryviewSlice_ds_int(values[0]); if (unlikely(!__pyx_v_WS.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_DS = __Pyx_PyObject_to_MemoryviewSlice_ds_int(values[1]); if (unlikely(!__pyx_v_DS.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_ZS = __Pyx_PyObject_to_MemoryviewSlice_ds_int(values[2]); if (unlikely(!__pyx_v_ZS.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_nzw = __Pyx_PyObject_to_MemoryviewSlice_dsds_int(values[3]); if (unlikely(!__pyx_v_nzw.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_ndz = __Pyx_PyObject_to_MemoryviewSlice_dsds_int(values[4]); if (unlikely(!__pyx_v_ndz.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_nz = __Pyx_PyObject_to_MemoryviewSlice_ds_int(values[5]); if (unlikely(!__pyx_v_nz.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_alpha = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[6]); if (unlikely(!__pyx_v_alpha.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_eta = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[7]); if (unlikely(!__pyx_v_eta.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_rands = __Pyx_PyObject_to_MemoryviewSlice_ds_double(values[8]); if (unlikely(!__pyx_v_rands.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 38; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_sample_topics", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("_sample_topics", 1, 9, 9, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("lda._lda._sample_topics", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -1583,7 +1621,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
   int __pyx_t_27;
   __Pyx_RefNannySetupContext("_sample_topics", 0);
 
-  /* "lda/_lda.pyx":37
+  /* "lda/_lda.pyx":41
  *     cdef int i, k, w, d, z, z_new
  *     cdef double r, dist_cum
  *     cdef int N = WS.shape[0]             # <<<<<<<<<<<<<<
@@ -1592,7 +1630,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
  */
   __pyx_v_N = (__pyx_v_WS.shape[0]);
 
-  /* "lda/_lda.pyx":38
+  /* "lda/_lda.pyx":42
  *     cdef double r, dist_cum
  *     cdef int N = WS.shape[0]
  *     cdef int n_rand = rands.shape[0]             # <<<<<<<<<<<<<<
@@ -1601,7 +1639,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
  */
   __pyx_v_n_rand = (__pyx_v_rands.shape[0]);
 
-  /* "lda/_lda.pyx":39
+  /* "lda/_lda.pyx":43
  *     cdef int N = WS.shape[0]
  *     cdef int n_rand = rands.shape[0]
  *     cdef int n_topics = nz.shape[0]             # <<<<<<<<<<<<<<
@@ -1610,7 +1648,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
  */
   __pyx_v_n_topics = (__pyx_v_nz.shape[0]);
 
-  /* "lda/_lda.pyx":40
+  /* "lda/_lda.pyx":44
  *     cdef int n_rand = rands.shape[0]
  *     cdef int n_topics = nz.shape[0]
  *     cdef double alpha_sum = 0             # <<<<<<<<<<<<<<
@@ -1619,7 +1657,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
  */
   __pyx_v_alpha_sum = 0.0;
 
-  /* "lda/_lda.pyx":41
+  /* "lda/_lda.pyx":45
  *     cdef int n_topics = nz.shape[0]
  *     cdef double alpha_sum = 0
  *     for i in range(alpha.shape[0]):             # <<<<<<<<<<<<<<
@@ -1630,7 +1668,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
   for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_i = __pyx_t_2;
 
-    /* "lda/_lda.pyx":42
+    /* "lda/_lda.pyx":46
  *     cdef double alpha_sum = 0
  *     for i in range(alpha.shape[0]):
  *         alpha_sum += alpha[i]             # <<<<<<<<<<<<<<
@@ -1641,7 +1679,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
     __pyx_v_alpha_sum = (__pyx_v_alpha_sum + (*((double *) ( /* dim=0 */ (__pyx_v_alpha.data + __pyx_t_3 * __pyx_v_alpha.strides[0]) ))));
   }
 
-  /* "lda/_lda.pyx":43
+  /* "lda/_lda.pyx":47
  *     for i in range(alpha.shape[0]):
  *         alpha_sum += alpha[i]
  *     cdef double eta_sum = 0             # <<<<<<<<<<<<<<
@@ -1650,7 +1688,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
  */
   __pyx_v_eta_sum = 0.0;
 
-  /* "lda/_lda.pyx":44
+  /* "lda/_lda.pyx":48
  *         alpha_sum += alpha[i]
  *     cdef double eta_sum = 0
  *     for i in range(eta.shape[0]):             # <<<<<<<<<<<<<<
@@ -1661,7 +1699,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
   for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_i = __pyx_t_2;
 
-    /* "lda/_lda.pyx":45
+    /* "lda/_lda.pyx":49
  *     cdef double eta_sum = 0
  *     for i in range(eta.shape[0]):
  *         eta_sum += eta[i]             # <<<<<<<<<<<<<<
@@ -1672,7 +1710,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
     __pyx_v_eta_sum = (__pyx_v_eta_sum + (*((double *) ( /* dim=0 */ (__pyx_v_eta.data + __pyx_t_4 * __pyx_v_eta.strides[0]) ))));
   }
 
-  /* "lda/_lda.pyx":46
+  /* "lda/_lda.pyx":50
  *     for i in range(eta.shape[0]):
  *         eta_sum += eta[i]
  *     cdef double* dist_sum = <double*> malloc(n_topics * sizeof(double))             # <<<<<<<<<<<<<<
@@ -1681,7 +1719,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
  */
   __pyx_v_dist_sum = ((double *)malloc((__pyx_v_n_topics * (sizeof(double)))));
 
-  /* "lda/_lda.pyx":48
+  /* "lda/_lda.pyx":52
  *     cdef double* dist_sum = <double*> malloc(n_topics * sizeof(double))
  * 
  *     for i in range(N):             # <<<<<<<<<<<<<<
@@ -1692,7 +1730,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
   for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_2; __pyx_t_5+=1) {
     __pyx_v_i = __pyx_t_5;
 
-    /* "lda/_lda.pyx":49
+    /* "lda/_lda.pyx":53
  * 
  *     for i in range(N):
  *         w = WS[i]             # <<<<<<<<<<<<<<
@@ -1702,7 +1740,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
     __pyx_t_6 = __pyx_v_i;
     __pyx_v_w = (*((int *) ( /* dim=0 */ (__pyx_v_WS.data + __pyx_t_6 * __pyx_v_WS.strides[0]) )));
 
-    /* "lda/_lda.pyx":50
+    /* "lda/_lda.pyx":54
  *     for i in range(N):
  *         w = WS[i]
  *         d = DS[i]             # <<<<<<<<<<<<<<
@@ -1712,7 +1750,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
     __pyx_t_7 = __pyx_v_i;
     __pyx_v_d = (*((int *) ( /* dim=0 */ (__pyx_v_DS.data + __pyx_t_7 * __pyx_v_DS.strides[0]) )));
 
-    /* "lda/_lda.pyx":51
+    /* "lda/_lda.pyx":55
  *         w = WS[i]
  *         d = DS[i]
  *         z = ZS[i]             # <<<<<<<<<<<<<<
@@ -1722,7 +1760,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
     __pyx_t_8 = __pyx_v_i;
     __pyx_v_z = (*((int *) ( /* dim=0 */ (__pyx_v_ZS.data + __pyx_t_8 * __pyx_v_ZS.strides[0]) )));
 
-    /* "lda/_lda.pyx":53
+    /* "lda/_lda.pyx":57
  *         z = ZS[i]
  * 
  *         dec(nzw[z, w])             # <<<<<<<<<<<<<<
@@ -1733,7 +1771,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
     __pyx_t_10 = __pyx_v_w;
     (--(*((int *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_nzw.data + __pyx_t_9 * __pyx_v_nzw.strides[0]) ) + __pyx_t_10 * __pyx_v_nzw.strides[1]) ))));
 
-    /* "lda/_lda.pyx":54
+    /* "lda/_lda.pyx":58
  * 
  *         dec(nzw[z, w])
  *         dec(ndz[d, z])             # <<<<<<<<<<<<<<
@@ -1744,7 +1782,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
     __pyx_t_12 = __pyx_v_z;
     (--(*((int *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_ndz.data + __pyx_t_11 * __pyx_v_ndz.strides[0]) ) + __pyx_t_12 * __pyx_v_ndz.strides[1]) ))));
 
-    /* "lda/_lda.pyx":55
+    /* "lda/_lda.pyx":59
  *         dec(nzw[z, w])
  *         dec(ndz[d, z])
  *         dec(nz[z])             # <<<<<<<<<<<<<<
@@ -1754,7 +1792,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
     __pyx_t_13 = __pyx_v_z;
     (--(*((int *) ( /* dim=0 */ (__pyx_v_nz.data + __pyx_t_13 * __pyx_v_nz.strides[0]) ))));
 
-    /* "lda/_lda.pyx":57
+    /* "lda/_lda.pyx":61
  *         dec(nz[z])
  * 
  *         dist_cum = 0             # <<<<<<<<<<<<<<
@@ -1763,7 +1801,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
  */
     __pyx_v_dist_cum = 0.0;
 
-    /* "lda/_lda.pyx":58
+    /* "lda/_lda.pyx":62
  * 
  *         dist_cum = 0
  *         for k in range(n_topics):             # <<<<<<<<<<<<<<
@@ -1774,7 +1812,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
     for (__pyx_t_15 = 0; __pyx_t_15 < __pyx_t_14; __pyx_t_15+=1) {
       __pyx_v_k = __pyx_t_15;
 
-      /* "lda/_lda.pyx":60
+      /* "lda/_lda.pyx":64
  *         for k in range(n_topics):
  *             # eta is a double so cdivision yields a double
  *             dist_cum += (nzw[k, w] + eta[w]) / (nz[k] + eta_sum) * (ndz[d, k] + alpha[k])             # <<<<<<<<<<<<<<
@@ -1790,7 +1828,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
       __pyx_t_22 = __pyx_v_k;
       __pyx_v_dist_cum = (__pyx_v_dist_cum + ((((*((int *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_nzw.data + __pyx_t_16 * __pyx_v_nzw.strides[0]) ) + __pyx_t_17 * __pyx_v_nzw.strides[1]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_eta.data + __pyx_t_18 * __pyx_v_eta.strides[0]) )))) / ((*((int *) ( /* dim=0 */ (__pyx_v_nz.data + __pyx_t_19 * __pyx_v_nz.strides[0]) ))) + __pyx_v_eta_sum)) * ((*((int *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_ndz.data + __pyx_t_20 * __pyx_v_ndz.strides[0]) ) + __pyx_t_21 * __pyx_v_ndz.strides[1]) ))) + (*((double *) ( /* dim=0 */ (__pyx_v_alpha.data + __pyx_t_22 * __pyx_v_alpha.strides[0]) ))))));
 
-      /* "lda/_lda.pyx":61
+      /* "lda/_lda.pyx":65
  *             # eta is a double so cdivision yields a double
  *             dist_cum += (nzw[k, w] + eta[w]) / (nz[k] + eta_sum) * (ndz[d, k] + alpha[k])
  *             dist_sum[k] = dist_cum             # <<<<<<<<<<<<<<
@@ -1800,7 +1838,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
       (__pyx_v_dist_sum[__pyx_v_k]) = __pyx_v_dist_cum;
     }
 
-    /* "lda/_lda.pyx":63
+    /* "lda/_lda.pyx":67
  *             dist_sum[k] = dist_cum
  * 
  *         r = rands[i % n_rand] * dist_cum  # dist_cum == dist_sum[-1]             # <<<<<<<<<<<<<<
@@ -1810,7 +1848,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
     __pyx_t_14 = (__pyx_v_i % __pyx_v_n_rand);
     __pyx_v_r = ((*((double *) ( /* dim=0 */ (__pyx_v_rands.data + __pyx_t_14 * __pyx_v_rands.strides[0]) ))) * __pyx_v_dist_cum);
 
-    /* "lda/_lda.pyx":64
+    /* "lda/_lda.pyx":68
  * 
  *         r = rands[i % n_rand] * dist_cum  # dist_cum == dist_sum[-1]
  *         z_new = searchsorted(dist_sum, n_topics, r)             # <<<<<<<<<<<<<<
@@ -1819,7 +1857,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
  */
     __pyx_v_z_new = __pyx_f_3lda_4_lda_searchsorted(__pyx_v_dist_sum, __pyx_v_n_topics, __pyx_v_r);
 
-    /* "lda/_lda.pyx":66
+    /* "lda/_lda.pyx":70
  *         z_new = searchsorted(dist_sum, n_topics, r)
  * 
  *         ZS[i] = z_new             # <<<<<<<<<<<<<<
@@ -1829,7 +1867,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
     __pyx_t_15 = __pyx_v_i;
     *((int *) ( /* dim=0 */ (__pyx_v_ZS.data + __pyx_t_15 * __pyx_v_ZS.strides[0]) )) = __pyx_v_z_new;
 
-    /* "lda/_lda.pyx":67
+    /* "lda/_lda.pyx":71
  * 
  *         ZS[i] = z_new
  *         inc(nzw[z_new, w])             # <<<<<<<<<<<<<<
@@ -1840,7 +1878,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
     __pyx_t_24 = __pyx_v_w;
     (++(*((int *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_nzw.data + __pyx_t_23 * __pyx_v_nzw.strides[0]) ) + __pyx_t_24 * __pyx_v_nzw.strides[1]) ))));
 
-    /* "lda/_lda.pyx":68
+    /* "lda/_lda.pyx":72
  *         ZS[i] = z_new
  *         inc(nzw[z_new, w])
  *         inc(ndz[d, z_new])             # <<<<<<<<<<<<<<
@@ -1851,7 +1889,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
     __pyx_t_26 = __pyx_v_z_new;
     (++(*((int *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_ndz.data + __pyx_t_25 * __pyx_v_ndz.strides[0]) ) + __pyx_t_26 * __pyx_v_ndz.strides[1]) ))));
 
-    /* "lda/_lda.pyx":69
+    /* "lda/_lda.pyx":73
  *         inc(nzw[z_new, w])
  *         inc(ndz[d, z_new])
  *         inc(nz[z_new])             # <<<<<<<<<<<<<<
@@ -1862,7 +1900,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
     (++(*((int *) ( /* dim=0 */ (__pyx_v_nz.data + __pyx_t_27 * __pyx_v_nz.strides[0]) ))));
   }
 
-  /* "lda/_lda.pyx":71
+  /* "lda/_lda.pyx":75
  *         inc(nz[z_new])
  * 
  *     free(dist_sum)             # <<<<<<<<<<<<<<
@@ -1871,7 +1909,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
  */
   free(__pyx_v_dist_sum);
 
-  /* "lda/_lda.pyx":33
+  /* "lda/_lda.pyx":37
  * 
  * 
  * def _sample_topics(int[:] WS, int[:] DS, int[:] ZS, int[:, :] nzw, int[:, :] ndz, int[:] nz,             # <<<<<<<<<<<<<<
@@ -1895,7 +1933,7 @@ static PyObject *__pyx_pf_3lda_4_lda__sample_topics(CYTHON_UNUSED PyObject *__py
   return __pyx_r;
 }
 
-/* "lda/_lda.pyx":74
+/* "lda/_lda.pyx":78
  * 
  * 
  * cpdef double _loglikelihood(int[:, :] nzw, int[:, :] ndz, int[:] nz, int[:] nd, double alpha, double eta):             # <<<<<<<<<<<<<<
@@ -1933,7 +1971,7 @@ static double __pyx_f_3lda_4_lda__loglikelihood(__Pyx_memviewslice __pyx_v_nzw, 
   int __pyx_t_15;
   __Pyx_RefNannySetupContext("_loglikelihood", 0);
 
-  /* "lda/_lda.pyx":76
+  /* "lda/_lda.pyx":80
  * cpdef double _loglikelihood(int[:, :] nzw, int[:, :] ndz, int[:] nz, int[:] nd, double alpha, double eta):
  *     cdef int k, d
  *     cdef int D = ndz.shape[0]             # <<<<<<<<<<<<<<
@@ -1942,7 +1980,7 @@ static double __pyx_f_3lda_4_lda__loglikelihood(__Pyx_memviewslice __pyx_v_nzw, 
  */
   __pyx_v_D = (__pyx_v_ndz.shape[0]);
 
-  /* "lda/_lda.pyx":77
+  /* "lda/_lda.pyx":81
  *     cdef int k, d
  *     cdef int D = ndz.shape[0]
  *     cdef int n_topics = ndz.shape[1]             # <<<<<<<<<<<<<<
@@ -1951,7 +1989,7 @@ static double __pyx_f_3lda_4_lda__loglikelihood(__Pyx_memviewslice __pyx_v_nzw, 
  */
   __pyx_v_n_topics = (__pyx_v_ndz.shape[1]);
 
-  /* "lda/_lda.pyx":78
+  /* "lda/_lda.pyx":82
  *     cdef int D = ndz.shape[0]
  *     cdef int n_topics = ndz.shape[1]
  *     cdef int vocab_size = nzw.shape[1]             # <<<<<<<<<<<<<<
@@ -1960,7 +1998,7 @@ static double __pyx_f_3lda_4_lda__loglikelihood(__Pyx_memviewslice __pyx_v_nzw, 
  */
   __pyx_v_vocab_size = (__pyx_v_nzw.shape[1]);
 
-  /* "lda/_lda.pyx":80
+  /* "lda/_lda.pyx":84
  *     cdef int vocab_size = nzw.shape[1]
  * 
  *     cdef double ll = 0             # <<<<<<<<<<<<<<
@@ -1969,34 +2007,34 @@ static double __pyx_f_3lda_4_lda__loglikelihood(__Pyx_memviewslice __pyx_v_nzw, 
  */
   __pyx_v_ll = 0.0;
 
-  /* "lda/_lda.pyx":83
+  /* "lda/_lda.pyx":87
  * 
  *     # calculate log p(w|z)
  *     cdef double lgamma_eta = lgamma(eta)             # <<<<<<<<<<<<<<
  *     cdef double lgamma_alpha = lgamma(alpha)
  * 
  */
-  __pyx_v_lgamma_eta = lgamma(__pyx_v_eta);
+  __pyx_v_lgamma_eta = __pyx_f_3lda_4_lda_lgamma(__pyx_v_eta);
 
-  /* "lda/_lda.pyx":84
+  /* "lda/_lda.pyx":88
  *     # calculate log p(w|z)
  *     cdef double lgamma_eta = lgamma(eta)
  *     cdef double lgamma_alpha = lgamma(alpha)             # <<<<<<<<<<<<<<
  * 
  *     ll += n_topics * lgamma(eta * vocab_size)
  */
-  __pyx_v_lgamma_alpha = lgamma(__pyx_v_alpha);
+  __pyx_v_lgamma_alpha = __pyx_f_3lda_4_lda_lgamma(__pyx_v_alpha);
 
-  /* "lda/_lda.pyx":86
+  /* "lda/_lda.pyx":90
  *     cdef double lgamma_alpha = lgamma(alpha)
  * 
  *     ll += n_topics * lgamma(eta * vocab_size)             # <<<<<<<<<<<<<<
  *     for k in range(n_topics):
  *         ll -= lgamma(eta * vocab_size + nz[k])
  */
-  __pyx_v_ll = (__pyx_v_ll + (__pyx_v_n_topics * lgamma((__pyx_v_eta * __pyx_v_vocab_size))));
+  __pyx_v_ll = (__pyx_v_ll + (__pyx_v_n_topics * __pyx_f_3lda_4_lda_lgamma((__pyx_v_eta * __pyx_v_vocab_size))));
 
-  /* "lda/_lda.pyx":87
+  /* "lda/_lda.pyx":91
  * 
  *     ll += n_topics * lgamma(eta * vocab_size)
  *     for k in range(n_topics):             # <<<<<<<<<<<<<<
@@ -2007,7 +2045,7 @@ static double __pyx_f_3lda_4_lda__loglikelihood(__Pyx_memviewslice __pyx_v_nzw, 
   for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_k = __pyx_t_2;
 
-    /* "lda/_lda.pyx":88
+    /* "lda/_lda.pyx":92
  *     ll += n_topics * lgamma(eta * vocab_size)
  *     for k in range(n_topics):
  *         ll -= lgamma(eta * vocab_size + nz[k])             # <<<<<<<<<<<<<<
@@ -2015,9 +2053,9 @@ static double __pyx_f_3lda_4_lda__loglikelihood(__Pyx_memviewslice __pyx_v_nzw, 
  *             # if nzw[k, w] == 0 addition and subtraction cancel out
  */
     __pyx_t_3 = __pyx_v_k;
-    __pyx_v_ll = (__pyx_v_ll - lgamma(((__pyx_v_eta * __pyx_v_vocab_size) + (*((int *) ( /* dim=0 */ (__pyx_v_nz.data + __pyx_t_3 * __pyx_v_nz.strides[0]) ))))));
+    __pyx_v_ll = (__pyx_v_ll - __pyx_f_3lda_4_lda_lgamma(((__pyx_v_eta * __pyx_v_vocab_size) + (*((int *) ( /* dim=0 */ (__pyx_v_nz.data + __pyx_t_3 * __pyx_v_nz.strides[0]) ))))));
 
-    /* "lda/_lda.pyx":89
+    /* "lda/_lda.pyx":93
  *     for k in range(n_topics):
  *         ll -= lgamma(eta * vocab_size + nz[k])
  *         for w in range(vocab_size):             # <<<<<<<<<<<<<<
@@ -2028,7 +2066,7 @@ static double __pyx_f_3lda_4_lda__loglikelihood(__Pyx_memviewslice __pyx_v_nzw, 
     for (__pyx_t_5 = 0; __pyx_t_5 < __pyx_t_4; __pyx_t_5+=1) {
       __pyx_v_w = __pyx_t_5;
 
-      /* "lda/_lda.pyx":91
+      /* "lda/_lda.pyx":95
  *         for w in range(vocab_size):
  *             # if nzw[k, w] == 0 addition and subtraction cancel out
  *             if nzw[k, w] > 0:             # <<<<<<<<<<<<<<
@@ -2040,7 +2078,7 @@ static double __pyx_f_3lda_4_lda__loglikelihood(__Pyx_memviewslice __pyx_v_nzw, 
       __pyx_t_8 = (((*((int *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_nzw.data + __pyx_t_6 * __pyx_v_nzw.strides[0]) ) + __pyx_t_7 * __pyx_v_nzw.strides[1]) ))) > 0) != 0);
       if (__pyx_t_8) {
 
-        /* "lda/_lda.pyx":92
+        /* "lda/_lda.pyx":96
  *             # if nzw[k, w] == 0 addition and subtraction cancel out
  *             if nzw[k, w] > 0:
  *                 ll += lgamma(eta + nzw[k, w]) - lgamma_eta             # <<<<<<<<<<<<<<
@@ -2049,14 +2087,14 @@ static double __pyx_f_3lda_4_lda__loglikelihood(__Pyx_memviewslice __pyx_v_nzw, 
  */
         __pyx_t_9 = __pyx_v_k;
         __pyx_t_10 = __pyx_v_w;
-        __pyx_v_ll = (__pyx_v_ll + (lgamma((__pyx_v_eta + (*((int *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_nzw.data + __pyx_t_9 * __pyx_v_nzw.strides[0]) ) + __pyx_t_10 * __pyx_v_nzw.strides[1]) ))))) - __pyx_v_lgamma_eta));
+        __pyx_v_ll = (__pyx_v_ll + (__pyx_f_3lda_4_lda_lgamma((__pyx_v_eta + (*((int *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_nzw.data + __pyx_t_9 * __pyx_v_nzw.strides[0]) ) + __pyx_t_10 * __pyx_v_nzw.strides[1]) ))))) - __pyx_v_lgamma_eta));
         goto __pyx_L7;
       }
       __pyx_L7:;
     }
   }
 
-  /* "lda/_lda.pyx":95
+  /* "lda/_lda.pyx":99
  * 
  *     # calculate log p(z)
  *     for d in range(D):             # <<<<<<<<<<<<<<
@@ -2067,7 +2105,7 @@ static double __pyx_f_3lda_4_lda__loglikelihood(__Pyx_memviewslice __pyx_v_nzw, 
   for (__pyx_t_2 = 0; __pyx_t_2 < __pyx_t_1; __pyx_t_2+=1) {
     __pyx_v_d = __pyx_t_2;
 
-    /* "lda/_lda.pyx":97
+    /* "lda/_lda.pyx":101
  *     for d in range(D):
  *         ll += (lgamma(alpha * n_topics) -
  *                 lgamma(alpha * n_topics + nd[d]))             # <<<<<<<<<<<<<<
@@ -2076,16 +2114,16 @@ static double __pyx_f_3lda_4_lda__loglikelihood(__Pyx_memviewslice __pyx_v_nzw, 
  */
     __pyx_t_4 = __pyx_v_d;
 
-    /* "lda/_lda.pyx":96
+    /* "lda/_lda.pyx":100
  *     # calculate log p(z)
  *     for d in range(D):
  *         ll += (lgamma(alpha * n_topics) -             # <<<<<<<<<<<<<<
  *                 lgamma(alpha * n_topics + nd[d]))
  *         for k in range(n_topics):
  */
-    __pyx_v_ll = (__pyx_v_ll + (lgamma((__pyx_v_alpha * __pyx_v_n_topics)) - lgamma(((__pyx_v_alpha * __pyx_v_n_topics) + (*((int *) ( /* dim=0 */ (__pyx_v_nd.data + __pyx_t_4 * __pyx_v_nd.strides[0]) )))))));
+    __pyx_v_ll = (__pyx_v_ll + (__pyx_f_3lda_4_lda_lgamma((__pyx_v_alpha * __pyx_v_n_topics)) - __pyx_f_3lda_4_lda_lgamma(((__pyx_v_alpha * __pyx_v_n_topics) + (*((int *) ( /* dim=0 */ (__pyx_v_nd.data + __pyx_t_4 * __pyx_v_nd.strides[0]) )))))));
 
-    /* "lda/_lda.pyx":98
+    /* "lda/_lda.pyx":102
  *         ll += (lgamma(alpha * n_topics) -
  *                 lgamma(alpha * n_topics + nd[d]))
  *         for k in range(n_topics):             # <<<<<<<<<<<<<<
@@ -2096,7 +2134,7 @@ static double __pyx_f_3lda_4_lda__loglikelihood(__Pyx_memviewslice __pyx_v_nzw, 
     for (__pyx_t_11 = 0; __pyx_t_11 < __pyx_t_5; __pyx_t_11+=1) {
       __pyx_v_k = __pyx_t_11;
 
-      /* "lda/_lda.pyx":99
+      /* "lda/_lda.pyx":103
  *                 lgamma(alpha * n_topics + nd[d]))
  *         for k in range(n_topics):
  *             if ndz[d, k] > 0:             # <<<<<<<<<<<<<<
@@ -2108,7 +2146,7 @@ static double __pyx_f_3lda_4_lda__loglikelihood(__Pyx_memviewslice __pyx_v_nzw, 
       __pyx_t_8 = (((*((int *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_ndz.data + __pyx_t_12 * __pyx_v_ndz.strides[0]) ) + __pyx_t_13 * __pyx_v_ndz.strides[1]) ))) > 0) != 0);
       if (__pyx_t_8) {
 
-        /* "lda/_lda.pyx":100
+        /* "lda/_lda.pyx":104
  *         for k in range(n_topics):
  *             if ndz[d, k] > 0:
  *                 ll += lgamma(alpha + ndz[d, k]) - lgamma_alpha             # <<<<<<<<<<<<<<
@@ -2116,14 +2154,14 @@ static double __pyx_f_3lda_4_lda__loglikelihood(__Pyx_memviewslice __pyx_v_nzw, 
  */
         __pyx_t_14 = __pyx_v_d;
         __pyx_t_15 = __pyx_v_k;
-        __pyx_v_ll = (__pyx_v_ll + (lgamma((__pyx_v_alpha + (*((int *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_ndz.data + __pyx_t_14 * __pyx_v_ndz.strides[0]) ) + __pyx_t_15 * __pyx_v_ndz.strides[1]) ))))) - __pyx_v_lgamma_alpha));
+        __pyx_v_ll = (__pyx_v_ll + (__pyx_f_3lda_4_lda_lgamma((__pyx_v_alpha + (*((int *) ( /* dim=1 */ (( /* dim=0 */ (__pyx_v_ndz.data + __pyx_t_14 * __pyx_v_ndz.strides[0]) ) + __pyx_t_15 * __pyx_v_ndz.strides[1]) ))))) - __pyx_v_lgamma_alpha));
         goto __pyx_L12;
       }
       __pyx_L12:;
     }
   }
 
-  /* "lda/_lda.pyx":101
+  /* "lda/_lda.pyx":105
  *             if ndz[d, k] > 0:
  *                 ll += lgamma(alpha + ndz[d, k]) - lgamma_alpha
  *     return ll             # <<<<<<<<<<<<<<
@@ -2131,7 +2169,7 @@ static double __pyx_f_3lda_4_lda__loglikelihood(__Pyx_memviewslice __pyx_v_nzw, 
   __pyx_r = __pyx_v_ll;
   goto __pyx_L0;
 
-  /* "lda/_lda.pyx":74
+  /* "lda/_lda.pyx":78
  * 
  * 
  * cpdef double _loglikelihood(int[:, :] nzw, int[:, :] ndz, int[:] nz, int[:] nd, double alpha, double eta):             # <<<<<<<<<<<<<<
@@ -2184,31 +2222,31 @@ static PyObject *__pyx_pw_3lda_4_lda_3_loglikelihood(PyObject *__pyx_self, PyObj
         case  1:
         if (likely((values[1] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_ndz)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_loglikelihood", 1, 6, 6, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_loglikelihood", 1, 6, 6, 1); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  2:
         if (likely((values[2] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_nz)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_loglikelihood", 1, 6, 6, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_loglikelihood", 1, 6, 6, 2); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  3:
         if (likely((values[3] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_nd)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_loglikelihood", 1, 6, 6, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_loglikelihood", 1, 6, 6, 3); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  4:
         if (likely((values[4] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_alpha)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_loglikelihood", 1, 6, 6, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_loglikelihood", 1, 6, 6, 4); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
         case  5:
         if (likely((values[5] = PyDict_GetItem(__pyx_kwds, __pyx_n_s_eta)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("_loglikelihood", 1, 6, 6, 5); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+          __Pyx_RaiseArgtupleInvalid("_loglikelihood", 1, 6, 6, 5); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_loglikelihood") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "_loglikelihood") < 0)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 6) {
       goto __pyx_L5_argtuple_error;
@@ -2220,16 +2258,16 @@ static PyObject *__pyx_pw_3lda_4_lda_3_loglikelihood(PyObject *__pyx_self, PyObj
       values[4] = PyTuple_GET_ITEM(__pyx_args, 4);
       values[5] = PyTuple_GET_ITEM(__pyx_args, 5);
     }
-    __pyx_v_nzw = __Pyx_PyObject_to_MemoryviewSlice_dsds_int(values[0]); if (unlikely(!__pyx_v_nzw.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_ndz = __Pyx_PyObject_to_MemoryviewSlice_dsds_int(values[1]); if (unlikely(!__pyx_v_ndz.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_nz = __Pyx_PyObject_to_MemoryviewSlice_ds_int(values[2]); if (unlikely(!__pyx_v_nz.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_nd = __Pyx_PyObject_to_MemoryviewSlice_ds_int(values[3]); if (unlikely(!__pyx_v_nd.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_alpha = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_alpha == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
-    __pyx_v_eta = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_eta == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_nzw = __Pyx_PyObject_to_MemoryviewSlice_dsds_int(values[0]); if (unlikely(!__pyx_v_nzw.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_ndz = __Pyx_PyObject_to_MemoryviewSlice_dsds_int(values[1]); if (unlikely(!__pyx_v_ndz.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_nz = __Pyx_PyObject_to_MemoryviewSlice_ds_int(values[2]); if (unlikely(!__pyx_v_nz.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_nd = __Pyx_PyObject_to_MemoryviewSlice_ds_int(values[3]); if (unlikely(!__pyx_v_nd.memview)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_alpha = __pyx_PyFloat_AsDouble(values[4]); if (unlikely((__pyx_v_alpha == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+    __pyx_v_eta = __pyx_PyFloat_AsDouble(values[5]); if (unlikely((__pyx_v_eta == (double)-1) && PyErr_Occurred())) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("_loglikelihood", 1, 6, 6, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
+  __Pyx_RaiseArgtupleInvalid("_loglikelihood", 1, 6, 6, PyTuple_GET_SIZE(__pyx_args)); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L3_error;}
   __pyx_L3_error:;
   __Pyx_AddTraceback("lda._lda._loglikelihood", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2251,11 +2289,11 @@ static PyObject *__pyx_pf_3lda_4_lda_2_loglikelihood(CYTHON_UNUSED PyObject *__p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_loglikelihood", 0);
   __Pyx_XDECREF(__pyx_r);
-  if (unlikely(!__pyx_v_nzw.memview)) { __Pyx_RaiseUnboundLocalError("nzw"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
-  if (unlikely(!__pyx_v_ndz.memview)) { __Pyx_RaiseUnboundLocalError("ndz"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
-  if (unlikely(!__pyx_v_nz.memview)) { __Pyx_RaiseUnboundLocalError("nz"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
-  if (unlikely(!__pyx_v_nd.memview)) { __Pyx_RaiseUnboundLocalError("nd"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_f_3lda_4_lda__loglikelihood(__pyx_v_nzw, __pyx_v_ndz, __pyx_v_nz, __pyx_v_nd, __pyx_v_alpha, __pyx_v_eta, 0)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 74; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (unlikely(!__pyx_v_nzw.memview)) { __Pyx_RaiseUnboundLocalError("nzw"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
+  if (unlikely(!__pyx_v_ndz.memview)) { __Pyx_RaiseUnboundLocalError("ndz"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
+  if (unlikely(!__pyx_v_nz.memview)) { __Pyx_RaiseUnboundLocalError("nz"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
+  if (unlikely(!__pyx_v_nd.memview)) { __Pyx_RaiseUnboundLocalError("nd"); {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;} }
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_f_3lda_4_lda__loglikelihood(__pyx_v_nzw, __pyx_v_ndz, __pyx_v_nz, __pyx_v_nd, __pyx_v_alpha, __pyx_v_eta, 0)); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 78; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -13704,7 +13742,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 41; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 45; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 127; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_MemoryError = __Pyx_GetBuiltinName(__pyx_n_s_MemoryError); if (!__pyx_builtin_MemoryError) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 142; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) {__pyx_filename = __pyx_f[1]; __pyx_lineno = 145; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
@@ -13847,17 +13885,17 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
 
-  /* "lda/_lda.pyx":33
+  /* "lda/_lda.pyx":37
  * 
  * 
  * def _sample_topics(int[:] WS, int[:] DS, int[:] ZS, int[:, :] nzw, int[:, :] ndz, int[:] nz,             # <<<<<<<<<<<<<<
  *                    double[:] alpha, double[:] eta, double[:] rands):
  *     cdef int i, k, w, d, z, z_new
  */
-  __pyx_tuple__12 = PyTuple_Pack(23, __pyx_n_s_WS, __pyx_n_s_DS, __pyx_n_s_ZS, __pyx_n_s_nzw, __pyx_n_s_ndz, __pyx_n_s_nz, __pyx_n_s_alpha, __pyx_n_s_eta, __pyx_n_s_rands, __pyx_n_s_i, __pyx_n_s_k, __pyx_n_s_w, __pyx_n_s_d, __pyx_n_s_z, __pyx_n_s_z_new, __pyx_n_s_r, __pyx_n_s_dist_cum, __pyx_n_s_N, __pyx_n_s_n_rand, __pyx_n_s_n_topics, __pyx_n_s_alpha_sum, __pyx_n_s_eta_sum, __pyx_n_s_dist_sum); if (unlikely(!__pyx_tuple__12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_tuple__12 = PyTuple_Pack(23, __pyx_n_s_WS, __pyx_n_s_DS, __pyx_n_s_ZS, __pyx_n_s_nzw, __pyx_n_s_ndz, __pyx_n_s_nz, __pyx_n_s_alpha, __pyx_n_s_eta, __pyx_n_s_rands, __pyx_n_s_i, __pyx_n_s_k, __pyx_n_s_w, __pyx_n_s_d, __pyx_n_s_z, __pyx_n_s_z_new, __pyx_n_s_r, __pyx_n_s_dist_cum, __pyx_n_s_N, __pyx_n_s_n_rand, __pyx_n_s_n_topics, __pyx_n_s_alpha_sum, __pyx_n_s_eta_sum, __pyx_n_s_dist_sum); if (unlikely(!__pyx_tuple__12)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
-  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(9, 0, 23, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_abr_work_lda_lda_ariddell, __pyx_n_s_sample_topics, 33, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(9, 0, 23, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__12, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_home_abr_work_lda_lda_ariddell, __pyx_n_s_sample_topics, 37, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
 
   /* "View.MemoryView":276
  *         return self.name
@@ -14047,16 +14085,16 @@ PyMODINIT_FUNC PyInit__lda(void)
   /*--- Function import code ---*/
   /*--- Execution code ---*/
 
-  /* "lda/_lda.pyx":33
+  /* "lda/_lda.pyx":37
  * 
  * 
  * def _sample_topics(int[:] WS, int[:] DS, int[:] ZS, int[:, :] nzw, int[:, :] ndz, int[:] nz,             # <<<<<<<<<<<<<<
  *                    double[:] alpha, double[:] eta, double[:] rands):
  *     cdef int i, k, w, d, z, z_new
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_3lda_4_lda_1_sample_topics, NULL, __pyx_n_s_lda__lda); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_3lda_4_lda_1_sample_topics, NULL, __pyx_n_s_lda__lda); if (unlikely(!__pyx_t_1)) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_sample_topics, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 33; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_sample_topics, __pyx_t_1) < 0) {__pyx_filename = __pyx_f[0]; __pyx_lineno = 37; __pyx_clineno = __LINE__; goto __pyx_L1_error;}
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "lda/_lda.pyx":1
