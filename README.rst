@@ -13,6 +13,8 @@ Installation
 
 ``pip install lda``
 
+Installing `lda`` is tested on Linux, OS X, and Windows.
+
 Getting started
 ---------------
 
