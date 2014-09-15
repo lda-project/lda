@@ -1,7 +1,6 @@
 # coding=utf-8
 from __future__ import absolute_import, unicode_literals  # noqa
 
-import numpy as np
 import oslotest.base
 
 import lda.datasets
