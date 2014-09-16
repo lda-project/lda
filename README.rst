@@ -13,7 +13,7 @@ Installation
 
 ``pip install lda``
 
-Installing `lda`` is tested on Linux, OS X, and Windows.
+Installing ``lda`` is tested on Linux, OS X, and Windows.
 
 Getting started
 ---------------
@@ -106,6 +106,11 @@ Important links
 - Documentation: http://pythonhosted.org/lda
 - Source code: https://github.com/ariddell/lda/
 - Issue tracker: https://github.com/ariddell/lda/issues
+
+Similar projects
+----------------
+- `z-label LDA <http://pages.cs.wisc.edu/~andrzeje/research/zl_lda.html>`_
+- `gensim <https://pypi.python.org/pypi/gensim>`_
 
 License
 -------
