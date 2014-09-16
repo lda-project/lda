@@ -1,17 +1,20 @@
 .. _api:
 
-
 API
 ===
 
-.. autosummary::
-   lda.LDA
-   lda.utils
+lda.lda
+-------
 
+.. automodule:: lda.lda
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
-.. autoclass:: lda.LDA
-   :members:
-
+lda.utils
+---------
 
 .. automodule:: lda.utils
-   :members:
+    :members:
+    :undoc-members:
+    :show-inheritance:

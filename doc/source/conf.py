@@ -10,7 +10,6 @@ sys.path.insert(0, os.path.abspath('../..'))
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.autosummary',
     'sphinx_rtd_theme',
     'numpydoc',
 ]
@@ -60,3 +59,6 @@ latex_documents = [
      u'%s Documentation' % project,
      u'lda Developers', 'manual'),
 ]
+
+# numpydoc configuration to rein in autosummary errors
+numpydoc_show_class_members = False
