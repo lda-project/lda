@@ -13,3 +13,5 @@ oslotest>=1.1.0.0a2
 testrepository>=0.0.18
 testscenarios>=0.4
 testtools>=0.9.34
+numpydoc>=0.5
+sphinx_rtd_theme>=0.1.6

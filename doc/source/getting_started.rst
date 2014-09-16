@@ -1,27 +1,8 @@
-lda: Topic modeling with latent Dirichlet allocation
-====================================================
-
-|pypi| |travis| |crate|
-
-Topic modeling with latent Dirichlet allocation. ``lda`` aims for simplicity.
-
-``lda`` implements latent Dirichlet allocation (LDA) using collapsed Gibbs
-sampling. LDA is described in `Blei et al. (2003)`_ and `Pritchard et al. (2000)`_.
-
-Installation
-------------
-
-``pip install lda``
-
-Installing `lda`` is tested on Linux, OS X, and Windows.
-
+===============
 Getting started
----------------
+===============
 
-``lda.LDA`` implements latent Dirichlet allocation (LDA). The interface follows
-conventions found in scikit-learn_.
-
-The following demonstrates how to inspect a model of a subset of the Reuters
+The following demonstrates how to explore a model of a subset of the Reuters
 news dataset.
 
 .. code-block:: python
@@ -79,59 +60,3 @@ The document-topic distributions are available in ``model.doc_topic_``.
     7 INDIA: Mother Teresa's condition improves, many pray. CALCUTTA, India 1996-08-25 (top topic: 15)
     8 INDIA: Mother Teresa improves, nuns pray for "miracle". CALCUTTA 1996-08-26 (top topic: 15)
     9 UK: Charles under fire over prospect of Queen Camilla. LONDON 1996-08-26 (top topic: 0)
-
-Requirements
-------------
-
-Python 2.7 or Python 3.3+ is required. The following packages are required
-
-- numpy_
-- scipy_
-- pbr_
-
-Caveat
-------
-
-``lda`` aims for simplicity. (It happens to be fast, as essential parts are
-written in C via Cython_.) If you are working with a very large corpus you may
-wish to use more sophisticated topic models such as those implemented in hca_
-and MALLET_.  hca_ is written entirely in C and MALLET_ is written in Java.
-Unlike ``lda``, hca_ can use more than one processor at a time. Both MALLET_ and
-hca_ implement topic models known to be more robust than standard latent
-Dirichlet allocation.
-
-Important links
----------------
-
-- Documentation: http://pythonhosted.org/lda
-- Source code: https://github.com/ariddell/lda/
-- Issue tracker: https://github.com/ariddell/lda/issues
-
-License
--------
-
-lda is licensed under Version 2.0 of the Mozilla Public License.
-
-.. _Python: http://www.python.org/
-.. _scikit-learn: http://scikit-learn.org
-.. _hca: http://www.mloss.org/software/view/527/
-.. _MALLET: http://mallet.cs.umass.edu/
-.. _numpy: http://www.numpy.org/
-.. _scipy:  http://docs.scipy.org/doc/
-.. _pbr: https://pypi.python.org/pypi/pbr
-.. _Cython: http://cython.org
-.. _Blei et al. (2003): http://jmlr.org/papers/v3/blei03a.html
-.. _Pritchard et al. (2000): http://www.genetics.org/content/164/4/1567.full
-
-
-.. |pypi| image:: https://badge.fury.io/py/lda.png
-    :target: https://badge.fury.io/py/lda
-    :alt: pypi version
-
-.. |travis| image:: https://travis-ci.org/ariddell/lda.png?branch=master
-    :target: https://travis-ci.org/ariddell/lda
-    :alt: travis-ci build status
-
-.. |crate| image:: https://pypip.in/d/lda/badge.png
-    :target: https://pypi.python.org/pypi/lda
-    :alt: pypi download statistics

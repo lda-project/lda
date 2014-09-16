@@ -3,17 +3,17 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to lda's documentation!
-========================================================
+lda: Topic modeling using latent Dirichlet Allocation
+=====================================================
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
-   readme
+   getting_started
    installation
-   usage
+   api
    contributing
 
 Indices and tables
