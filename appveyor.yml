@@ -4,6 +4,9 @@ environment:
     # /E:ON and /V:ON options are not enabled in the batch script intepreter
     # See: http://stackoverflow.com/a/13751649/163740
     CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\continuous_integration\\appveyor\\run_with_env.cmd"
+    WHEELHOUSE_UPLOADER_USERNAME: lda-worker
+    WHEELHOUSE_UPLOADER_SECRET:
+      secure: qN7Dwv5Z8GM8yurirfjBaxcrxsJOz7xbwwJSor4YcknMGZFXpRp1U8S0rv//edTn
 
   matrix:
     - PYTHON: "C:\\Python27_32"
@@ -12,6 +15,14 @@ environment:
 
     - PYTHON: "C:\\Python27_64"
       PYTHON_VERSION: "2.7.8"
+      PYTHON_ARCH: "64"
+
+    - PYTHON: "C:\\Python33_32"
+      PYTHON_VERSION: "3.3.5"
+      PYTHON_ARCH: "32"
+
+    - PYTHON: "C:\\Python33_64"
+      PYTHON_VERSION: "3.3.5"
       PYTHON_ARCH: "64"
 
     - PYTHON: "C:\\Python34_32"
