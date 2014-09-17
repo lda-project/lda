@@ -167,10 +167,10 @@ class LDA:
             self._sample_topics(random_state)
         self._print_status(self.n_iter)
         self.components_ = self.nzw_ + self.eta
-        self.components_ /= np.sum(self.components_, axis=1, keepdims=True)
+        self.components_ /= np.sum(self.components_, axis=1)[:, np.newaxis]
         self.topic_word_ = self.components_
         self.doc_topic_ = self.ndz_ + self.alpha
-        self.doc_topic_ /= np.sum(self.doc_topic_, axis=1, keepdims=True)
+        self.doc_topic_ /= np.sum(self.doc_topic_, axis=1)[:, np.newaxis]
 
         # delete attributes no longer needed after fitting to save memory and reduce clutter
         del self.WS
