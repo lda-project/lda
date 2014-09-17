@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
-import time
 import os
+import time
 
 import lda
 import lda.utils

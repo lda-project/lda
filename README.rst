@@ -86,7 +86,6 @@ Requirements
 Python 2.7 or Python 3.3+ is required. The following packages are required
 
 - numpy_
-- scipy_
 - pbr_
 
 Caveat
@@ -122,7 +121,6 @@ lda is licensed under Version 2.0 of the Mozilla Public License.
 .. _hca: http://www.mloss.org/software/view/527/
 .. _MALLET: http://mallet.cs.umass.edu/
 .. _numpy: http://www.numpy.org/
-.. _scipy:  http://docs.scipy.org/doc/
 .. _pbr: https://pypi.python.org/pypi/pbr
 .. _Cython: http://cython.org
 .. _Blei et al. (2003): http://jmlr.org/papers/v3/blei03a.html
