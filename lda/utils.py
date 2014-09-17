@@ -2,9 +2,15 @@ from __future__ import absolute_import, unicode_literals  # noqa
 
 import logging
 import numbers
+import sys
 
 import numpy as np
-import scipy.sparse
+
+PY2 = sys.version_info[0] == 2
+if PY2:
+    import itertools
+    zip = itertools.izip
+
 
 logger = logging.getLogger('lda')
 
@@ -41,11 +47,14 @@ def matrix_to_lists(doc_word):
         logger.warning("all zero column in document-term matrix found")
     try:
         # if doc_word is a scipy sparse matrix
-        doc_word = doc_word.tocoo()
+        doc_word = doc_word.copy().tocoo()
     except AttributeError:
-        doc_word = scipy.sparse.coo_matrix(doc_word)
-    # FIXME: how does one do this without using scipy
-    ii, jj, ss = doc_word.row, doc_word.col, doc_word.data
+        pass
+
+    # should work for both arrays and sparse matrices
+    ii, jj = np.nonzero(doc_word)
+    ss = (doc_word[i, j] for i, j in zip(ii, jj))
+
     n_tokens = int(doc_word.sum())
     DS = np.zeros(n_tokens, dtype=np.intc)
     WS = np.zeros(n_tokens, dtype=np.intc)
