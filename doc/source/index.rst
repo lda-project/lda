@@ -3,8 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-lda: Topic modeling using latent Dirichlet Allocation
-=====================================================
+lda: Topic modeling with latent Dirichlet Allocation
+====================================================
 
 Contents:
 

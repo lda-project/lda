@@ -102,8 +102,8 @@ def dtm2ldac(dtm, offset=0):
     -------
     doclines : iterable of LDA-C lines suitable for writing to file
 
-    Note
-    ----
+    Notes
+    -----
     If a format similar to SVMLight is desired, `offset` of 1 may be used.
     """
     try:
@@ -139,8 +139,8 @@ def ldac2dtm(stream, offset=0):
     -------
     dtm : array of shape N,V
 
-    Note
-    ----
+    Notes
+    -----
     If a format similar to SVMLight is the source, an `offset` of 1 may be used.
     """
     doclines = stream

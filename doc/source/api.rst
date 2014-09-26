@@ -9,7 +9,6 @@ lda.lda
 .. automodule:: lda.lda
     :members:
     :undoc-members:
-    :show-inheritance:
 
 lda.utils
 ---------
@@ -17,4 +16,3 @@ lda.utils
 .. automodule:: lda.utils
     :members:
     :undoc-members:
-    :show-inheritance:
