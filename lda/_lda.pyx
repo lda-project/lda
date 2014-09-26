@@ -48,6 +48,8 @@ def _sample_topics(int[:] WS, int[:] DS, int[:] ZS, int[:, :] nzw, int[:, :] ndz
     for i in range(eta.shape[0]):
         eta_sum += eta[i]
     cdef double* dist_sum = <double*> malloc(n_topics * sizeof(double))
+    if dist_sum is NULL:
+        raise MemoryError("Could not allocate memory during sampling.")
 
     for i in range(N):
         w = WS[i]
