@@ -15,6 +15,7 @@
 
 #include <float.h>
 #include <math.h>
+
 #include "gamma.h"
 
 /* Euler's gamma constant. */
