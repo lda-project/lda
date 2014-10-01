@@ -12,6 +12,8 @@ cdef extern from "gamma.h":
 
 
 cdef double lgamma(double x):
+    if x <= 0:
+        raise ValueError("x must be strictly positive")
     return lda_lgamma(x)
 
 
