@@ -10,4 +10,4 @@
 numpy==1.8.2
 nose
 wheel
-wheelhouse_uploader
+wheelhouse_uploader>=0.5,<1.0
