@@ -46,9 +46,15 @@ setuptools version 0.8 or higher.
 Linux
 -----
 
-At this time lda does not provide official binary packages for Linux so you
-have to build from source.
+If you are running an Ubuntu-based distribution of Linux, you may install lda
+using a PPA::
 
+    sudo add-apt-repository ppa:ariddell/lda
+    sudo apt-get update
+    sudo apt-get install python3-lda  # or, python-lda for the Python 2.7 version
+
+Alternatively, you may install lda from source. In order for this to work,
+however, you need to install a compiler and associated build dependencies.
 
 Installing build dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
