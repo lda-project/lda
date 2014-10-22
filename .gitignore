@@ -52,3 +52,5 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+# Cython generated C source code
+lda/_lda.c
