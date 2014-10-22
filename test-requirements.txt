@@ -19,3 +19,4 @@ testtools>=0.9.34
 numpydoc>=0.5
 sphinx_rtd_theme>=0.1.6
 flake8>=2.1.0
+Cython>=0.19

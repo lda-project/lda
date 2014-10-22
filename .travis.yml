@@ -16,9 +16,10 @@ before_install:
   - sudo rm -rf /dev/shm
   - sudo ln -s /run/shm /dev/shm
 install:
-  - conda create --yes -n testenv python=$TRAVIS_PYTHON_VERSION pip numpy scipy nose
+  - conda create --yes -n testenv python=$TRAVIS_PYTHON_VERSION pip numpy scipy nose Cython
   - source activate testenv
   - pip install --pre oslotest  # needed until final release of oslotest?
+  - make cython
   - python setup.py install
 
 script: nosetests -w /tmp lda.tests
