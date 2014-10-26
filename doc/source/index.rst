@@ -63,6 +63,7 @@ Contents:
    installation
    api
    contributing
+   groups
 
 Indices and tables
 ==================
