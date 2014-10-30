@@ -104,7 +104,7 @@ class LDA:
         ----------
         X: array-like, shape (n_samples, n_features)
             Training data, where n_samples in the number of samples
-            and n_features is the number of features.
+            and n_features is the number of features. Sparse matrix allowed.
 
         Returns
         -------
@@ -121,7 +121,7 @@ class LDA:
         ----------
         X : array-like, shape (n_samples, n_features)
             New data, where n_samples in the number of samples
-            and n_features is the number of features.
+            and n_features is the number of features. Sparse matrix allowed.
 
         Returns
         -------
@@ -129,7 +129,10 @@ class LDA:
             Point estimate of the document-topic distributions
 
         """
-        self._fit(np.atleast_2d(X))
+        if isinstance(X, np.ndarray):
+            # if user passes a 1-dim (1-feature) array
+            X = np.atleast_2d(X)
+        self._fit(X)
         return self.doc_topic_
 
     def transform(self, X, y=None):
@@ -156,10 +159,9 @@ class LDA:
         ----------
         X: array-like, shape (n_samples, n_features)
             Training vector, where n_samples in the number of samples and
-            n_features is the number of features.
+            n_features is the number of features. Sparse matrix allowed.
         """
         random_state = lda.utils.check_random_state(self.random_state)
-        X = np.atleast_2d(X).astype(np.float64)
         self._initialize(X, random_state)
         for it in range(self.n_iter):
             if it % self.refresh == 0:
@@ -185,7 +187,7 @@ class LDA:
 
     def _initialize(self, X, random_state):
         D, W = X.shape
-        N = int(np.sum(X))
+        N = int(X.sum())
         n_topics = self.n_topics
         n_iter = self.n_iter
         logger.info("n_documents: {}".format(D))

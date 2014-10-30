@@ -47,7 +47,7 @@ def matrix_to_lists(doc_word):
         logger.warning("all zero column in document-term matrix found")
     try:
         # if doc_word is a scipy sparse matrix
-        doc_word = doc_word.copy().tocoo()
+        doc_word = doc_word.copy().tolil()
     except AttributeError:
         pass
 
