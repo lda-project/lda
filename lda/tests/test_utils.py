@@ -4,6 +4,7 @@ import io
 import os
 
 import numpy as np
+import scipy.sparse
 import oslotest.base
 
 import lda.utils as utils
@@ -20,6 +21,7 @@ class TestUtils(oslotest.base.BaseTestCase):
     dtm = np.zeros((D, W), dtype=int)
     for d in range(D):
         dtm[d] = np.random.multinomial(N_WORDS_PER_DOC, np.ones(W) / W)
+    dtm_sparse = scipy.sparse.csr_matrix(dtm)
     N_BY_W = np.sum(dtm, axis=0)
     N_BY_D = np.sum(dtm, axis=1)
 
@@ -60,6 +62,25 @@ class TestUtils(oslotest.base.BaseTestCase):
         dtm = self.dtm
         N, V = dtm.shape
         doclines = list(utils.dtm2ldac(self.dtm))
+        nd_unique = np.sum(dtm > 0, axis=1)
+        for n, docline in zip(nd_unique, doclines):
+            self.assertEqual(n, int(docline.split(' ')[0]))
+        self.assertEqual(len(doclines), N)
+        f = io.StringIO('\n'.join(doclines))
+        dtm_new = utils.ldac2dtm(f)
+        self.assertTrue(np.all(dtm == dtm_new))
+
+    def test_lists_to_matrix_sparse(self):
+        dtm = self.dtm_sparse
+        WS, DS = utils.matrix_to_lists(dtm)
+        dtm_new = utils.lists_to_matrix(WS, DS)
+        self.assertTrue(np.all(dtm == dtm_new))
+
+    def test_ldac_conversion_sparse(self):
+        dtm = self.dtm
+        dtm_sparse = self.dtm_sparse
+        N, V = dtm.shape
+        doclines = list(utils.dtm2ldac(dtm_sparse))
         nd_unique = np.sum(dtm > 0, axis=1)
         for n, docline in zip(nd_unique, doclines):
             self.assertEqual(n, int(docline.split(' ')[0]))
