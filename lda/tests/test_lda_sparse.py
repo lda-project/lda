@@ -2,9 +2,10 @@
 from __future__ import absolute_import, unicode_literals  # noqa
 import os
 
+
 import numpy as np
-import scipy.sparse
 import oslotest.base
+import scipy.sparse
 
 import lda
 import lda.utils

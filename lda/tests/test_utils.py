@@ -4,8 +4,8 @@ import io
 import os
 
 import numpy as np
-import scipy.sparse
 import oslotest.base
+import scipy.sparse
 
 import lda.utils as utils
 
