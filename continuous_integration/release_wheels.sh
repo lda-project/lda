@@ -21,4 +21,6 @@ do
     wheel_url="${RACKSPACE_URL}/${wheel_name}"
     curl -O $wheel_url
 done
-# upload with: twine upload --sign wheels/*.whl
+# upload to pypi
+cd ..
+twine upload --sign wheels/*.whl
