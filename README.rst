@@ -132,7 +132,7 @@ lda is licensed under Version 2.0 of the Mozilla Public License.
 .. _pbr: https://pypi.python.org/pypi/pbr
 .. _Cython: http://cython.org
 .. _Blei et al. (2003): http://jmlr.org/papers/v3/blei03a.html
-.. _Pritchard et al. (2000): http://www.genetics.org/content/164/4/1567.full
+.. _Pritchard et al. (2000): http://www.genetics.org/content/155/2/945.full
 .. _Griffiths and Steyvers (2004): http://www.pnas.org/content/101/suppl_1/5228.abstract
 
 .. |pypi| image:: https://badge.fury.io/py/lda.png
