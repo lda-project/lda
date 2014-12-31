@@ -31,7 +31,7 @@ def matrix_to_lists(doc_word):
 
     Parameters
     ----------
-    doc_word : array (D, V)
+    doc_word : array or sparse matrix (D, V)
         document-term matrix of counts
 
     Returns
@@ -51,7 +51,7 @@ def matrix_to_lists(doc_word):
     except AttributeError:
         pass
 
-    # should work for both arrays and sparse matrices
+    # the following works for both arrays and sparse matrices
     ii, jj = np.nonzero(doc_word)
     ss = (doc_word[i, j] for i, j in zip(ii, jj))
 
