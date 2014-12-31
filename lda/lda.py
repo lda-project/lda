@@ -201,7 +201,7 @@ class LDA:
         self.nz_ = nz_ = np.zeros(n_topics, dtype=np.intc)
 
         self.WS, self.DS = WS, DS = lda.utils.matrix_to_lists(X)
-        self.ZS = ZS = np.zeros_like(self.WS, dtype=np.intc)
+        self.ZS = ZS = np.empty_like(self.WS, dtype=np.intc)
         np.testing.assert_equal(N, len(WS))
         for i in range(N):
             w, d = WS[i], DS[i]

@@ -56,8 +56,8 @@ def matrix_to_lists(doc_word):
     ss = (doc_word[i, j] for i, j in zip(ii, jj))
 
     n_tokens = int(doc_word.sum())
-    DS = np.zeros(n_tokens, dtype=np.intc)
-    WS = np.zeros(n_tokens, dtype=np.intc)
+    DS = np.empty(n_tokens, dtype=np.intc)
+    WS = np.empty(n_tokens, dtype=np.intc)
     startidx = 0
     for i, cnt in enumerate(ss):
         cnt = int(cnt)
@@ -84,7 +84,7 @@ def lists_to_matrix(WS, DS):
     """
     D = max(DS) + 1
     V = max(WS) + 1
-    doc_word = np.zeros((D, V), dtype=np.intc)
+    doc_word = np.empty((D, V), dtype=np.intc)
     for d in range(D):
         for v in range(V):
             doc_word[d, v] = np.count_nonzero(WS[DS == d] == v)
