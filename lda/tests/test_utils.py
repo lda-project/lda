@@ -61,6 +61,27 @@ class TestUtils(oslotest.base.BaseTestCase):
         np.testing.assert_array_equal(WS_rows, WS[:N])
         np.testing.assert_array_equal(DS_rows, DS[:N])
 
+    def test_matrix_row_to_lists_sparse(self):
+        dtm = self.dtm_sparse
+        N = dtm[0].sum()
+
+        WS, DS = utils.matrix_to_lists(dtm)
+        WS_row, DS_row = utils.matrix_to_lists(dtm[0])
+
+        np.testing.assert_array_equal(WS_row, WS[:N])
+        np.testing.assert_array_equal(DS_row, DS[:N])
+
+    def test_matrix_rows_to_lists_sparse(self):
+        dtm = self.dtm_sparse
+        rows = dtm[0:2]
+        N = rows.sum()
+
+        WS, DS = utils.matrix_to_lists(dtm)
+        WS_rows, DS_rows = utils.matrix_to_lists(rows)
+
+        np.testing.assert_array_equal(WS_rows, WS[:N])
+        np.testing.assert_array_equal(DS_rows, DS[:N])
+
     def test_lists_to_matrix(self):
         dtm = self.dtm
         WS, DS = utils.matrix_to_lists(dtm)
