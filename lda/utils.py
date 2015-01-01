@@ -31,7 +31,7 @@ def matrix_to_lists(doc_word):
 
     Parameters
     ----------
-    doc_word : array (D, V)
+    doc_word : array or sparse matrix (D, V)
         document-term matrix of counts
 
     Returns
@@ -45,23 +45,25 @@ def matrix_to_lists(doc_word):
         logger.warning("all zero row in document-term matrix found")
     if np.count_nonzero(doc_word.sum(axis=0)) != doc_word.shape[1]:
         logger.warning("all zero column in document-term matrix found")
+    sparse = True
     try:
         # if doc_word is a scipy sparse matrix
         doc_word = doc_word.copy().tolil()
     except AttributeError:
-        pass
+        sparse = False
 
-    # should work for both arrays and sparse matrices
     ii, jj = np.nonzero(doc_word)
-    ss = (doc_word[i, j] for i, j in zip(ii, jj))
+    if sparse:
+        ss = tuple(doc_word[i, j] for i, j in zip(ii, jj))
+    else:
+        ss = doc_word[ii, jj]
 
     n_tokens = int(doc_word.sum())
-    DS = np.zeros(n_tokens, dtype=np.intc)
-    WS = np.zeros(n_tokens, dtype=np.intc)
+    DS = np.repeat(ii, ss).astype(np.intc)
+    WS = np.empty(n_tokens, dtype=np.intc)
     startidx = 0
     for i, cnt in enumerate(ss):
         cnt = int(cnt)
-        DS[startidx:startidx + cnt] = ii[i]
         WS[startidx:startidx + cnt] = jj[i]
         startidx += cnt
     return WS, DS
@@ -84,7 +86,7 @@ def lists_to_matrix(WS, DS):
     """
     D = max(DS) + 1
     V = max(WS) + 1
-    doc_word = np.zeros((D, V), dtype=np.intc)
+    doc_word = np.empty((D, V), dtype=np.intc)
     for d in range(D):
         for v in range(V):
             doc_word[d, v] = np.count_nonzero(WS[DS == d] == v)
