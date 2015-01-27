@@ -136,12 +136,13 @@ class LDA:
 
         """
         if isinstance(X, np.ndarray):
-            # if user passes a 1-dim (1-feature) array
+            # in case user passes a (non-sparse) array of shape (n_features,)
+            # turn it into an array of shape (1, n_features)
             X = np.atleast_2d(X)
         self._fit(X)
         return self.doc_topic_
 
-    def transform(self, X, y=None):
+    def transform(self, X, max_iter=10, tol=1e-16):
         """Transform the data X according to previously fitted model
 
         Parameters
@@ -149,14 +150,55 @@ class LDA:
         X : array-like, shape (n_samples, n_features)
             New data, where n_samples in the number of samples
             and n_features is the number of features.
+        max_iter : int, optional
+            Maximum number of iterations in iterated-pseudocount estimation.
+        tol: double, optional
+            Tolerance value used in stopping condition.
 
         Returns
         -------
         doc_topic : array-like, shape (n_samples, n_topics)
             Point estimate of the document-topic distributions
 
+        Note
+        ----
+        This uses the "iterated pseudo-counts" approach described
+        in Wallach et al. (2009) and discussed in Buntine (2009).
+
         """
-        raise NotImplementedError
+        X = np.atleast_2d(X)
+        phi = self.components_
+        alpha = self.alpha
+        # for debugging, let's not worry about the documents
+        n_topics = len(self.components_)
+        doc_topic = np.empty((len(X), n_topics))
+        WS, DS = lda.utils.matrix_to_lists(X)
+        # TODO: this loop is parallelizable
+        for d in range(len(X)):
+            # initialization step
+            ws_doc = WS[DS == d]
+            PZS = phi[:, ws_doc].T * alpha
+            PZS /= PZS.sum(axis=1)[:, np.newaxis]
+            assert PZS.shape == (len(ws_doc), n_topics)
+            PZS_new = np.empty_like(PZS)
+            for s in range(max_iter):
+                for i, w in enumerate(ws_doc):
+                    # TODO: There's a faster way than delete(PZS, i).sum(axis=0).
+                    # For example, just keep a running track of the PZS sum, adding
+                    # and subtracting as needed.
+                    PZS_new[i] = phi[:, w] * (np.delete(PZS, i).sum(axis=0) + alpha)
+                PZS_new /= PZS_new.sum(axis=1)[:, np.newaxis]
+                delta_naive = np.abs(PZS_new - PZS).sum()
+                logger.debug('transform iter {}, delta {}'.format(s, delta_naive))
+                PZS = PZS_new.copy()
+                if delta_naive < tol:
+                    break
+            theta_doc = PZS.sum(axis=0)
+            theta_doc /= sum(theta_doc)
+            assert len(theta_doc) == n_topics
+            assert theta_doc.shape == (n_topics,)
+            doc_topic[d] = theta_doc
+        return doc_topic
 
     def _fit(self, X):
         """Fit the model to the data X
