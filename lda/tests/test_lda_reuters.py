@@ -61,11 +61,19 @@ class TestLDANewsReuters(oslotest.base.BaseTestCase):
         n_iter = self.n_iter
         n_topics = self.n_topics
         random_seed = self.random_seed
+        random_state = self.model.random_state
 
         # refit model with same random seed and verify results identical
         model_new = lda.LDA(n_topics=n_topics, n_iter=n_iter, random_state=random_seed)
+        rands_init = model_new._rands.copy()
         doc_topic_new = model_new.fit_transform(dtm)
+        rands_fit = model_new._rands.copy()
+        random_state_new = model_new.random_state
         np.testing.assert_array_equal(doc_topic_new, doc_topic)
+        np.testing.assert_array_equal(random_state_new, random_state)
+
+        # verify random variates are not changed
+        np.testing.assert_array_equal(rands_init, rands_fit)
 
     def test_lda_monotone(self):
         dtm = self.dtm
