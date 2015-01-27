@@ -95,7 +95,7 @@ class LDA:
 
         # random numbers that are reused
         rng = lda.utils.check_random_state(random_state)
-        self._rands = rng.rand(1000)
+        self._rands = rng.rand(1024**2)  # 8MiB of random variates
 
     def fit(self, X, y=None):
         """Fit the model with X.
