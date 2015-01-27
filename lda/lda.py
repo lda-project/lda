@@ -87,6 +87,8 @@ class LDA:
         self.n_iter = n_iter
         self.alpha = alpha
         self.eta = eta
+        # if random_state is None, check_random_state(None) does nothing
+        # other than return the current numpy RandomState
         self.random_state = random_state
         self.refresh = refresh
 
@@ -162,11 +164,14 @@ class LDA:
             n_features is the number of features. Sparse matrix allowed.
         """
         random_state = lda.utils.check_random_state(self.random_state)
-        self._initialize(X, random_state)
+        rands = self._rands.copy()
+        self._initialize(X)
         for it in range(self.n_iter):
+            # FIXME: using numpy.roll with a random shift might be faster
+            random_state.shuffle(rands)
             if it % self.refresh == 0:
                 self._print_status(it)
-            self._sample_topics(random_state)
+            self._sample_topics(rands)
         self._print_status(self.n_iter)
         self.components_ = self.nzw_ + self.eta
         self.components_ /= np.sum(self.components_, axis=1)[:, np.newaxis]
@@ -185,7 +190,7 @@ class LDA:
         N = len(self.WS)
         logger.info("<{}> log likelihood: {:.0f}, per-word: {:.4f}".format(iter, ll, ll / N))
 
-    def _initialize(self, X, random_state):
+    def _initialize(self, X):
         D, W = X.shape
         N = int(X.sum())
         n_topics = self.n_topics
@@ -222,12 +227,10 @@ class LDA:
         nd = np.sum(ndz, axis=1).astype(np.intc)
         return lda._lda._loglikelihood(nzw, ndz, nz, nd, alpha, eta)
 
-    def _sample_topics(self, random_state):
-        random_state = lda.utils.check_random_state(self.random_state)
-        _rands = self._rands
-        random_state.shuffle(_rands)
+    def _sample_topics(self, rands):
+        """Samples all topic assignments. Called once per iteration."""
         n_topics, vocab_size = self.nzw_.shape
         alpha = np.repeat(self.alpha, n_topics).astype(np.float64)
         eta = np.repeat(self.eta, vocab_size).astype(np.float64)
         lda._lda._sample_topics(self.WS, self.DS, self.ZS, self.nzw_, self.ndz_, self.nz_,
-                                alpha, eta, _rands)
+                                alpha, eta, rands)
