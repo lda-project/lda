@@ -43,9 +43,6 @@ def _sample_topics(int[:] WS, int[:] DS, int[:] ZS, int[:, :] nzw, int[:, :] ndz
     cdef int N = WS.shape[0]
     cdef int n_rand = rands.shape[0]
     cdef int n_topics = nz.shape[0]
-    cdef double alpha_sum = 0
-    for i in range(alpha.shape[0]):
-        alpha_sum += alpha[i]
     cdef double eta_sum = 0
     for i in range(eta.shape[0]):
         eta_sum += eta[i]
