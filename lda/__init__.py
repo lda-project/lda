@@ -8,6 +8,4 @@ from lda.lda import LDA  # noqa
 
 __version__ = pbr.version.VersionInfo('lda').version_string()
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger('lda')
-logger.addHandler(logging.NullHandler())
+logging.getLogger('lda').addHandler(logging.NullHandler())
