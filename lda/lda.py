@@ -25,7 +25,7 @@ class LDA:
     n_topics : int
         Number of topics
 
-    n_iter : int, default 1000
+    n_iter : int, default 2000
         Number of sampling iterations
 
     alpha : float, default 0.1
@@ -81,7 +81,7 @@ class LDA:
     Culotta, 1973–1981, 2009.
     """
 
-    def __init__(self, n_topics, n_iter=1000, alpha=0.1, eta=0.01, random_state=None,
+    def __init__(self, n_topics, n_iter=2000, alpha=0.1, eta=0.01, random_state=None,
                  refresh=10):
         self.n_topics = n_topics
         self.n_iter = n_iter
