@@ -33,3 +33,9 @@ class TestLDA(oslotest.base.BaseTestCase):
         self.assertIsNotNone(doc_topic)
         self.assertIsNotNone(model.doc_topic_)
         self.assertIsNotNone(model.components_)
+
+    def test_lda_loglikelihoods(self):
+        X = np.array([[1, 1], [2, 1], [3, 1], [4, 1], [5, 8], [6, 1]])
+        model = lda.LDA(n_topics=2, n_iter=100, random_state=1)
+        model.fit(X)
+        self.assertGreater(len(model.loglikelihoods_), 1)
