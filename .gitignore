@@ -54,3 +54,6 @@ docs/_build/
 
 # Cython generated C source code
 lda/_lda.c
+
+# Project-specific
+.testrepository
