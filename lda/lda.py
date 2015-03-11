@@ -142,7 +142,7 @@ class LDA:
         self._fit(X)
         return self.doc_topic_
 
-    def transform(self, X, max_iter=10, tol=1e-16):
+    def transform(self, X, max_iter=20, tol=1e-16):
         """Transform the data X according to previously fitted model
 
         Parameters
