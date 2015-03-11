@@ -182,11 +182,11 @@ class LDA:
             assert PZS.shape == (len(ws_doc), n_topics)
             PZS_new = np.empty_like(PZS)
             for s in range(max_iter):
+                PZS_sum = PZS.sum(axis=0)
                 for i, w in enumerate(ws_doc):
-                    # TODO: There's a faster way than delete(PZS, i).sum(axis=0).
-                    # For example, just keep a running track of the PZS sum, adding
-                    # and subtracting as needed.
-                    PZS_new[i] = phi[:, w] * (np.delete(PZS, i).sum(axis=0) + alpha)
+                    PZS_sum -= PZS[i]
+                    PZS_new[i] = phi[:, w] * (PZS_sum + alpha)
+                    PZS_sum += PZS[i]
                 PZS_new /= PZS_new.sum(axis=1)[:, np.newaxis]
                 delta_naive = np.abs(PZS_new - PZS).sum()
                 logger.debug('transform iter {}, delta {}'.format(s, delta_naive))
