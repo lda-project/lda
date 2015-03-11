@@ -216,9 +216,13 @@ class LDA:
             # FIXME: using numpy.roll with a random shift might be faster
             random_state.shuffle(rands)
             if it % self.refresh == 0:
-                self._print_status(it)
+                ll = self.loglikelihood()
+                logger.info("<{}> log likelihood: {:.0f}".format(it, ll))
+                # keep track of loglikelihoods for monitoring convergence
+                self.loglikelihoods_.append(ll)
             self._sample_topics(rands)
-        self._print_status(self.n_iter)
+        ll = self.loglikelihood()
+        logger.info("<{}> log likelihood: {:.0f}".format(self.n_iter - 1, ll))
         self.components_ = self.nzw_ + self.eta
         self.components_ /= np.sum(self.components_, axis=1)[:, np.newaxis]
         self.topic_word_ = self.components_
@@ -230,11 +234,6 @@ class LDA:
         del self.DS
         del self.ZS
         return self
-
-    def _print_status(self, iter):
-        ll = self.loglikelihood()
-        N = len(self.WS)
-        logger.info("<{}> log likelihood: {:.0f}, per-word: {:.4f}".format(iter, ll, ll / N))
 
     def _initialize(self, X):
         D, W = X.shape
@@ -261,6 +260,7 @@ class LDA:
             ndz_[d, z_new] += 1
             nzw_[z_new, w] += 1
             nz_[z_new] += 1
+        self.loglikelihoods_ = []
 
     def loglikelihood(self):
         """Calculate complete log likelihood, log p(w,z)
