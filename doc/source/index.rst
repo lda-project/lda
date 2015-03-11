@@ -18,41 +18,48 @@ and Windows.
 
     </div>
 
-The interface follows conventions found in scikit-learn_. Here's an example:
+The interface follows conventions found in scikit-learn_.  The following
+demonstrates how to inspect a model of a subset of the Reuters news dataset.
+(The input below, ``X``, is a document-term matrix.)
 
 .. code-block:: python
 
     >>> import numpy as np
     >>> import lda
-    >>> import lda.datasets
     >>> X = lda.datasets.load_reuters()
-    >>> model = lda.LDA(n_topics=20, n_iter=500, random_state=1)
-    >>> doc_topic = model.fit_transform(X)
+    >>> vocab = lda.datasets.load_reuters_vocab()
+    >>> titles = lda.datasets.load_reuters_titles()
+    >>> X.shape
+    (395, 4258)
+    >>> X.sum()
+    84010
+    >>> model = lda.LDA(n_topics=20, n_iter=1500, random_state=1)
+    >>> model.fit(X)  # model.fit_transform(X) is also available
     >>> topic_word = model.topic_word_  # model.components_ also works
+    >>> n_top_words = 8
     >>> for i, topic_dist in enumerate(topic_word):
-    ...     topic_words = np.array(vocab)[np.argsort(topic_dist)][:-8:-1]
+    ...     topic_words = np.array(vocab)[np.argsort(topic_dist)][:-n_top_words:-1]
     ...     print('Topic {}: {}'.format(i, ' '.join(topic_words)))
-    Topic 0: church people told years last year time
-    Topic 1: elvis music fans york show concert king
-    Topic 2: pope trip mass vatican poland health john
-    Topic 3: film french against france festival magazine quebec
-    Topic 4: king michael romania president first service romanian
-    Topic 5: police family versace miami cunanan west home
-    Topic 6: germany german war political government minister nazi
-    Topic 7: harriman u.s clinton churchill ambassador paris british
-    Topic 8: yeltsin russian russia president kremlin moscow operation
-    Topic 9: prince queen bowles church king royal public
-    Topic 10: simpson million years south irish churches says
-    Topic 11: charles diana parker camilla marriage family royal
-    Topic 12: east peace prize president award catholic timor
-    Topic 13: order nuns india successor election roman sister
-    Topic 14: pope vatican hospital surgery rome roman doctors
-    Topic 15: mother teresa heart calcutta missionaries hospital charity
-    Topic 16: bernardin cardinal cancer church life catholic chicago
-    Topic 17: died funeral church city death buddhist israel
-    Topic 18: museum kennedy cultural city culture greek byzantine
-    Topic 19: art exhibition century city tour works madonna
-
+    Topic 0: british churchill sale million major letters west
+    Topic 1: church government political country state people party
+    Topic 2: elvis king fans presley life concert young
+    Topic 3: yeltsin russian russia president kremlin moscow michael
+    Topic 4: pope vatican paul john surgery hospital pontiff
+    Topic 5: family funeral police miami versace cunanan city
+    Topic 6: simpson former years court president wife south
+    Topic 7: order mother successor election nuns church nirmala
+    Topic 8: charles prince diana royal king queen parker
+    Topic 9: film french france against bardot paris poster
+    Topic 10: germany german war nazi letter christian book
+    Topic 11: east peace prize award timor quebec belo
+    Topic 12: n't life show told very love television
+    Topic 13: years year time last church world people
+    Topic 14: mother teresa heart calcutta charity nun hospital
+    Topic 15: city salonika capital buddhist cultural vietnam byzantine
+    Topic 16: music tour opera singer israel people film
+    Topic 17: church catholic bernardin cardinal bishop wright death
+    Topic 18: harriman clinton u.s ambassador paris president churchill
+    Topic 19: city museum art exhibition century million churches
 
 Contents:
 
