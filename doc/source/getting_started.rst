@@ -64,7 +64,7 @@ The document-topic distributions are available in ``model.doc_topic_``.
     9 UK: Charles under fire over prospect of Queen Camilla. LONDON 1996-08-26 (top topic: 8)
 
 Document-topic distributions may be inferred for out-of-sample texts using the
-`transform` method:
+``transform`` method:
 
 .. code-block:: python
 
@@ -95,10 +95,10 @@ known as `label switching
 <http://onlinelibrary.wiley.com/doi/10.1111/1467-9868.00265/abstract>`_ in the
 literature.)
 
-Convergence may be monitored by accessing the `loglikelihoods_` attribute on a
+Convergence may be monitored by accessing the ``loglikelihoods_`` attribute on a
 fitted model. The attribute is bound to a list which records the sequence of
 log likelihoods associated with the model at different iterations (thinned by
-the `refresh` parameter).
+the ``refresh`` parameter).
 
 (The following code assumes `matplotlib <http://matplotlib.org/>`_ is installed.)
 
