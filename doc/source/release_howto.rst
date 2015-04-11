@@ -9,6 +9,10 @@ First build the source distribution with the following commands:
 #. Run ``make cython`` so sdist can find the Cython-generated c files.
 #. Tag (signed) the commit with the relevant version number
 #. Fast-forward the ``master`` branch to ``develop``
+#. Build C extensions in place with ``python setup.py build_ext --inplace``.
+   (This is currently a required step as one cannot ``import lda._setup_hooks``
+   without being able to ``import lda``, which requires ``import lda._lda``
+   working.)
 #. Build source package with ``python setup.py sdist``
 
 Now build the Windows and OS X wheels:
