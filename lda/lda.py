@@ -177,7 +177,8 @@ class LDA:
         for d in range(len(X)):
             # initialization step
             ws_doc = WS[DS == d]
-            PZS = phi[:, ws_doc].T * alpha
+            PZS = (phi[:, ws_doc].T * alpha).astype(float)
+            # NOTE: numpy /= is integer division
             PZS /= PZS.sum(axis=1)[:, np.newaxis]
             assert PZS.shape == (len(ws_doc), n_topics)
             PZS_new = np.empty_like(PZS)
@@ -223,10 +224,11 @@ class LDA:
             self._sample_topics(rands)
         ll = self.loglikelihood()
         logger.info("<{}> log likelihood: {:.0f}".format(self.n_iter - 1, ll))
-        self.components_ = self.nzw_ + self.eta
+        # note: numpy /= is integer division
+        self.components_ = (self.nzw_ + self.eta).astype(float)
         self.components_ /= np.sum(self.components_, axis=1)[:, np.newaxis]
         self.topic_word_ = self.components_
-        self.doc_topic_ = self.ndz_ + self.alpha
+        self.doc_topic_ = (self.ndz_ + self.alpha).astype(float)
         self.doc_topic_ /= np.sum(self.doc_topic_, axis=1)[:, np.newaxis]
 
         # delete attributes no longer needed after fitting to save memory and reduce clutter
