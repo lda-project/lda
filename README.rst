@@ -1,7 +1,7 @@
 lda: Topic modeling with latent Dirichlet allocation
 ====================================================
 
-|pypi| |travis| |crate| |zenodo|
+|pypi| |travis| |downloads| |zenodo|
 
 ``lda`` implements latent Dirichlet allocation (LDA) using collapsed Gibbs
 sampling. ``lda`` is fast and is tested on Linux, OS X, and Windows.
@@ -141,14 +141,14 @@ lda is licensed under Version 2.0 of the Mozilla Public License.
 .. _Griffiths and Steyvers (2004): http://www.pnas.org/content/101/suppl_1/5228.abstract
 
 .. |pypi| image:: https://badge.fury.io/py/lda.png
-    :target: https://badge.fury.io/py/lda
+    :target: https://pypi.python.org/pypi/lda
     :alt: pypi version
 
 .. |travis| image:: https://travis-ci.org/ariddell/lda.png?branch=master
     :target: https://travis-ci.org/ariddell/lda
     :alt: travis-ci build status
 
-.. |crate| image:: https://pypip.in/d/lda/badge.png
+.. |downloads| image:: https://img.shields.io/pypi/dm/lda.svg
     :target: https://pypi.python.org/pypi/lda
     :alt: pypi download statistics
 
