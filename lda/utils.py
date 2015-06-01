@@ -124,7 +124,7 @@ def dtm2ldac(dtm, offset=0):
             pass
         unique_terms = np.count_nonzero(row)
         if unique_terms == 0:
-            raise ValueError("dtm contains row with all zero entries.")
+            raise ValueError("dtm row {} has all zero entries.".format(i))
         term_cnt_pairs = [(i + offset, cnt) for i, cnt in enumerate(row) if cnt > 0]
         docline = str(unique_terms) + ' '
         docline += ' '.join(["{}:{}".format(i, cnt) for i, cnt in term_cnt_pairs])
