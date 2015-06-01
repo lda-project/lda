@@ -49,3 +49,8 @@ class TestLDASparse(oslotest.base.BaseTestCase):
         # check distributions sum to one
         np.testing.assert_array_almost_equal(model.doc_topic_.sum(axis=1), np.ones(D))
         np.testing.assert_array_almost_equal(model.topic_word_.sum(axis=1), np.ones(K))
+
+    def test_lda_sparse_error_float(self):
+        dtm = self.dtm.astype(np.float)
+        model = self.model
+        self.assertRaises(ValueError, model.transform, dtm)
