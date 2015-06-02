@@ -166,15 +166,18 @@ class LDA:
         in Wallach et al. (2009) and discussed in Buntine (2009).
 
         """
-        X = np.atleast_2d(X)
+        if isinstance(X, np.ndarray):
+            # in case user passes a (non-sparse) array of shape (n_features,)
+            # turn it into an array of shape (1, n_features)
+            X = np.atleast_2d(X)
         phi = self.components_
         alpha = self.alpha
         # for debugging, let's not worry about the documents
         n_topics = len(self.components_)
-        doc_topic = np.empty((len(X), n_topics))
+        doc_topic = np.empty((X.shape[0], n_topics))
         WS, DS = lda.utils.matrix_to_lists(X)
         # TODO: this loop is parallelizable
-        for d in range(len(X)):
+        for d in range(X.shape[0]):
             # initialization step
             ws_doc = WS[DS == d]
             PZS = (phi[:, ws_doc].T * alpha).astype(float)
