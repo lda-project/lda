@@ -172,7 +172,6 @@ class LDA:
             X = np.atleast_2d(X)
         phi = self.components_
         alpha = self.alpha
-        # for debugging, let's not worry about the documents
         n_topics = len(self.components_)
         doc_topic = np.empty((X.shape[0], n_topics))
         WS, DS = lda.utils.matrix_to_lists(X)
