@@ -4,6 +4,7 @@ import os
 
 import numpy as np
 import oslotest.base
+import scipy.sparse
 import scipy.stats
 
 import lda
@@ -17,6 +18,7 @@ class TestLDATransform(oslotest.base.BaseTestCase):
         test_dir = os.path.dirname(__file__)
         reuters_ldac_fn = os.path.join(test_dir, 'reuters.ldac')
         cls.dtm = dtm = lda.utils.ldac2dtm(open(reuters_ldac_fn), offset=0)
+        cls.dtm_sparse = scipy.sparse.csr_matrix(dtm)
         cls.n_iter = n_iter = 400
         cls.n_topics = n_topics = 15
         cls.random_seed = random_seed = 1
@@ -58,6 +60,24 @@ class TestLDATransform(oslotest.base.BaseTestCase):
         """Basic checks on transform"""
         model = self.model
         dtm = self.dtm
+
+        n_docs = 3
+        n_topics = len(model.components_)
+        dtm_test = dtm[0:n_docs]
+        doc_topic_test = model.transform(dtm_test)
+        self.assertEqual(doc_topic_test.shape, (n_docs, n_topics))
+        np.testing.assert_array_almost_equal(doc_topic_test.sum(axis=1), 1)
+
+        # one document
+        dtm_test = dtm[0]
+        doc_topic_test = model.transform(dtm_test)
+        self.assertEqual(doc_topic_test.shape, (1, n_topics))
+        np.testing.assert_array_almost_equal(doc_topic_test.sum(axis=1), 1)
+
+    def test_lda_transform_basic_sparse(self):
+        """Basic checks on transform"""
+        model = self.model
+        dtm = self.dtm_sparse
 
         n_docs = 3
         n_topics = len(model.components_)
