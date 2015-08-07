@@ -45,7 +45,7 @@ class LDA:
         Alias for `components_`
     `nzw_` : array, shape = [n_topics, n_features]
         Matrix of counts recording topic-word assignments in final iteration.
-    `ndz_` : array, shape = [n_samples, n_features]
+    `ndz_` : array, shape = [n_samples, n_topics]
         Matrix of counts recording document-topic assignments in final iteration.
     `doc_topic_` : array, shape = [n_samples, n_features]
         Point estimate of the document-topic distributions (Theta in literature)
