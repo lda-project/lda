@@ -200,7 +200,7 @@ class LDA:
             PZS_new /= PZS_new.sum(axis=1)[:, np.newaxis]
             delta_naive = np.abs(PZS_new - PZS).sum()
             logger.debug('transform iter {}, delta {}'.format(iteration, delta_naive))
-            PZS = PZS_new.copy()
+            PZS = PZS_new
             if delta_naive < tol:
                 break
         theta_doc = PZS.sum(axis=0) / PZS.sum()
