@@ -174,31 +174,49 @@ class LDA:
         WS, DS = lda.utils.matrix_to_lists(X)
         # TODO: this loop is parallelizable
         for d in np.unique(DS):
-            # initialization step
-            ws_doc = WS[DS == d]
-            PZS = (self.components_[:, ws_doc].T * self.alpha).astype(float)
-            # NOTE: numpy /= is integer division
-            PZS /= PZS.sum(axis=1)[:, np.newaxis]
-            assert PZS.shape == (len(ws_doc), self.n_topics)
-            PZS_new = np.empty_like(PZS)
-            for s in range(max_iter):
-                PZS_sum = PZS.sum(axis=0)
-                for i, w in enumerate(ws_doc):
-                    PZS_sum -= PZS[i]
-                    PZS_new[i] = self.components_[:, w] * (PZS_sum + self.alpha)
-                    PZS_sum += PZS[i]
-                PZS_new /= PZS_new.sum(axis=1)[:, np.newaxis]
-                delta_naive = np.abs(PZS_new - PZS).sum()
-                logger.debug('transform iter {}, delta {}'.format(s, delta_naive))
-                PZS = PZS_new.copy()
-                if delta_naive < tol:
-                    break
-            theta_doc = PZS.sum(axis=0)
-            theta_doc /= sum(theta_doc)
-            assert len(theta_doc) == self.n_topics
-            assert theta_doc.shape == (self.n_topics,)
-            doc_topic[d] = theta_doc
+            doc_topic[d] = self._transform_single(WS[DS == d], max_iter, tol)
         return doc_topic
+
+    def _transform_single(self, ws_doc, max_iter, tol):
+        """Transform a single document according to the previously fit model
+
+        Parameters
+        ----------
+        X : 1D numpy array of integers
+            Each element represents a word in the document
+        max_iter : int
+            Maximum number of iterations in iterated-pseudocount estimation.
+        tol: double
+            Tolerance value used in stopping condition.
+
+        Returns
+        -------
+        doc_topic : 1D numpy array of length n_topics
+            Point estimate of the topic distributions for document
+        """
+        # initialization step
+        PZS = (self.components_[:, ws_doc].T * self.alpha).astype(float)
+        # NOTE: numpy /= is integer division
+        PZS /= PZS.sum(axis=1)[:, np.newaxis]
+        assert PZS.shape == (len(ws_doc), self.n_topics)
+        PZS_new = np.empty_like(PZS)
+        for s in range(max_iter):
+            PZS_sum = PZS.sum(axis=0)
+            for i, w in enumerate(ws_doc):
+                PZS_sum -= PZS[i]
+                PZS_new[i] = self.components_[:, w] * (PZS_sum + self.alpha)
+                PZS_sum += PZS[i]
+            PZS_new /= PZS_new.sum(axis=1)[:, np.newaxis]
+            delta_naive = np.abs(PZS_new - PZS).sum()
+            logger.debug('transform iter {}, delta {}'.format(s, delta_naive))
+            PZS = PZS_new.copy()
+            if delta_naive < tol:
+                break
+        theta_doc = PZS.sum(axis=0)
+        theta_doc /= sum(theta_doc)
+        assert len(theta_doc) == self.n_topics
+        assert theta_doc.shape == (self.n_topics,)
+        return theta_doc
 
     def _fit(self, X):
         """Fit the model to the data X
