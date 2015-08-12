@@ -170,25 +170,22 @@ class LDA:
             # in case user passes a (non-sparse) array of shape (n_features,)
             # turn it into an array of shape (1, n_features)
             X = np.atleast_2d(X)
-        phi = self.components_
-        alpha = self.alpha
-        n_topics = len(self.components_)
-        doc_topic = np.empty((X.shape[0], n_topics))
+        doc_topic = np.empty((X.shape[0], self.n_topics))
         WS, DS = lda.utils.matrix_to_lists(X)
         # TODO: this loop is parallelizable
-        for d in range(X.shape[0]):
+        for d in np.unique(DS):
             # initialization step
             ws_doc = WS[DS == d]
-            PZS = (phi[:, ws_doc].T * alpha).astype(float)
+            PZS = (self.components_[:, ws_doc].T * self.alpha).astype(float)
             # NOTE: numpy /= is integer division
             PZS /= PZS.sum(axis=1)[:, np.newaxis]
-            assert PZS.shape == (len(ws_doc), n_topics)
+            assert PZS.shape == (len(ws_doc), self.n_topics)
             PZS_new = np.empty_like(PZS)
             for s in range(max_iter):
                 PZS_sum = PZS.sum(axis=0)
                 for i, w in enumerate(ws_doc):
                     PZS_sum -= PZS[i]
-                    PZS_new[i] = phi[:, w] * (PZS_sum + alpha)
+                    PZS_new[i] = self.components_[:, w] * (PZS_sum + self.alpha)
                     PZS_sum += PZS[i]
                 PZS_new /= PZS_new.sum(axis=1)[:, np.newaxis]
                 delta_naive = np.abs(PZS_new - PZS).sum()
@@ -198,8 +195,8 @@ class LDA:
                     break
             theta_doc = PZS.sum(axis=0)
             theta_doc /= sum(theta_doc)
-            assert len(theta_doc) == n_topics
-            assert theta_doc.shape == (n_topics,)
+            assert len(theta_doc) == self.n_topics
+            assert theta_doc.shape == (self.n_topics,)
             doc_topic[d] = theta_doc
         return doc_topic
 
