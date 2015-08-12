@@ -177,7 +177,7 @@ class LDA:
             doc_topic[d] = self._transform_single(WS[DS == d], max_iter, tol)
         return doc_topic
 
-    def _transform_single(self, ws_doc, max_iter, tol):
+    def _transform_single(self, doc, max_iter, tol):
         """Transform a single document according to the previously fit model
 
         Parameters
@@ -195,20 +195,20 @@ class LDA:
             Point estimate of the topic distributions for document
         """
         # initialization step
-        PZS = (self.components_[:, ws_doc].T * self.alpha).astype(float)
+        PZS = (self.components_[:, doc].T * self.alpha).astype(float)
         # NOTE: numpy /= is integer division
         PZS /= PZS.sum(axis=1)[:, np.newaxis]
-        assert PZS.shape == (len(ws_doc), self.n_topics)
+        assert PZS.shape == (len(doc), self.n_topics)
         PZS_new = np.empty_like(PZS)
-        for s in range(max_iter):
+        for iteration in range(max_iter):
             PZS_sum = PZS.sum(axis=0)
-            for i, w in enumerate(ws_doc):
+            for i, word in enumerate(doc):
                 PZS_sum -= PZS[i]
-                PZS_new[i] = self.components_[:, w] * (PZS_sum + self.alpha)
+                PZS_new[i] = self.components_[:, word] * (PZS_sum + self.alpha)
                 PZS_sum += PZS[i]
             PZS_new /= PZS_new.sum(axis=1)[:, np.newaxis]
             delta_naive = np.abs(PZS_new - PZS).sum()
-            logger.debug('transform iter {}, delta {}'.format(s, delta_naive))
+            logger.debug('transform iter {}, delta {}'.format(iteration, delta_naive))
             PZS = PZS_new.copy()
             if delta_naive < tol:
                 break
