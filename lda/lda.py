@@ -194,15 +194,10 @@ class LDA:
         doc_topic : 1D numpy array of length n_topics
             Point estimate of the topic distributions for document
         """
-        # initialization step
-        PZS = (self.components_[:, doc].T * self.alpha).astype(float)
-        # NOTE: numpy /= is integer division
-        PZS /= PZS.sum(axis=1)[:, np.newaxis]
-        assert PZS.shape == (len(doc), self.n_topics)
+        PZS = np.zeros((len(doc), self.n_topics))
         PZS_new = np.empty_like(PZS)
-        for iteration in range(max_iter):
-            PZS_sum = PZS.sum(axis=0)
-            PZS_new = self.components_[:, doc].T * (PZS_sum - PZS + self.alpha)
+        for iteration in range(max_iter + 1): # +1 is for initialization
+            PZS_new = self.components_[:, doc].T * (PZS.sum(axis=0) - PZS + self.alpha)
             PZS_new /= PZS_new.sum(axis=1)[:, np.newaxis]
             delta_naive = np.abs(PZS_new - PZS).sum()
             logger.debug('transform iter {}, delta {}'.format(iteration, delta_naive))
