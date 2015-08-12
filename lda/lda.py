@@ -203,9 +203,7 @@ class LDA:
         for iteration in range(max_iter):
             PZS_sum = PZS.sum(axis=0)
             for i, word in enumerate(doc):
-                PZS_sum -= PZS[i]
-                PZS_new[i] = self.components_[:, word] * (PZS_sum + self.alpha)
-                PZS_sum += PZS[i]
+                PZS_new[i] = self.components_[:, word] * (PZS_sum - PZS[i] + self.alpha)
             PZS_new /= PZS_new.sum(axis=1)[:, np.newaxis]
             delta_naive = np.abs(PZS_new - PZS).sum()
             logger.debug('transform iter {}, delta {}'.format(iteration, delta_naive))
