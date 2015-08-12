@@ -212,8 +212,7 @@ class LDA:
             PZS = PZS_new.copy()
             if delta_naive < tol:
                 break
-        theta_doc = PZS.sum(axis=0)
-        theta_doc /= sum(theta_doc)
+        theta_doc = PZS.sum(axis=0) / PZS.sum()
         assert len(theta_doc) == self.n_topics
         assert theta_doc.shape == (self.n_topics,)
         return theta_doc
