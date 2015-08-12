@@ -198,7 +198,7 @@ class LDA:
         for iteration in range(max_iter + 1): # +1 is for initialization
             PZS_new = self.components_[:, doc].T
             PZS_new *= (PZS.sum(axis=0) - PZS + self.alpha)
-            PZS_new /= PZS_new.sum(axis=1)[:, np.newaxis]
+            PZS_new /= PZS_new.sum(axis=1)[:, np.newaxis] # vector to single column matrix
             delta_naive = np.abs(PZS_new - PZS).sum()
             logger.debug('transform iter {}, delta {}'.format(iteration, delta_naive))
             PZS = PZS_new
