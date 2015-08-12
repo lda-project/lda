@@ -195,7 +195,6 @@ class LDA:
             Point estimate of the topic distributions for document
         """
         PZS = np.zeros((len(doc), self.n_topics))
-        PZS_new = np.empty_like(PZS)
         for iteration in range(max_iter + 1): # +1 is for initialization
             PZS_new = self.components_[:, doc].T * (PZS.sum(axis=0) - PZS + self.alpha)
             PZS_new /= PZS_new.sum(axis=1)[:, np.newaxis]
