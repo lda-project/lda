@@ -44,28 +44,29 @@ are accepted).
     >>> topic_word = model.topic_word_  # model.components_ also works
     >>> n_top_words = 8
     >>> for i, topic_dist in enumerate(topic_word):
-    ...     topic_words = np.array(vocab)[np.argsort(topic_dist)][:-n_top_words:-1]
+    ...     topic_words = np.array(vocab)[np.argsort(topic_dist)][:-(n_top_words+1):-1]
     ...     print('Topic {}: {}'.format(i, ' '.join(topic_words)))
-    Topic 0: british churchill sale million major letters west
-    Topic 1: church government political country state people party
-    Topic 2: elvis king fans presley life concert young
-    Topic 3: yeltsin russian russia president kremlin moscow michael
-    Topic 4: pope vatican paul john surgery hospital pontiff
-    Topic 5: family funeral police miami versace cunanan city
-    Topic 6: simpson former years court president wife south
-    Topic 7: order mother successor election nuns church nirmala
-    Topic 8: charles prince diana royal king queen parker
-    Topic 9: film french france against bardot paris poster
-    Topic 10: germany german war nazi letter christian book
-    Topic 11: east peace prize award timor quebec belo
-    Topic 12: n't life show told very love television
-    Topic 13: years year time last church world people
-    Topic 14: mother teresa heart calcutta charity nun hospital
-    Topic 15: city salonika capital buddhist cultural vietnam byzantine
-    Topic 16: music tour opera singer israel people film
-    Topic 17: church catholic bernardin cardinal bishop wright death
-    Topic 18: harriman clinton u.s ambassador paris president churchill
-    Topic 19: city museum art exhibition century million churches
+
+    Topic 0: british churchill sale million major letters west britain
+    Topic 1: church government political country state people party against
+    Topic 2: elvis king fans presley life concert young death
+    Topic 3: yeltsin russian russia president kremlin moscow michael operation
+    Topic 4: pope vatican paul john surgery hospital pontiff rome
+    Topic 5: family funeral police miami versace cunanan city service
+    Topic 6: simpson former years court president wife south church
+    Topic 7: order mother successor election nuns church nirmala head
+    Topic 8: charles prince diana royal king queen parker bowles
+    Topic 9: film french france against bardot paris poster animal
+    Topic 10: germany german war nazi letter christian book jews
+    Topic 11: east peace prize award timor quebec belo leader
+    Topic 12: n't life show told very love television father
+    Topic 13: years year time last church world people say
+    Topic 14: mother teresa heart calcutta charity nun hospital missionaries
+    Topic 15: city salonika capital buddhist cultural vietnam byzantine show
+    Topic 16: music tour opera singer israel people film israeli
+    Topic 17: church catholic bernardin cardinal bishop wright death cancer
+    Topic 18: harriman clinton u.s ambassador paris president churchill france
+    Topic 19: city museum art exhibition century million churches set
 
 The document-topic distributions are available in ``model.doc_topic_``.
 
