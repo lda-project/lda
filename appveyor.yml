@@ -56,17 +56,6 @@ environment:
       PYTHON_VERSION: "3.5.x"
       PYTHON_ARCH: "64"
 
-    # Major and minor releases (i.e x.0.0 and x.y.0) prior to 3.3.0 use
-    # a different naming scheme.
-
-    - PYTHON: "C:\\Python270"
-      PYTHON_VERSION: "2.7.0"
-      PYTHON_ARCH: "32"
-
-    - PYTHON: "C:\\Python270-x64"
-      PYTHON_VERSION: "2.7.0"
-      PYTHON_ARCH: "64"
-
 install:
   - ECHO "Filesystem root:"
   - ps: "ls \"C:/\""
@@ -133,4 +122,4 @@ on_success:
   # Upload the generated wheel package to Rackspace
   # On Windows, Apache Libcloud cannot find a standard CA cert bundle so we
   # disable the ssl checks.
-  - "python -m wheelhouse_uploader upload --no-ssl-check --region=iad --local-folder=dist wheels"
+  - IF %APPVEYOR_REPO_TAG% == true ( "python -m wheelhouse_uploader upload --no-ssl-check --region=iad --local-folder=dist wheels" )
