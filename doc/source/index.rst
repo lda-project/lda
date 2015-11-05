@@ -71,6 +71,7 @@ Contents:
    api
    contributing
    groups
+   whats_new
 
 Indices and tables
 ==================
