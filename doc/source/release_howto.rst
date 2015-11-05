@@ -6,6 +6,7 @@ Note that ``pbr`` requires tags to be signed for its version calculations.
 
 First build the source distribution with the following commands:
 
+#. Update ``doc/source/whats_new.rst``
 #. Run ``make cython`` so sdist can find the Cython-generated c files.
 #. Tag (signed) the commit with the relevant version number
 #. Fast-forward the ``master`` branch to ``develop``
