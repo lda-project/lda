@@ -120,9 +120,9 @@ Important links
 - Source code: https://github.com/ariddell/lda/
 - Issue tracker: https://github.com/ariddell/lda/issues
 
-Similar projects
-----------------
-- `z-label LDA <http://pages.cs.wisc.edu/~andrzeje/research/zl_lda.html>`_
+Other implementations
+---------------------
+- scikit-learn_'s `LatentDirichletAllocation <http://scikit-learn.org/dev/modules/generated/sklearn.decomposition.LatentDirichletAllocation.html>`_ (online variational inference)
 - `gensim <https://pypi.python.org/pypi/gensim>`_
 
 License
