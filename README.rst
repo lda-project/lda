@@ -122,8 +122,8 @@ Important links
 
 Other implementations
 ---------------------
-- scikit-learn_'s `LatentDirichletAllocation <http://scikit-learn.org/dev/modules/generated/sklearn.decomposition.LatentDirichletAllocation.html>`_ (online variational inference)
-- `gensim <https://pypi.python.org/pypi/gensim>`_
+- scikit-learn_'s `LatentDirichletAllocation <http://scikit-learn.org/dev/modules/generated/sklearn.decomposition.LatentDirichletAllocation.html>`_ (uses online variational inference)
+- `gensim <https://pypi.python.org/pypi/gensim>`_ (uses online variational inference)
 
 License
 -------
