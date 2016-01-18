@@ -79,6 +79,11 @@ class LDA:
     Priors Matter." In Advances in Neural Information Processing Systems 22,
     edited by Y.  Bengio, D. Schuurmans, J. Lafferty, C. K. I. Williams, and A.
     Culotta, 1973–1981, 2009.
+
+    Buntine, Wray. "Estimating Likelihoods for Topic Models." In Advances in
+    Machine Learning, First Asian Conference on Machine Learning (2009): 51–64.
+    doi:10.1007/978-3-642-05224-8_6.
+
     """
 
     def __init__(self, n_topics, n_iter=2000, alpha=0.1, eta=0.01, random_state=None,
@@ -193,6 +198,12 @@ class LDA:
         -------
         doc_topic : 1D numpy array of length n_topics
             Point estimate of the topic distributions for document
+
+        Note
+        ----
+
+        See Note in `transform` documentation.
+
         """
         PZS = np.zeros((len(doc), self.n_topics))
         for iteration in range(max_iter + 1): # +1 is for initialization
