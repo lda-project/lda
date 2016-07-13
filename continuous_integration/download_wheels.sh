@@ -21,6 +21,7 @@ do
     wheel_url="${RACKSPACE_URL}/${wheel_name}"
     curl -O $wheel_url
 done
-# upload to pypi
+# suggest upload to pypi
 cd ..
-twine upload --sign wheels/*.whl
+echo "wheels now need to be uploaded to PyPI using a command such as:"
+echo "twine upload --sign wheels/*.whl"
