@@ -11,11 +11,7 @@ You can read more about lda in `the documentation <http://pythonhosted.org/lda>`
 Installation
 ------------
 
-If you have NumPy installed,
-
 ``pip install lda``
-
-Installation does not require a compiler on Windows or OS X.
 
 Getting started
 ---------------

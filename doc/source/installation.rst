@@ -14,71 +14,35 @@ If you encounter problems, consult the platform-specific instructions below.
 Windows
 -------
 
-First you need to install `numpy <http://numpy.scipy.org/>`_ from the official
-installer.
-
-.. FIXME: update this when Numpy has Windows wheels available
-
-Wheel packages (.whl files) for lda from `PyPI
-<https://pypi.python.org/pypi/lda>`_ can be installed with the `pip
-<http://pip.readthedocs.org/en/latest/installing.html>`_ utility.  Open
-a console and type the following to install lda::
+lda and its dependencies are all available as wheel packages for Windows::
 
     pip install lda
-
-.. FIXME: remove the following when Python 3.3 is no longer widely used
-
-In order to use wheels, you will need to have pip version 1.4 or higher and
-setuptools version 0.8 or higher.
 
 Mac OS X
 --------
 
 lda and its dependencies are all available as wheel packages for Mac OS X::
 
-    pip install numpy lda
-
-.. FIXME: remove the following when Python 3.3 is no longer widely used
-
-In order to use wheels, you will need to have pip version 1.4 or higher and
-setuptools version 0.8 or higher.
+    pip install lda
 
 Linux
 -----
 
-If you are running an Ubuntu-based distribution of Linux, you may install lda
-using a PPA::
+lda and its dependencies are all available as wheel packages for most distributions of Linux::
 
-    sudo add-apt-repository ppa:ariddell/lda
-    sudo apt-get update
-    sudo apt-get install python3-lda  # or, python-lda for the Python 2.7 version
+    pip install lda
 
-Alternatively, you may install lda from source. In order for this to work,
-however, you need to install a compiler and associated build dependencies.
-
-Installing build dependencies
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Installation from source
+------------------------
 
 Installing from source requires you to have installed the Python development
-headers and a working C/C++ compiler.  Under Debian-based operating systems,
-which include Ubuntu, if you have Python 2 you can install all these
-requirements by issuing::
-
-    sudo apt-get install build-essential python-dev python-setuptools \
-                         python-numpy
-
-If you have Python 3::
+headers and a working C/C++ compiler. Under Debian-based operating systems,
+which include Ubuntu, you can install all these requirements by issuing::
 
     sudo apt-get install build-essential python3-dev python3-setuptools \
                          python3-numpy
 
-With these installed, you may install lda::
+Before attempting a command such as ``python setup.py install`` you will need to run
+Cython to generate the relevant C files::
 
-
-    $ pip install lda
-
-
-Or, if you have virtualenvwrapper installed::
-
-    $ mkvirtualenv lda
-    $ pip install lda
+    make cython
