@@ -149,6 +149,6 @@ lda is licensed under Version 2.0 of the Mozilla Public License.
     :target: https://pypi.python.org/pypi/lda
     :alt: pypi download statistics
 
-.. |zenodo| image:: https://zenodo.org/badge/doi/10.5281/zenodo.33554.svg
-    :target: http://dx.doi.org/10.5281/zenodo.33554
+.. |zenodo| image:: https://zenodo.org/badge/doi/10.5281/zenodo.57927.svg
+    :target: http://dx.doi.org/10.5281/zenodo.57927
     :alt: Zenodo citation
