@@ -4,6 +4,7 @@ python:
   - "3.3"
   - "3.4"
   - "3.5"
+  - "3.6"
 sudo: false
 before_install:
   # use Anaconda to get compiled versions of scipy and numpy,
