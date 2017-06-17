@@ -91,3 +91,21 @@ class TestLDATransform(oslotest.base.BaseTestCase):
         doc_topic_test = model.transform(dtm_test)
         self.assertEqual(doc_topic_test.shape, (1, n_topics))
         np.testing.assert_array_almost_equal(doc_topic_test.sum(axis=1), 1)
+
+    def test_lda_transform_empty_document(self):
+        """Test transform with empty documents."""
+        model = self.model
+        dtm = self.dtm
+
+        n_docs = 3
+        n_topics = len(model.components_)
+        dtm_test = np.zeros((n_docs, dtm.shape[1]))
+        doc_topic_test = model.transform(dtm_test)
+        self.assertEqual(doc_topic_test.shape, (n_docs, n_topics))
+        np.testing.assert_array_almost_equal(doc_topic_test.sum(axis=1), 1)
+
+        # one document
+        dtm_test = np.zeros((1, dtm.shape[1]))
+        doc_topic_test = model.transform(dtm_test)
+        self.assertEqual(doc_topic_test.shape, (1, n_topics))
+        np.testing.assert_array_almost_equal(doc_topic_test.sum(axis=1), 1)
