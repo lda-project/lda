@@ -6,7 +6,7 @@ lda: Topic modeling with latent Dirichlet allocation
 ``lda`` implements latent Dirichlet allocation (LDA) using collapsed Gibbs
 sampling. ``lda`` is fast and is tested on Linux, OS X, and Windows.
 
-You can read more about lda in `the documentation <http://pythonhosted.org/lda>`_.
+You can read more about lda in `the documentation <https://lda.readthedocs.io>`_.
 
 Installation
 ------------
