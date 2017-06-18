@@ -23,14 +23,6 @@ environment:
       PYTHON_VERSION: "2.7.x"
       PYTHON_ARCH: "64"
 
-    - PYTHON: "C:\\Python33"
-      PYTHON_VERSION: "3.3.x"
-      PYTHON_ARCH: "32"
-
-    - PYTHON: "C:\\Python33-x64"
-      PYTHON_VERSION: "3.3.x"
-      PYTHON_ARCH: "64"
-
     - PYTHON: "C:\\Python34"
       PYTHON_VERSION: "3.4.x"
       PYTHON_ARCH: "32"
@@ -99,7 +91,7 @@ test_script:
   # installed library.
   - "mkdir empty_folder"
   - "cd empty_folder"
-  - "python -c \"import nose; nose.main()\" -s lda"
+  - "python -m unittest discover lda"
   # Move back to the project folder
   - "cd .."
 
