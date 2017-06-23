@@ -27,12 +27,12 @@ Once built they can be retrieved using ``continuous_integration/download_wheels.
 
 4. Build macOS / OS X wheels, place wheels in ``dist/``.
 
-macOS / OS X wheels are built via ``https://github.com/ariddell/lda-wheel-builder``.
+macOS / OS X wheels are built via ``https://github.com/lda-project/lda-wheels``.
 Put wheels in ``dist/``.
 
 5. Build linux wheels, place wheels in ``dist/``.
 
-Linux wheels are built via ``https://github.com/ariddell/lda-manylinux``. Put
+Linux wheels are built via ``https://github.com/lda-project/lda-wheels``. Put
 wheels in ``dist/``.
 
 6. Upload and sign each wheel

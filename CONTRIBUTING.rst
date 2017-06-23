@@ -10,7 +10,7 @@ Building in Develop Mode
 
 To build in develop mode on OS X, first install Cython and pbr. Then run::
 
-  git clone https://github.com/ariddell/lda.git
+  git clone https://github.com/lda-project/lda.git
   cd lda
   make cython
   python setup.py develop

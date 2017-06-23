@@ -112,9 +112,9 @@ et al. (2000)`_. Inference using collapsed Gibbs sampling is described in
 Important links
 ---------------
 
-- Documentation: http://pythonhosted.org/lda
-- Source code: https://github.com/ariddell/lda/
-- Issue tracker: https://github.com/ariddell/lda/issues
+- Documentation: http://lda.readthedocs.org
+- Source code: https://github.com/lda-project/lda/
+- Issue tracker: https://github.com/lda-project/lda/issues
 
 Other implementations
 ---------------------
@@ -141,8 +141,8 @@ lda is licensed under Version 2.0 of the Mozilla Public License.
     :target: https://pypi.python.org/pypi/lda
     :alt: pypi version
 
-.. |travis| image:: https://travis-ci.org/ariddell/lda.png?branch=master
-    :target: https://travis-ci.org/ariddell/lda
+.. |travis| image:: https://travis-ci.org/lda-project/lda.png?branch=master
+    :target: https://travis-ci.org/lda-project/lda
     :alt: travis-ci build status
 
 .. |zenodo| image:: https://zenodo.org/badge/doi/10.5281/zenodo.57927.svg
