@@ -26,7 +26,17 @@ class LDA:
         Number of topics
 
     n_iter : int, default 2000
-        Number of sampling iterations
+        Fixed number of sampling iterations
+
+    max_iter : int, default None
+        Maximum number of iterations when using break-on-convergence during sampling. Set this to a positive number
+        and the algorithm will stop when the SD of the last `perp_window` perplexity values is less then `perp_tol`.
+
+    perp_tol : float, default 5.0
+        The threshold to stop the sampling algorithm when using `max_iter`.
+
+    perp_window : float, default 10
+        The window size for the SD calculation when using `max_iter`.
 
     alpha : float, default 0.1
         Dirichlet parameter for distribution over topics
@@ -86,10 +96,13 @@ class LDA:
 
     """
 
-    def __init__(self, n_topics, n_iter=2000, alpha=0.1, eta=0.01, random_state=None,
-                 refresh=10):
+    def __init__(self, n_topics, n_iter=2000, max_iter=None, perp_tol=5.0, perp_window=10, alpha=0.1, eta=0.01,
+                 random_state=None, refresh=10):
         self.n_topics = n_topics
-        self.n_iter = n_iter
+        self.n_iter = n_iter if max_iter is None else None
+        self.max_iter = max_iter
+        self.perp_tol = perp_tol
+        self.perp_window = perp_window
         self.alpha = alpha
         self.eta = eta
         # if random_state is None, check_random_state(None) does nothing
@@ -232,17 +245,40 @@ class LDA:
         random_state = lda.utils.check_random_state(self.random_state)
         rands = self._rands.copy()
         self._initialize(X)
-        for it in range(self.n_iter):
+        prev_perpl = []
+        n_iter = self.n_iter if self.max_iter is None else self.max_iter
+        for it in range(n_iter):
             # FIXME: using numpy.roll with a random shift might be faster
             random_state.shuffle(rands)
             if it % self.refresh == 0:
                 ll = self.loglikelihood()
-                logger.info("<{}> log likelihood: {:.0f}".format(it, ll))
+                perpl = self.perplexity(ll)
+
+                # prev_perpl_diffs.append(abs(prev_perpl - perpl))
+                prev_perpl.append(perpl)
+                if len(prev_perpl) > self.perp_window:
+                    prev_perpl = prev_perpl[1:]
+
+                rolling_perpl_sd = np.std(prev_perpl)
+
+                logger.info("<{}> log likelihood: {:.0f}"
+                            " | perplexity: {:f}"
+                            " | rolling perplexity SD: {:f}".format(it, ll, perpl, rolling_perpl_sd))
+
+                if self.max_iter is not None and len(prev_perpl) == self.perp_window \
+                        and rolling_perpl_sd < self.perp_tol:
+                    logger.info("<{}> convergence reached (SD of prev. {} perplexity values"
+                                " was less than {:f})".format(it, self.perp_window, self.perp_tol))
+                    break
+
                 # keep track of loglikelihoods for monitoring convergence
                 self.loglikelihoods_.append(ll)
             self._sample_topics(rands)
-        ll = self.loglikelihood()
-        logger.info("<{}> log likelihood: {:.0f}".format(self.n_iter - 1, ll))
+        else:
+            ll = self.loglikelihood()
+            perpl = self.perplexity(ll)
+            logger.info("<{}> log likelihood: {:.0f} | perplexity: {:f}".format(n_iter - 1, ll, perpl))
+
         # note: numpy /= is integer division
         self.components_ = (self.nzw_ + self.eta).astype(float)
         self.components_ /= np.sum(self.components_, axis=1)[:, np.newaxis]
@@ -265,7 +301,11 @@ class LDA:
         logger.info("vocab_size: {}".format(W))
         logger.info("n_words: {}".format(N))
         logger.info("n_topics: {}".format(n_topics))
-        logger.info("n_iter: {}".format(n_iter))
+        if n_iter is not None:
+            logger.info("n_iter: {}".format(n_iter))
+        else:
+            logger.info("max_iter: {}".format(self.max_iter))
+            logger.info("perp_tol: {}".format(self.perp_tol))
 
         self.nzw_ = nzw_ = np.zeros((n_topics, W), dtype=np.intc)
         self.ndz_ = ndz_ = np.zeros((D, n_topics), dtype=np.intc)
@@ -293,6 +333,11 @@ class LDA:
         eta = self.eta
         nd = np.sum(ndz, axis=1).astype(np.intc)
         return lda._lda._loglikelihood(nzw, ndz, nz, nd, alpha, eta)
+
+    def perplexity(self, loglik=None):
+        loglik = loglik or self.loglikelihood()
+        ll_per_word = loglik / len(self.WS)
+        return np.exp(-ll_per_word)
 
     def _sample_topics(self, rands):
         """Samples all topic assignments. Called once per iteration."""

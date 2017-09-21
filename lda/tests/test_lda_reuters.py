@@ -102,3 +102,26 @@ class TestLDANewsReuters(oslotest.base.BaseTestCase):
         self.assertIsNotNone(doc_topic_new)
         self.assertLess(model_new.loglikelihood(), model.loglikelihood())
         self.assertFalse((doc_topic_new == doc_topic).all())
+
+    def test_lda_max_iter(self):
+        dtm = self.dtm
+        model = self.model
+        doc_topic = self.doc_topic
+        n_topics = self.n_topics
+        random_seed = self.random_seed
+
+        # fit a new model with high max_iter and high perp_tol so that it will definitely stop before max_iter is
+        # reached
+        max_iter = 10000
+        perp_tol = 30
+        perp_window = 10
+        model_new = lda.LDA(n_topics=n_topics, max_iter=max_iter,
+                            perp_tol=perp_tol, perp_window=perp_window,
+                            random_state=random_seed)
+        doc_topic_new = model_new.fit_transform(dtm)
+        self.assertIsNotNone(model_new)
+        self.assertIsNotNone(doc_topic_new)
+        # number of recorded LLs must be at least `perp_window`
+        self.assertGreaterEqual(len(model_new.loglikelihoods_), perp_window)
+        # more iterations and hence better LL
+        self.assertGreater(model_new.loglikelihood(), model.loglikelihood())
