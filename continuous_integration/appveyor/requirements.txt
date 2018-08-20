@@ -1,7 +1,1 @@
-# Fetch scipy wheels from alternate wheelhouse.
-# This is a temporary solution. The problem is described here https://github.com/scipy/scipy/issues/5461
-# As soon as scipy provides official wheel for windows we can delete this --find-links line.
---find-links https://d76ced9435a16aebcbcc-088ff5b231b56aeba240f4afdcc790f4.ssl.cf5.rackcdn.com/
-numpy==1.11.3
-scipy==0.19.0
 wheel
