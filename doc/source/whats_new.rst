@@ -6,6 +6,12 @@
  What's New
 ============
 
+v1.0.6 (20. August 2018)
+========================
+- Wheels for Python 3.7
+- Major speed increase in data loading. Thanks @luoshao23.
+- Minimum required Numpy version is 1.9.0.
+
 v1.0.5 (18. June 2017)
 ======================
 - Wheels for Python 3.6
