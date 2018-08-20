@@ -1,5 +1,4 @@
 PYTHON ?= python
-CYTHON ?= cython
 
 cython:
-	find lda -name "*.pyx" -exec $(CYTHON) {} \;
+	find lda -name "*.pyx" -exec $(PYTHON) -m cython -3 {} \;
