@@ -61,14 +61,8 @@ def matrix_to_lists(doc_word):
     else:
         ss = doc_word[ii, jj]
 
-    n_tokens = int(doc_word.sum())
     DS = np.repeat(ii, ss).astype(np.intc)
-    WS = np.empty(n_tokens, dtype=np.intc)
-    startidx = 0
-    for i, cnt in enumerate(ss):
-        cnt = int(cnt)
-        WS[startidx:startidx + cnt] = jj[i]
-        startidx += cnt
+    WS = np.repeat(jj, ss).astype(np.intc)
     return WS, DS
 
 
@@ -89,10 +83,9 @@ def lists_to_matrix(WS, DS):
     """
     D = max(DS) + 1
     V = max(WS) + 1
-    doc_word = np.empty((D, V), dtype=np.intc)
-    for d in range(D):
-        for v in range(V):
-            doc_word[d, v] = np.count_nonzero(WS[DS == d] == v)
+    doc_word = np.zeros((D, V), dtype=np.intc)
+    indices, counts = np.unique(list(zip(DS, WS)), axis=0, return_counts=True)
+    doc_word[indices[:, 0], indices[:, 1]] += counts
     return doc_word
 
 
