@@ -86,7 +86,7 @@ The document-topic distributions are available in ``model.doc_topic_``.
 Requirements
 ------------
 
-Python 2.7 or Python 3.3+ is required. The following packages are required
+Python 2.7 or Python 3.5+ is required. The following packages are required
 
 - numpy_
 - pbr_
