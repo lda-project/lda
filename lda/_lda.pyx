@@ -29,7 +29,7 @@ cdef int searchsorted(double* arr, int length, double value) nogil:
     imin = 0
     imax = length
     while imin < imax:
-        imid = imin + ((imax - imin) >> 2)
+        imid = imin + ((imax - imin) >> 1)
         if value > arr[imid]:
             imin = imid + 1
         else:
