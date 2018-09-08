@@ -80,6 +80,11 @@ class LDA:
     edited by Y.  Bengio, D. Schuurmans, J. Lafferty, C. K. I. Williams, and A.
     Culotta, 1973–1981, 2009.
 
+    Wallach, Hanna M., Iain Murray, Ruslan Salakhutdinov, and David Mimno. 2009.
+    “Evaluation Methods for Topic Models.” In Proceedings of the 26th Annual
+    International Conference on Machine Learning, 1105–1112. ICML ’09. New York,
+    NY, USA: ACM. https://doi.org/10.1145/1553374.1553515.
+
     Buntine, Wray. "Estimating Likelihoods for Topic Models." In Advances in
     Machine Learning, First Asian Conference on Machine Learning (2009): 51–64.
     doi:10.1007/978-3-642-05224-8_6.
@@ -167,8 +172,12 @@ class LDA:
 
         Note
         ----
-        This uses the "iterated pseudo-counts" approach described
-        in Wallach et al. (2009) and discussed in Buntine (2009).
+        To calculate an approximation of the distribution over topics for each
+        new document this function uses the "iterated pseudo-counts" approach
+        described in Wallach, Murray, Salakhutdinov, and Mimno (2009) and
+        justified in greater detail in Buntine (2009). Specifically, we
+        implement the "simpler first order version" described in section 3.3 of
+        Buntine (2009).
 
         """
         if isinstance(X, np.ndarray):
