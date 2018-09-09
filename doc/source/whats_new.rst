@@ -6,11 +6,12 @@
  What's New
 ============
 
-v1.0.6 (20. August 2018)
-========================
+v1.1.0 (9. September 2018)
+==========================
 - Wheels for Python 3.7
+- Minimum required NumPy version is 1.13.0.
 - Major speed increase in data loading. Thanks @luoshao23.
-- Minimum required Numpy version is 1.9.0.
+- Bugfix in Cython searchsorted function. Thanks @luoshao23.
 
 v1.0.5 (18. June 2017)
 ======================
