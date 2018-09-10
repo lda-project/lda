@@ -145,6 +145,6 @@ lda is licensed under Version 2.0 of the Mozilla Public License.
     :target: https://travis-ci.org/lda-project/lda
     :alt: travis-ci build status
 
-.. |zenodo| image:: https://zenodo.org/badge/doi/10.5281/zenodo.57927.svg
-    :target: https://doi.org/10.5281/zenodo.57927
+.. |zenodo| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.1412135.svg
+    :target: https://doi.org/10.5281/zenodo.1412135
     :alt: Zenodo citation
