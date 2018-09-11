@@ -4,10 +4,6 @@ environment:
     # /E:ON and /V:ON options are not enabled in the batch script intepreter
     # See: http://stackoverflow.com/a/13751649/163740
     CMD_IN_ENV: "cmd /E:ON /V:ON /C .\\continuous_integration\\appveyor\\run_with_env.cmd"
-    WHEELHOUSE_UPLOADER_REGION: IAD
-    WHEELHOUSE_UPLOADER_USERNAME: lda-worker
-    WHEELHOUSE_UPLOADER_SECRET:
-      secure: qN7Dwv5Z8GM8yurirfjBaxcrxsJOz7xbwwJSor4YcknMGZFXpRp1U8S0rv//edTn
 
   matrix:
 
@@ -93,12 +89,3 @@ test_script:
   - "python -m unittest discover lda"
   # Move back to the project folder
   - "cd .."
-
-after_test:
-  # If tests are successful, create binary packages for the project.
-  # TODO: may need to set PBR_VERSION, submodules often confuse pbr
-  - "%CMD_IN_ENV% python setup.py bdist_wheel"
-  - ps: "ls dist"
-  # APPVEYOR_REPO_TAG will be true if commit is tagged
-  - "IF /I %APPVEYOR_REPO_TAG%==true (%CMD_IN_ENV% pip install wheelhouse-uploader)"
-  - "IF /I %APPVEYOR_REPO_TAG%==true (%CMD_IN_ENV% python -m wheelhouse_uploader upload --local-folder=dist --no-ssl-check --no-update-index --region=IAD wheels)"
