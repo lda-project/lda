@@ -1,9 +1,7 @@
 # coding=utf-8
 """Latent Dirichlet allocation using collapsed Gibbs sampling"""
 
-from __future__ import absolute_import, division, unicode_literals  # noqa
 import logging
-import sys
 
 import numpy as np
 
@@ -11,10 +9,6 @@ import lda._lda
 import lda.utils
 
 logger = logging.getLogger('lda')
-
-PY2 = sys.version_info[0] == 2
-if PY2:
-    range = xrange
 
 
 class LDA:

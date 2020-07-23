@@ -1,15 +1,7 @@
-from __future__ import absolute_import, unicode_literals  # noqa
-
 import logging
 import numbers
-import sys
 
 import numpy as np
-
-PY2 = sys.version_info[0] == 2
-if PY2:
-    import itertools
-    zip = itertools.izip
 
 
 logger = logging.getLogger('lda')

@@ -4,7 +4,7 @@
 Installing lda
 ==============
 
-lda requires Python (>= 2.7 or >= 3.3) and NumPy (>= 1.13.0). If these
+lda requires Python (>= 3.5) and NumPy (>= 1.13.0). If these
 requirements are satisfied, lda should install successfully with::
 
     pip install lda
