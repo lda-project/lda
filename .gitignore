@@ -57,3 +57,6 @@ lda/_lda.c
 
 # Project-specific
 .testrepository
+
+# PyCharm
+.idea

@@ -52,7 +52,7 @@ def matrix_to_lists(doc_word):
     except AttributeError:
         sparse = False
 
-    if sparse and not np.issubdtype(doc_word.dtype, int):
+    if sparse and not (np.issubdtype(doc_word.dtype, np.int32) or np.issubdtype(doc_word.dtype, np.int64)):
         raise ValueError("expected sparse matrix with integer values, found float values")
 
     ii, jj = np.nonzero(doc_word)
@@ -171,3 +171,4 @@ def ldac2dtm(stream, offset=0):
             np.testing.assert_equal(dtm[i, v], 0)
             dtm[i, v] = cnt
     return dtm
+
