@@ -48,17 +48,17 @@ environment:
       PYTHON_ARCH: "64"
 
 install:
-  - ECHO "Installed SDKs:"
-  - ps: "ls \"C:/Program Files/Microsoft SDKs/Windows\""
-
-  # Install Python (from the official .msi of http://python.org) and pip when
-  # not already installed.
-  - ps: if (-not(Test-Path($env:PYTHON))) { & continuous_integration\appveyor\install.ps1 }
-
-  # Prepend newly installed Python to the PATH of this build (this cannot be
-  # done from inside the powershell script as it would require to restart
-  # the parent CMD process).
-  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+#  - ECHO "Installed SDKs:"
+#  - ps: "ls \"C:/Program Files/Microsoft SDKs/Windows\""
+#
+#  # Install Python (from the official .msi of http://python.org) and pip when
+#  # not already installed.
+#  - ps: if (-not(Test-Path($env:PYTHON))) { & continuous_integration\appveyor\install.ps1 }
+#
+#  # Prepend newly installed Python to the PATH of this build (this cannot be
+#  # done from inside the powershell script as it would require to restart
+#  # the parent CMD process).
+#  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
 
   # Check that we have the expected version and architecture for Python
   - "python --version"
