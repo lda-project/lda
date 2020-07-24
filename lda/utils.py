@@ -3,7 +3,6 @@ import numbers
 
 import numpy as np
 
-
 logger = logging.getLogger('lda')
 
 
@@ -142,13 +141,13 @@ def ldac2dtm(stream, offset=0):
     N = 0
     V = -1
     data = []
-    for l in doclines:
-        l = l.strip()
+    for line in doclines:
+        line = line.strip()
         # skip empty lines
-        if not l:
+        if not line:
             continue
-        unique_terms = int(l.split(' ')[0])
-        term_cnt_pairs = [s.split(':') for s in l.split(' ')[1:]]
+        unique_terms = int(line.split(' ')[0])
+        term_cnt_pairs = [s.split(':') for s in line.split(' ')[1:]]
         for v, _ in term_cnt_pairs:
             # check that format is indeed LDA-C with the appropriate offset
             if int(v) == 0 and offset == 1:
@@ -165,4 +164,3 @@ def ldac2dtm(stream, offset=0):
             np.testing.assert_equal(dtm[i, v], 0)
             dtm[i, v] = cnt
     return dtm
-

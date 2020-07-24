@@ -16,7 +16,9 @@ class TestLDASparse(oslotest.base.BaseTestCase):
     def setUpClass(cls):
         test_dir = os.path.dirname(__file__)
         reuters_ldac_fn = os.path.join(test_dir, 'reuters.ldac')
-        cls.dtm = scipy.sparse.csr_matrix(lda.utils.ldac2dtm(open(reuters_ldac_fn), offset=0)).astype(np.int64)
+        cls.dtm = scipy.sparse.csr_matrix(
+            lda.utils.ldac2dtm(open(reuters_ldac_fn), offset=0)
+        ).astype(np.int64)
         cls.n_iter = n_iter = 1
         cls.n_topics = n_topics = 10
         cls.random_seed = random_seed = 1

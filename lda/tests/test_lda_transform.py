@@ -46,9 +46,14 @@ class TestLDATransform(oslotest.base.BaseTestCase):
         np.random.seed(random_seed)
         for s in range(S):
             # scipy.stats.entropy(p, q) calculates Kullback-Leibler divergence
-            kl_div_dist[s] = scipy.stats.entropy(doc_topic_test_true[np.random.choice(len(doc_topic_test_true))],
-                                                 doc_topic[np.random.choice(len(doc_topic))])
-        quantiles = scipy.stats.mstats.mquantiles(kl_div_dist, prob=np.linspace(0, 1, 500, endpoint=False))
+            kl_div_dist[s] = scipy.stats.entropy(
+                doc_topic_test_true[np.random.choice(len(doc_topic_test_true))],
+                doc_topic[np.random.choice(len(doc_topic))]
+            )
+        quantiles = scipy.stats.mstats.mquantiles(
+            kl_div_dist,
+            prob=np.linspace(0, 1, 500, endpoint=False)
+        )
 
         for p, q in zip(doc_topic_test_true, doc_topic_test):
             kl_div = scipy.stats.entropy(p, q)
