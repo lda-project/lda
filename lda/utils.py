@@ -43,9 +43,7 @@ def matrix_to_lists(doc_word):
     except AttributeError:
         sparse = False
 
-    if sparse and not (np.issubdtype(doc_word.dtype, int)
-                       or np.issubdtype(doc_word.dtype, np.int32)
-                       or np.issubdtype(doc_word.dtype, np.int64)):
+    if sparse and doc_word.dtype.kind not in {'i', 'u'}:   # check that general kind of data is signed or unsigned int
         raise ValueError("expected sparse matrix with integer values, found float values")
 
     ii, jj = np.nonzero(doc_word)
@@ -101,7 +99,7 @@ def dtm2ldac(dtm, offset=0):
         dtm = dtm.tocsr()
     except AttributeError:
         pass
-    assert np.issubdtype(dtm.dtype, int)
+    assert dtm.dtype.kind in {'i', 'u'}
     n_rows = dtm.shape[0]
     for i, row in enumerate(dtm):
         try:

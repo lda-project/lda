@@ -15,13 +15,14 @@ environment:
     # a later point release.
     # See: http://www.appveyor.com/docs/installed-software#python
 
-    - PYTHON: "C:\\Python35"
-      PYTHON_VERSION: "3.5.x"
-      PYTHON_ARCH: "32"
-
-    - PYTHON: "C:\\Python35-x64"
-      PYTHON_VERSION: "3.5.x"
-      PYTHON_ARCH: "64"
+    # TODO: re-enable py35
+#    - PYTHON: "C:\\Python35"
+#      PYTHON_VERSION: "3.5.x"
+#      PYTHON_ARCH: "32"
+#
+#    - PYTHON: "C:\\Python35-x64"
+#      PYTHON_VERSION: "3.5.x"
+#      PYTHON_ARCH: "64"
 
     - PYTHON: "C:\\Python36"
       PYTHON_VERSION: "3.6.x"
