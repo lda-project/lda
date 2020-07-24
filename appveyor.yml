@@ -54,19 +54,19 @@ install:
 #  # Install Python (from the official .msi of http://python.org) and pip when
 #  # not already installed.
 #  - ps: if (-not(Test-Path($env:PYTHON))) { & continuous_integration\appveyor\install.ps1 }
-#
-#  # Prepend newly installed Python to the PATH of this build (this cannot be
-#  # done from inside the powershell script as it would require to restart
-#  # the parent CMD process).
-#  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+
+  # Prepend newly installed Python to the PATH of this build (this cannot be
+  # done from inside the powershell script as it would require to restart
+  # the parent CMD process).
+  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
 
   # Check that we have the expected version and architecture for Python
-  - "python3 --version"
-  - "python3 -c \"import struct; print(struct.calcsize('P') * 8)\""
+  - "python --version"
+  - "python -c \"import struct; print(struct.calcsize('P') * 8)\""
 
   # Upgrade to the latest version of pip to avoid it displaying warnings
   # about it being out of date.
-  - "python3 -m pip install --disable-pip-version-check --user --upgrade pip"
+  - "python -m pip install --disable-pip-version-check --user --upgrade pip"
 
   # Install the build dependencies of the project. If some dependencies contain
   # compiled extensions and are not provided as pre-built wheel packages,
@@ -77,7 +77,7 @@ install:
   - "%CMD_IN_ENV% pip install -r test-requirements.txt"
   - "%CMD_IN_ENV% cython lda/_lda.pyx"
   # build the wheel and install it
-  - "%CMD_IN_ENV% python3 setup.py bdist_wheel bdist_wininst"
+  - "%CMD_IN_ENV% python setup.py bdist_wheel bdist_wininst"
   - ps: "ls dist"
 
   # Install the generated wheel package to test it
