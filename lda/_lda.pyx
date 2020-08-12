@@ -92,11 +92,12 @@ cpdef double _loglikelihood(int[:, :] nzw, int[:, :] ndz, double alpha, double e
     const_ll = (vocab_size*lgamma(eta) - lgamma(eta*vocab_size)) * n_topics
 
     # calculate log p(w|z)
-    
+    cdef double topic_ll = 0
+    cdef double doc_ll = 0
+    cdef double sum = 0
     with nogil:
-    	cdef double topic_ll = 0
         for k in range(n_topics):
-            cdef double sum = eta*vocab_size
+            sum = eta*vocab_size
             for w in range(vocab_size):
                 # if nzw[k, w] == 0 addition and subtraction cancel out
                 if nzw[k, w] > 0:
@@ -106,9 +107,8 @@ cpdef double _loglikelihood(int[:, :] nzw, int[:, :] ndz, double alpha, double e
             
 
         # calculate log p(z)
-        cdef double doc_ll = 0
         for d in range(D):
-            cdef double sum = alpha*n_topics
+            sum = alpha*n_topics
             for k in range(n_topics):
                 if ndz[d, k] > 0:
                     doc_ll=lgamma(ndz[d, k] + alpha)
