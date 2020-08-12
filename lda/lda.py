@@ -301,7 +301,7 @@ class LDA:
         alpha = self.alpha
         eta = self.eta
         nd = np.sum(ndz, axis=1).astype(np.intc)
-        return lda._lda._loglikelihood(nzw, ndz, nz, nd, alpha, eta)
+        return lda._lda._loglikelihood(nzw, ndz, alpha, eta)
 
     def _sample_topics(self, rands):
         """Samples all topic assignments. Called once per iteration."""
