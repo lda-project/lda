@@ -78,7 +78,7 @@ def _sample_topics(int[:] WS, int[:] DS, int[:] ZS, int[:, :] nzw, int[:, :] ndz
         free(dist_sum)
 
 
- cpdef double _loglikelihood(int[:, :] nzw, int[:, :] ndz, double alpha, double eta) nogil:
+cpdef double _loglikelihood(int[:, :] nzw, int[:, :] ndz, double alpha, double eta) nogil:
     cdef int k, d
     cdef int D = ndz.shape[0]
     cdef int n_topics = ndz.shape[1]
