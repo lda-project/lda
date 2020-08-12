@@ -78,33 +78,43 @@ def _sample_topics(int[:] WS, int[:] DS, int[:] ZS, int[:, :] nzw, int[:, :] ndz
         free(dist_sum)
 
 
-cpdef double _loglikelihood(int[:, :] nzw, int[:, :] ndz, int[:] nz, int[:] nd, double alpha, double eta) nogil:
+ cpdef double _loglikelihood(int[:, :] nzw, int[:, :] ndz, double alpha, double eta) nogil:
     cdef int k, d
     cdef int D = ndz.shape[0]
     cdef int n_topics = ndz.shape[1]
     cdef int vocab_size = nzw.shape[1]
 
     cdef double ll = 0
+    cdef double const_prior = 0
+    cdef double const_ll = 0
+    
+    const_prior = (n_topics * lgamma(alpha) - lgamma(alpha*n_topics)) * D
+    const_ll = (vocab_size*lgamma(eta) - lgamma(eta*vocab_size)) * n_topics
 
     # calculate log p(w|z)
-    cdef double lgamma_eta, lgamma_alpha
+    
     with nogil:
-        lgamma_eta = lgamma(eta)
-        lgamma_alpha = lgamma(alpha)
-
-        ll += n_topics * lgamma(eta * vocab_size)
+    	cdef double topic_ll = 0
         for k in range(n_topics):
-            ll -= lgamma(eta * vocab_size + nz[k])
+            cdef double sum = eta*vocab_size
             for w in range(vocab_size):
                 # if nzw[k, w] == 0 addition and subtraction cancel out
                 if nzw[k, w] > 0:
-                    ll += lgamma(eta + nzw[k, w]) - lgamma_eta
+                    topic_ll=lgamma(nzw[k, w]+eta)
+                    sum += nzw[k, w]
+            topic_ll -= lgamma(sum)
+            
 
         # calculate log p(z)
+        cdef double doc_ll = 0
         for d in range(D):
-            ll += (lgamma(alpha * n_topics) -
-                    lgamma(alpha * n_topics + nd[d]))
+            cdef double sum = alpha*n_topics
             for k in range(n_topics):
                 if ndz[d, k] > 0:
-                    ll += lgamma(alpha + ndz[d, k]) - lgamma_alpha
+                    doc_ll=lgamma(ndz[d, k] + alpha)
+                    sum += ndz[d, k]
+            doc_ll -= lgamma(sum)
+            
+        ll=doc_ll-const_prior+topic_ll-const_ll
+            
         return ll
