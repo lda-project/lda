@@ -3,6 +3,9 @@ lda: Topic modeling with latent Dirichlet allocation
 
 |pypi| |travis| |zenodo|
 
+**NOTE: This package is in maintenance mode. Critical bugs will be fixed. No new features will be added.**
+
+
 ``lda`` implements latent Dirichlet allocation (LDA) using collapsed Gibbs
 sampling. ``lda`` is fast and is tested on Linux, OS X, and Windows.
 

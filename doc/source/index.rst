@@ -11,8 +11,7 @@ lda: Topic modeling with latent Dirichlet Allocation
     <div class="wy-text-large">
 
 **lda** implements latent Dirichlet allocation (LDA) using collapsed Gibbs
-sampling. lda is fast and can be installed without a compiler on Linux, OS X,
-and Windows.
+sampling. lda is fast and can be installed without a compiler on Linux and macOS.
 
 .. raw:: html
 
@@ -60,6 +59,8 @@ demonstrates how to inspect a model of a subset of the Reuters news dataset.
     Topic 17: church catholic bernardin cardinal bishop wright death
     Topic 18: harriman clinton u.s ambassador paris president churchill
     Topic 19: city museum art exhibition century million churches
+
+**NOTE: This package is in maintenance mode. Critical bugs will be fixed. No new features will be added.**
 
 Contents:
 
