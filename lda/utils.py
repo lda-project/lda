@@ -148,8 +148,8 @@ def ldac2dtm(stream, offset=0):
     N = 0
     V = -1
     data = []
-    for l in doclines:
-        l = l.strip()
+    for l in doclines:  # noqa
+        l = l.strip()  # noqa
         # skip empty lines
         if not l:
             continue

@@ -11,6 +11,6 @@ def sdist_pre_hook(cmdobj):
                 _pyxfiles.append(os.path.join(root, f))
     for pyxfile in _pyxfiles:
         cfile = os.path.splitext(pyxfile)[0] + '.c'
-        msg = ("C source file '{}' not found. ".format(cfile) +
-               "Run 'make cython' before sdist.")
+        msg = ("C source file '{}' not found. ".format(cfile)
+               + "Run 'make cython' before sdist.")
         assert os.path.isfile(cfile), msg
