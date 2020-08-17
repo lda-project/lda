@@ -11,6 +11,7 @@ coverage>=3.6
 discover
 python-subunit
 sphinx>=1.1.2
+sphinx-autoapi~=1.4.0
 oslosphinx
 oslotest>=1.1.0.0a2
 testrepository>=0.0.18

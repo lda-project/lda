@@ -68,9 +68,8 @@ Contents:
 
    getting_started
    installation
-   api
+   autoapi/index
    contributing
-   groups
    whats_new
 
 Indices and tables

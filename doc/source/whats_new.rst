@@ -6,6 +6,11 @@
  What's New
 ============
 
+v2.0.0 (17. August 2020)
+==========================
+- Drop support for Python 2.7
+- Wheels for Python 3.8
+
 v1.1.0 (9. September 2018)
 ==========================
 - Wheels for Python 3.7
