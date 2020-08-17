@@ -131,7 +131,7 @@ lda is licensed under Version 2.0 of the Mozilla Public License.
 
 .. _Python: http://www.python.org/
 .. _scikit-learn: http://scikit-learn.org
-.. _hca: http://www.mloss.org/software/view/527/
+.. _hca: https://www.mloss.org/software/view/527/
 .. _MALLET: http://mallet.cs.umass.edu/
 .. _numpy: http://www.numpy.org/
 .. _pbr: https://pypi.python.org/pypi/pbr
