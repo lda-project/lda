@@ -2,11 +2,13 @@ from __future__ import absolute_import, unicode_literals  # noqa
 
 import logging
 
-import pbr.version
-
 from lda.lda import LDA  # noqa
 import lda.datasets  # noqa
 
-__version__ = pbr.version.VersionInfo('lda').version_string()
+try:
+    from importlib.metadata import version  # py38 and higher
+    __version__ = version("lda")
+except:
+    pass
 
 logging.getLogger('lda').addHandler(logging.NullHandler())
