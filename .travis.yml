@@ -1,9 +1,12 @@
+version: ~> 1.0
 language: python
 dist: xenial
-python:
-  - "3.6"
-  - "3.7"
-  - "3.8"
+python: 3.7
+jobs:
+  - python: 3.6
+  - python: 3.7
+  - python: 3.8
+cache: pip
 before_install:
   # use Anaconda to get compiled versions of scipy and numpy,
   # modified from https://gist.github.com/dan-blanchard/7045057
