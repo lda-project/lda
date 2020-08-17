@@ -8,7 +8,7 @@ import lda.datasets  # noqa
 try:
     from importlib.metadata import version  # py38 and higher
     __version__ = version("lda")
-except:
+except:  # noqa
     pass
 
 logging.getLogger('lda').addHandler(logging.NullHandler())

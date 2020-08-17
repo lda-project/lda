@@ -14,7 +14,7 @@ logger = logging.getLogger('lda')
 
 PY2 = sys.version_info[0] == 2
 if PY2:
-    range = xrange
+    range = xrange  # noqa
 
 
 class LDA:
@@ -215,10 +215,10 @@ class LDA:
 
         """
         PZS = np.zeros((len(doc), self.n_topics))
-        for iteration in range(max_iter + 1): # +1 is for initialization
+        for iteration in range(max_iter + 1):  # +1 is for initialization
             PZS_new = self.components_[:, doc].T
             PZS_new *= (PZS.sum(axis=0) - PZS + self.alpha)
-            PZS_new /= PZS_new.sum(axis=1)[:, np.newaxis] # vector to single column matrix
+            PZS_new /= PZS_new.sum(axis=1)[:, np.newaxis]  # vector to single column matrix
             delta_naive = np.abs(PZS_new - PZS).sum()
             logger.debug('transform iter {}, delta {}'.format(iteration, delta_naive))
             PZS = PZS_new
