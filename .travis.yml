@@ -6,6 +6,7 @@ jobs:
   - python: 3.6
   - python: 3.7
   - python: 3.8
+  - python: 3.9
 cache: pip
 before_install:
   # use Anaconda to get compiled versions of scipy and numpy,
