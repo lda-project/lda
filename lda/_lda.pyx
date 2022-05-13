@@ -6,7 +6,6 @@
 from cython.operator cimport preincrement as inc, predecrement as dec
 from libc.stdlib cimport malloc, free
 
-
 cdef extern from "gamma.h":
     cdef double lda_lgamma(double x) nogil
 
@@ -78,13 +77,14 @@ def _sample_topics(int[:] WS, int[:] DS, int[:] ZS, int[:, :] nzw, int[:, :] ndz
         free(dist_sum)
 
 
-cpdef double _loglikelihood(int[:, :] nzw, int[:, :] ndz, int[:] nz, int[:] nd, double alpha, double eta) nogil:
+cpdef double _loglikelihood(int[:, :] nzw, int[:, :] ndz, int[:] nz, int[:] nd, double alpha, double eta, double prior) nogil:
     cdef int k, d
     cdef int D = ndz.shape[0]
     cdef int n_topics = ndz.shape[1]
     cdef int vocab_size = nzw.shape[1]
 
     cdef double ll = 0
+    cdef double lp = 0
 
     # calculate log p(w|z)
     cdef double lgamma_eta, lgamma_alpha
@@ -100,11 +100,14 @@ cpdef double _loglikelihood(int[:, :] nzw, int[:, :] ndz, int[:] nz, int[:] nd, 
                 if nzw[k, w] > 0:
                     ll += lgamma(eta + nzw[k, w]) - lgamma_eta
 
-        # calculate log p(z)
-        for d in range(D):
-            ll += (lgamma(alpha * n_topics) -
-                    lgamma(alpha * n_topics + nd[d]))
-            for k in range(n_topics):
-                if ndz[d, k] > 0:
-                    ll += lgamma(alpha + ndz[d, k]) - lgamma_alpha
-        return ll
+        if prior >= 0:
+            lp += prior
+            # calculate log p(z)
+            for d in range(D):
+                lp += (lgamma(alpha * n_topics) -
+                        lgamma(alpha * n_topics + nd[d]))
+                for k in range(n_topics):
+                    if ndz[d, k] > 0:
+                        lp += lgamma(alpha + ndz[d, k]) - lgamma_alpha
+        return ll + lp
+

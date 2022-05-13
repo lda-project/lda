@@ -292,16 +292,24 @@ class LDA:
             nz_[z_new] += 1
         self.loglikelihoods_ = []
 
-    def loglikelihood(self):
+    def loglikelihood(self, compute_prior = False):
         """Calculate complete log likelihood, log p(w,z)
 
         Formula used is log p(w,z) = log p(w|z) + log p(z)
+
+        Parameters
+        ----------
+        compute_prior: bool (default=False) add log p(z) to the loglikelihood
         """
         nzw, ndz, nz = self.nzw_, self.ndz_, self.nz_
         alpha = self.alpha
         eta = self.eta
         nd = np.sum(ndz, axis=1).astype(np.intc)
-        return lda._lda._loglikelihood(nzw, ndz, nz, nd, alpha, eta)
+        if compute_prior:
+            prior = 0.
+        else:
+            prior = -1.
+        return lda._lda._loglikelihood(nzw, ndz, nz, nd, alpha, eta, prior)
 
     def _sample_topics(self, rands):
         """Samples all topic assignments. Called once per iteration."""
