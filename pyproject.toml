@@ -16,6 +16,7 @@ cython = "^0.29.36"
 black = "^23.7.0"
 isort = "^5.12.0"
 pre-commit = "^3.3.3"
+ruff = "^0.0.278"
 
 [tool.poetry.build]
 generate-setup-file = true
@@ -29,6 +30,17 @@ line_length = 99
 use_parentheses = true
 include_trailing_comma = true
 multi_line_output = 3
+
+[tool.ruff]
+line-length = 99
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.cibuildwheel]
+build = "cp39-* cp310-* cp311-* cp312-*"
+# test-requires = "pytest"
+#test-command = "pytest {project}/tests"
 
 [build-system]
 requires = ["poetry-core", "setuptools", "cython"]
