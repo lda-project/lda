@@ -3,10 +3,28 @@ import numbers
 
 import numpy as np
 
-logger = logging.getLogger("lda")
+LOGGER = logging.getLogger(__name__)
 
 
-def check_random_state(seed):
+def check_random_state(seed: None | int | np.random.RandomState) -> np.random.RandomState:
+    """Turn seed into a np.random.RandomState instance.
+
+    Parameters
+    ----------
+    seed : None | int | np.random.RandomState
+        If seed is None, return the RandomState singleton used by np.random.
+        If seed is an int, return a new RandomState instance seeded with seed.
+        If seed is already a RandomState instance, return it.
+
+    Returns
+    -------
+    np.random.RandomState
+        RandomState object.
+
+    Notes
+    -----
+    This routine is adapted from scikit-learn's `check_random_state()`.
+    """
     if seed is None:
         # i.e., use existing RandomState
         return np.random.mtrand._rand
@@ -14,11 +32,11 @@ def check_random_state(seed):
         return np.random.RandomState(seed)
     if isinstance(seed, np.random.RandomState):
         return seed
-    raise ValueError("{} cannot be used as a random seed.".format(seed))
+    raise ValueError(f"{seed} cannot be used as a random seed.")
 
 
 def matrix_to_lists(doc_word):
-    """Convert a (sparse) matrix of counts into arrays of word and doc indices
+    """Convert a (sparse) matrix of counts into arrays of word and doc indices.
 
     Parameters
     ----------
@@ -33,9 +51,9 @@ def matrix_to_lists(doc_word):
 
     """
     if np.count_nonzero(doc_word.sum(axis=1)) != doc_word.shape[0]:
-        logger.warning("all zero row in document-term matrix found")
+        LOGGER.warning("all zero row in document-term matrix found")
     if np.count_nonzero(doc_word.sum(axis=0)) != doc_word.shape[1]:
-        logger.warning("all zero column in document-term matrix found")
+        LOGGER.warning("all zero column in document-term matrix found")
     sparse = True
     try:
         # if doc_word is a scipy sparse matrix
@@ -44,9 +62,7 @@ def matrix_to_lists(doc_word):
         sparse = False
 
     if sparse and not np.issubdtype(doc_word.dtype, np.integer):
-        raise ValueError(
-            "expected sparse matrix with integer values, found float values"
-        )
+        raise ValueError("expected sparse matrix with integer values, found float values")
 
     ii, jj = np.nonzero(doc_word)
     if sparse:
@@ -115,7 +131,7 @@ def dtm2ldac(dtm, offset=0):
         docline = str(unique_terms) + " "
         docline += " ".join(["{}:{}".format(i, cnt) for i, cnt in term_cnt_pairs])
         if (i + 1) % 1000 == 0:
-            logger.info("dtm2ldac: on row {} of {}".format(i + 1, n_rows))
+            LOGGER.info("dtm2ldac: on row {} of {}".format(i + 1, n_rows))
         yield docline
 
 

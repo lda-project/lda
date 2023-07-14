@@ -25,7 +25,7 @@ script = "build.py"
 line-length = 99
 
 [tool.isort]
-line-length = 99
+line_length = 99
 use_parentheses = true
 include_trailing_comma = true
 multi_line_output = 3
