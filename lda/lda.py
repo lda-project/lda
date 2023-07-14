@@ -1,7 +1,6 @@
 # coding=utf-8
 """Latent Dirichlet allocation using collapsed Gibbs sampling"""
 
-from __future__ import absolute_import, division, unicode_literals  # noqa
 import logging
 import sys
 
