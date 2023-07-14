@@ -2,18 +2,13 @@
 """Latent Dirichlet allocation using collapsed Gibbs sampling"""
 
 import logging
-import sys
 
 import numpy as np
 
 import lda._lda
 import lda.utils
 
-logger = logging.getLogger('lda')
-
-PY2 = sys.version_info[0] == 2
-if PY2:
-    range = xrange  # noqa
+LOGGER = logging.getLogger(__name__)
 
 
 class LDA:
@@ -90,8 +85,7 @@ class LDA:
 
     """
 
-    def __init__(self, n_topics, n_iter=2000, alpha=0.1, eta=0.01, random_state=None,
-                 refresh=10):
+    def __init__(self, n_topics, n_iter=2000, alpha=0.1, eta=0.01, random_state=None, refresh=10):
         self.n_topics = n_topics
         self.n_iter = n_iter
         self.alpha = alpha
@@ -109,7 +103,7 @@ class LDA:
         self._rands = rng.rand(1024**2 // 8)  # 1MiB of random variates
 
         # configure console logging if not already configured
-        if len(logger.handlers) == 1 and isinstance(logger.handlers[0], logging.NullHandler):
+        if len(LOGGER.handlers) == 1 and isinstance(LOGGER.handlers[0], logging.NullHandler):
             logging.basicConfig(level=logging.INFO)
 
     def fit(self, X, y=None):
@@ -216,10 +210,10 @@ class LDA:
         PZS = np.zeros((len(doc), self.n_topics))
         for iteration in range(max_iter + 1):  # +1 is for initialization
             PZS_new = self.components_[:, doc].T
-            PZS_new *= (PZS.sum(axis=0) - PZS + self.alpha)
+            PZS_new *= PZS.sum(axis=0) - PZS + self.alpha
             PZS_new /= PZS_new.sum(axis=1)[:, np.newaxis]  # vector to single column matrix
             delta_naive = np.abs(PZS_new - PZS).sum()
-            logger.debug('transform iter {}, delta {}'.format(iteration, delta_naive))
+            LOGGER.debug("transform iter {}, delta {}".format(iteration, delta_naive))
             PZS = PZS_new
             if delta_naive < tol:
                 break
@@ -245,12 +239,12 @@ class LDA:
             random_state.shuffle(rands)
             if it % self.refresh == 0:
                 ll = self.loglikelihood()
-                logger.info("<{}> log likelihood: {:.0f}".format(it, ll))
+                LOGGER.info("<{}> log likelihood: {:.0f}".format(it, ll))
                 # keep track of loglikelihoods for monitoring convergence
                 self.loglikelihoods_.append(ll)
             self._sample_topics(rands)
         ll = self.loglikelihood()
-        logger.info("<{}> log likelihood: {:.0f}".format(self.n_iter - 1, ll))
+        LOGGER.info("<{}> log likelihood: {:.0f}".format(self.n_iter - 1, ll))
         # note: numpy /= is integer division
         self.components_ = (self.nzw_ + self.eta).astype(float)
         self.components_ /= np.sum(self.components_, axis=1)[:, np.newaxis]
@@ -269,11 +263,11 @@ class LDA:
         N = int(X.sum())
         n_topics = self.n_topics
         n_iter = self.n_iter
-        logger.info("n_documents: {}".format(D))
-        logger.info("vocab_size: {}".format(W))
-        logger.info("n_words: {}".format(N))
-        logger.info("n_topics: {}".format(n_topics))
-        logger.info("n_iter: {}".format(n_iter))
+        LOGGER.info("n_documents: {}".format(D))
+        LOGGER.info("vocab_size: {}".format(W))
+        LOGGER.info("n_words: {}".format(N))
+        LOGGER.info("n_topics: {}".format(n_topics))
+        LOGGER.info("n_iter: {}".format(n_iter))
 
         self.nzw_ = nzw_ = np.zeros((n_topics, W), dtype=np.intc)
         self.ndz_ = ndz_ = np.zeros((D, n_topics), dtype=np.intc)
@@ -307,5 +301,6 @@ class LDA:
         n_topics, vocab_size = self.nzw_.shape
         alpha = np.repeat(self.alpha, n_topics).astype(np.float64)
         eta = np.repeat(self.eta, vocab_size).astype(np.float64)
-        lda._lda._sample_topics(self.WS, self.DS, self.ZS, self.nzw_, self.ndz_, self.nz_,
-                                alpha, eta, rands)
+        lda._lda._sample_topics(
+            self.WS, self.DS, self.ZS, self.nzw_, self.ndz_, self.nz_, alpha, eta, rands
+        )

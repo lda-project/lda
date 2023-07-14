@@ -35,7 +35,7 @@ def check_random_state(seed: None | int | np.random.RandomState) -> np.random.Ra
     raise ValueError(f"{seed} cannot be used as a random seed.")
 
 
-def matrix_to_lists(doc_word):
+def matrix_to_lists(doc_word: np.ndarray | "scipy.sparse.csr_matrix"):
     """Convert a (sparse) matrix of counts into arrays of word and doc indices.
 
     Parameters
@@ -54,6 +54,7 @@ def matrix_to_lists(doc_word):
         LOGGER.warning("all zero row in document-term matrix found")
     if np.count_nonzero(doc_word.sum(axis=0)) != doc_word.shape[1]:
         LOGGER.warning("all zero column in document-term matrix found")
+
     sparse = True
     try:
         # if doc_word is a scipy sparse matrix
@@ -76,7 +77,7 @@ def matrix_to_lists(doc_word):
 
 
 def lists_to_matrix(WS, DS):
-    """Convert array of word (or topic) and document indices to doc-term array
+    """Convert array of word (or topic) and document indices to doc-term array.
 
     Parameters
     -----------
