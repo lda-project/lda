@@ -1,11 +1,9 @@
 import logging
 import numbers
-import sys
 
 import numpy as np
 
-
-logger = logging.getLogger('lda')
+logger = logging.getLogger("lda")
 
 
 def check_random_state(seed):
@@ -46,7 +44,9 @@ def matrix_to_lists(doc_word):
         sparse = False
 
     if sparse and not np.issubdtype(doc_word.dtype, np.integer):
-        raise ValueError("expected sparse matrix with integer values, found float values")
+        raise ValueError(
+            "expected sparse matrix with integer values, found float values"
+        )
 
     ii, jj = np.nonzero(doc_word)
     if sparse:
@@ -112,8 +112,8 @@ def dtm2ldac(dtm, offset=0):
         if unique_terms == 0:
             raise ValueError("dtm row {} has all zero entries.".format(i))
         term_cnt_pairs = [(i + offset, cnt) for i, cnt in enumerate(row) if cnt > 0]
-        docline = str(unique_terms) + ' '
-        docline += ' '.join(["{}:{}".format(i, cnt) for i, cnt in term_cnt_pairs])
+        docline = str(unique_terms) + " "
+        docline += " ".join(["{}:{}".format(i, cnt) for i, cnt in term_cnt_pairs])
         if (i + 1) % 1000 == 0:
             logger.info("dtm2ldac: on row {} of {}".format(i + 1, n_rows))
         yield docline
@@ -146,8 +146,8 @@ def ldac2dtm(stream, offset=0):
         # skip empty lines
         if not l:
             continue
-        unique_terms = int(l.split(' ')[0])
-        term_cnt_pairs = [s.split(':') for s in l.split(' ')[1:]]
+        unique_terms = int(l.split(" ")[0])
+        term_cnt_pairs = [s.split(":") for s in l.split(" ")[1:]]
         for v, _ in term_cnt_pairs:
             # check that format is indeed LDA-C with the appropriate offset
             if int(v) == 0 and offset == 1:
