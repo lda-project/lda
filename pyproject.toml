@@ -21,7 +21,11 @@ pre-commit = "^3.3.3"
 generate-setup-file = true
 script = "build.py"
 
+[tool.black]
+line-length = 99
+
 [tool.isort]
+line-length = 99
 use_parentheses = true
 include_trailing_comma = true
 multi_line_output = 3
