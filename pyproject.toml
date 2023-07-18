@@ -6,6 +6,10 @@ authors = ["lda developers <lda-users@googlegroups.com>"]
 license = "MPL 2.0"
 readme = "README.rst"
 
+[tool.poetry.build]
+generate-setup-file = true
+script = "build.py"
+
 [tool.poetry.dependencies]
 python = "^3.9"
 numpy = "^1.25.1"
@@ -16,13 +20,11 @@ black = "^23.7.0"
 isort = "^5.12.0"
 pre-commit = "^3.3.3"
 ruff = "^0.0.278"
+
+[tool.poetry.group.testing.dependencies]
 oslotest = "^4.5.0"
 scipy = { version = "^1.11.1", python = ">=3.9,<3.13" }
 pytest = "^7.4.0"
-
-[tool.poetry.build]
-generate-setup-file = true
-script = "build.py"
 
 [tool.black]
 line-length = 99
@@ -41,8 +43,8 @@ line-length = 99
 
 [tool.cibuildwheel]
 build = "cp39-* cp310-* cp311-* cp312-*"
-test-requires = "pytest"
-test-command = "pytest {project}/tests"
+before-test = "poetry install --no-root --only testing"
+test-command = "pytest {project}/lda/tests"
 
 [build-system]
 requires = ["poetry-core", "setuptools", "cython"]
