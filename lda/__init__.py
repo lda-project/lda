@@ -1,3 +1,5 @@
+from __future__ import absolute_import, unicode_literals  # noqa
+
 import logging
 
 from lda.lda import LDA  # noqa
