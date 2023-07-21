@@ -21,7 +21,7 @@ isort = "^5.12.0"
 pre-commit = "^3.3.3"
 ruff = "^0.0.278"
 
-[tool.poetry.group.testing.dependencies]
+[tool.poetry.group.test.dependencies]
 oslotest = "^4.5.0"
 scipy = { version = "^1.11.1", python = ">=3.9,<3.13" }
 pytest = "^7.4.0"
@@ -43,8 +43,8 @@ line-length = 99
 
 [tool.cibuildwheel]
 build = "cp39-* cp310-* cp311-* cp312-*"
-before-test = "poetry install --no-root --only testing"
-test-command = "pytest {project}/lda/tests"
+# test-requires = ["pytest", "oslotest", "scipy"]
+# test-command = "pytest {project}/lda/tests"
 
 [build-system]
 requires = ["poetry-core", "setuptools", "cython"]
