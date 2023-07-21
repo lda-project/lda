@@ -26,6 +26,9 @@ oslotest = "^4.5.0"
 scipy = { version = "^1.11.1", python = ">=3.9,<3.13" }
 pytest = "^7.4.0"
 
+[tool.poetry.group.build.dependencies]
+cibuildwheel = "^2.14.1"
+
 [tool.black]
 line-length = 99
 
