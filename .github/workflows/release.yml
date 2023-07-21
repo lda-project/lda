@@ -26,7 +26,7 @@ jobs:
           virtualenvs-in-project: true
 
       - name: Install Python tools
-        run: poetry install --only build
+        run: poetry install
 
       - name: Build wheels
         run: poetry run cibuildwheel --output-dir dist
