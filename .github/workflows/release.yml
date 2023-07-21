@@ -1,0 +1,39 @@
+name: CI & CD
+
+on:
+  push:
+    tags: ["*"]
+
+jobs:
+  build:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        name: Install Python
+        with:
+          python-version: "3.11"
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-in-project: true
+
+      - name: Install Python tools
+        run: poetry install --only build
+
+      - name: Build wheels
+        run: poetry run cibuildwheel --output-dir dist
+
+      - name: Build sdist (only once on Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: poetry build --format sdist
+
+      - name: Deploy wheels
+        run: poetry publish --username ${{ secrets.PYPI_USER }} --password ${{ secrets.PYPI_PW }} --dry-run
