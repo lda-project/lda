@@ -23,7 +23,7 @@ jobs:
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
-          virtualenvs-in-project: true
+          virtualenvs-in-project: false
 
       - name: Install Python dependencies
         run: poetry install --only build --no-root
@@ -31,7 +31,7 @@ jobs:
       - name: Build wheels
         run: python -m cibuildwheel --output-dir dist
 
-      - name: Build sdist (only once on Linux)
+      - name: Build source distribution (only once on Linux)
         if: matrix.os == 'ubuntu-latest'
         run: poetry build --format sdist
 
