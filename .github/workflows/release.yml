@@ -25,11 +25,11 @@ jobs:
         with:
           virtualenvs-in-project: true
 
-      - name: Install Python tools
-        run: poetry install
+      - name: Install Python dependencies
+        run: poetry install --only build --no-root
 
       - name: Build wheels
-        run: poetry run cibuildwheel --output-dir dist
+        run: cibuildwheel --output-dir dist
 
       - name: Build sdist (only once on Linux)
         if: matrix.os == 'ubuntu-latest'
