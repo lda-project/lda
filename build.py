@@ -10,5 +10,7 @@ def build(kwargs: dict):
     kwargs : dict
         Keyword arguments passed to the setup function.
     """
-    kwargs["ext_modules"] = [Extension("lda._lda", sources=["lda/_lda.pyx", "lda/gamma.c"])]
+    kwargs["ext_modules"] = [
+        Extension("lda._lda", sources=["src/lda/_lda.pyx", "src/lda/gamma.c"])
+    ]
     kwargs["cmdclass"] = {"build_ext": build_ext}
