@@ -47,7 +47,7 @@ line-length = 99
 
 [tool.cibuildwheel]
 build = "cp39-* cp310-* cp311-* cp312-*"
-test-requires = "pytest"
+test-requires = ["pytest", "oslotest", "scipy"]
 test-command = "pytest {project}/tests"
 
 [build-system]
