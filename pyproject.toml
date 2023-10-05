@@ -5,6 +5,7 @@ description = "Topic modeling with latent Dirichlet allocation"
 authors = ["lda developers <lda-users@googlegroups.com>"]
 license = "MPL 2.0"
 readme = "README.rst"
+include = ["src/lda/data/*"]
 packages = [{ include = "lda", from = "src" }]
 
 [tool.poetry.build]
