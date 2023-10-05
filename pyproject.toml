@@ -11,23 +11,23 @@ generate-setup-file = true
 script = "build.py"
 
 [tool.poetry.dependencies]
-python = "^3.9"
-numpy = "^1.25.1"
+python = "<3.13,>=3.9"
+numpy = "^1.26.0"
 
 [tool.poetry.group.dev.dependencies]
-cython = "^3.0.0"
-black = "^23.7.0"
+cython = "^3.0.3"
+black = "^23.9.1"
 isort = "^5.12.0"
-pre-commit = "^3.3.3"
-ruff = "^0.0.278"
+pre-commit = "^3.4.0"
+ruff = "^0.0.292"
 
 [tool.poetry.group.test.dependencies]
 oslotest = "^4.5.0"
-scipy = { version = "^1.11.1", python = ">=3.9,<3.13" }
-pytest = "^7.4.0"
+scipy = "^1.11.3"
+pytest = "^7.4.2"
 
 [tool.poetry.group.build.dependencies]
-cibuildwheel = "^2.14.1"
+cibuildwheel = "^2.16.2"
 
 [tool.black]
 line-length = 99
@@ -46,8 +46,7 @@ line-length = 99
 
 [tool.cibuildwheel]
 build = "cp39-* cp310-* cp311-* cp312-*"
-# test-requires = ["pytest", "oslotest", "scipy"]
-# test-command = "pytest {project}/lda/tests"
+test-command = "cd {project} && poetry install && pytest lda/tests"
 
 [build-system]
 requires = ["poetry-core", "setuptools", "cython"]
