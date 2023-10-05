@@ -5,6 +5,7 @@ description = "Topic modeling with latent Dirichlet allocation"
 authors = ["lda developers <lda-users@googlegroups.com>"]
 license = "MPL 2.0"
 readme = "README.rst"
+packages = [{ include = "my_package", from = "src" }]
 
 [tool.poetry.build]
 generate-setup-file = true
@@ -46,7 +47,8 @@ line-length = 99
 
 [tool.cibuildwheel]
 build = "cp39-* cp310-* cp311-* cp312-*"
-test-command = "cd {project} && poetry install && pytest lda/tests"
+test-requires = "pytest"
+test-command = "pytest {project}/tests"
 
 [build-system]
 requires = ["poetry-core", "setuptools", "cython"]

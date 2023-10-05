@@ -1,4 +1,4 @@
-from Cython.Build import cythonize
+from Cython.Distutils import build_ext
 from setuptools import Extension
 
 
@@ -10,5 +10,5 @@ def build(kwargs: dict):
     kwargs : dict
         Keyword arguments passed to the setup function.
     """
-    extension = Extension("lda._lda", sources=["lda/_lda.pyx", "lda/gamma.c"])
-    kwargs["ext_modules"] = cythonize([extension])
+    kwargs["ext_modules"] = [Extension("lda._lda", sources=["lda/_lda.pyx", "lda/gamma.c"])]
+    kwargs["cmdclass"] = {"build_ext": build_ext}
