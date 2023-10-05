@@ -32,7 +32,7 @@ jobs:
         run: poetry install --only build --no-root
 
       - name: Build wheels
-        run: cibuildwheel --output-dir dist
+        run: poetry run cibuildwheel --output-dir dist
 
       - name: Build source distribution (only once on Linux)
         if: matrix.os == 'ubuntu-latest'
