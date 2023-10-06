@@ -59,3 +59,6 @@ lda/_lda.c
 
 # Project-specific
 .testrepository
+
+# pyenv
+.python-version
