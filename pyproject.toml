@@ -42,11 +42,11 @@ line-length = 99
 "__init__.py" = ["F401"]
 
 [tool.cibuildwheel]
-build = "cp310-* cp311-* cp312-*"
+build = "cp39-* cp310-* cp311-* cp312-*"
 skip = ["pp*", "*i686", "*win32"]
 before-build = "rm -rf build"
 test-requires = ["scipy"]
-test-command = "python -m unittest discover --start-directory {project}/tests"
+test-command = "python -m unittest discover -s {project}/tests"
 
 [build-system]
 requires = ["poetry-core", "setuptools", "cython"]
