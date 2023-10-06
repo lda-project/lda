@@ -1,14 +1,14 @@
 # coding=utf-8
 from __future__ import absolute_import, unicode_literals  # noqa
 
+import unittest
+
 import numpy as np
-import oslotest.base
 
 import lda
 
 
-class TestLDA(oslotest.base.BaseTestCase):
-
+class TestLDA(unittest.TestCase):
     def test_lda_constructor(self):
         n_topics = 10
         model1 = lda.LDA(n_topics)

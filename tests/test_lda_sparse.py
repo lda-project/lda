@@ -1,23 +1,24 @@
 # coding=utf-8
 from __future__ import absolute_import, unicode_literals  # noqa
-import os
 
+import os
+import unittest
 
 import numpy as np
-import oslotest.base
 import scipy.sparse
 
 import lda
 import lda.utils
 
 
-class TestLDASparse(oslotest.base.BaseTestCase):
-
+class TestLDASparse(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        test_dir = os.path.dirname(__file__)
-        reuters_ldac_fn = os.path.join(test_dir, 'reuters.ldac')
-        cls.dtm = scipy.sparse.csr_matrix(lda.utils.ldac2dtm(open(reuters_ldac_fn), offset=0)).astype(np.int64)
+        data_dir = os.path.join(os.path.dirname(lda.__file__), 'data')
+        reuters_ldac_fn = os.path.join(data_dir, 'reuters.ldac')
+        cls.dtm = scipy.sparse.csr_matrix(
+            lda.utils.ldac2dtm(open(reuters_ldac_fn), offset=0)
+        ).astype(np.int64)
         cls.n_iter = n_iter = 1
         cls.n_topics = n_topics = 10
         cls.random_seed = random_seed = 1

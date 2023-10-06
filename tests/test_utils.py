@@ -2,16 +2,15 @@ from __future__ import absolute_import, division, unicode_literals  # noqa
 
 import io
 import os
+import unittest
 
 import numpy as np
-import oslotest.base
 import scipy.sparse
 
 import lda.utils as utils
 
 
-class TestUtils(oslotest.base.BaseTestCase):
-
+class TestUtils(unittest.TestCase):
     np.random.seed(99)
 
     D = 100
@@ -89,13 +88,13 @@ class TestUtils(oslotest.base.BaseTestCase):
         self.assertTrue(np.all(dtm == dtm_new))
 
     def test_ldac2dtm_offset(self):
-        test_dir = os.path.dirname(__file__)
-        reuters_ldac_fn = os.path.join(test_dir, 'reuters.ldac')
+        data_dir = os.path.join(os.path.dirname(utils.__file__), 'data')
+        reuters_ldac_fn = os.path.join(data_dir, 'reuters.ldac')
         self.assertRaises(ValueError, utils.ldac2dtm, open(reuters_ldac_fn), offset=1)
 
     def test_ldac2dtm(self):
-        test_dir = os.path.dirname(__file__)
-        reuters_ldac_fn = os.path.join(test_dir, 'reuters.ldac')
+        data_dir = os.path.join(os.path.dirname(utils.__file__), 'data')
+        reuters_ldac_fn = os.path.join(data_dir, 'reuters.ldac')
         dtm = utils.ldac2dtm(open(reuters_ldac_fn))
         self.assertEqual(dtm.shape, (395, 4258))
         self.assertEqual(dtm.sum(), 84010)

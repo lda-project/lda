@@ -1,20 +1,20 @@
 # coding=utf-8
 from __future__ import absolute_import, unicode_literals  # noqa
+
 import os
+import unittest
 
 import numpy as np
-import oslotest.base
 
 import lda
 import lda.utils
 
 
-class TestLDANewsReuters(oslotest.base.BaseTestCase):
-
+class TestLDANewsReuters(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        test_dir = os.path.dirname(__file__)
-        reuters_ldac_fn = os.path.join(test_dir, 'reuters.ldac')
+        data_dir = os.path.join(os.path.dirname(lda.__file__), 'data')
+        reuters_ldac_fn = os.path.join(data_dir, 'reuters.ldac')
         cls.dtm = dtm = lda.utils.ldac2dtm(open(reuters_ldac_fn), offset=0)
         cls.n_iter = n_iter = 1
         cls.n_topics = n_topics = 10

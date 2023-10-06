@@ -1,9 +1,10 @@
 # coding=utf-8
 from __future__ import absolute_import, unicode_literals  # noqa
+
 import os
+import unittest
 
 import numpy as np
-import oslotest.base
 import scipy.sparse
 import scipy.stats
 
@@ -11,12 +12,11 @@ import lda
 import lda.utils
 
 
-class TestLDATransform(oslotest.base.BaseTestCase):
-
+class TestLDATransform(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        test_dir = os.path.dirname(__file__)
-        reuters_ldac_fn = os.path.join(test_dir, 'reuters.ldac')
+        data_dir = os.path.join(os.path.dirname(lda.__file__), 'data')
+        reuters_ldac_fn = os.path.join(data_dir, 'reuters.ldac')
         cls.dtm = dtm = lda.utils.ldac2dtm(open(reuters_ldac_fn), offset=0)
         cls.dtm_sparse = scipy.sparse.csr_matrix(dtm)
         cls.n_iter = n_iter = 400
@@ -47,9 +47,13 @@ class TestLDATransform(oslotest.base.BaseTestCase):
         np.random.seed(random_seed)
         for s in range(S):
             # scipy.stats.entropy(p, q) calculates Kullback-Leibler divergence
-            kl_div_dist[s] = scipy.stats.entropy(doc_topic_test_true[np.random.choice(len(doc_topic_test_true))],
-                                                 doc_topic[np.random.choice(len(doc_topic))])
-        quantiles = scipy.stats.mstats.mquantiles(kl_div_dist, prob=np.linspace(0, 1, 500, endpoint=False))
+            kl_div_dist[s] = scipy.stats.entropy(
+                doc_topic_test_true[np.random.choice(len(doc_topic_test_true))],
+                doc_topic[np.random.choice(len(doc_topic))],
+            )
+        quantiles = scipy.stats.mstats.mquantiles(
+            kl_div_dist, prob=np.linspace(0, 1, 500, endpoint=False)
+        )
 
         for p, q in zip(doc_topic_test_true, doc_topic_test):
             kl_div = scipy.stats.entropy(p, q)

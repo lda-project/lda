@@ -1,13 +1,12 @@
 # coding=utf-8
 from __future__ import absolute_import, unicode_literals  # noqa
 
-import oslotest.base
+import unittest
 
 import lda.datasets
 
 
-class TestDatasets(oslotest.base.BaseTestCase):
-
+class TestDatasets(unittest.TestCase):
     def test_datasets(self):
         X = lda.datasets.load_reuters()
         self.assertEqual(X.shape, (395, 4258))
