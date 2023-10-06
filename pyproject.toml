@@ -43,7 +43,7 @@ line-length = 99
 
 [tool.cibuildwheel]
 build = "cp310-* cp311-* cp312-*"
-skip = ["pp*", "*i686"]
+skip = ["pp*", "*i686", "*win32"]
 before-build = "rm -rf build"
 test-requires = ["scipy"]
 test-command = "cd {project}/tests && python -m unittest"
