@@ -39,4 +39,4 @@ jobs:
         run: poetry build --format sdist
 
       - name: Deploy wheels
-        run: poetry publish --username ${{ secrets.PYPI_USER }} --password ${{ secrets.PYPI_PW }} --dry-run
+        run: poetry publish --username ${{ secrets.PYPI_USER }} --password ${{ secrets.PYPI_PW }}
