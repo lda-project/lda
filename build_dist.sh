@@ -18,15 +18,11 @@ if ! grep -q "$LAST" doc/source/whats_new.rst ; then
   exit -1
 fi
 
-make cython
-
 read -p "Ok to continue (y/n)? " answer
 case ${answer:0:1} in
     y|Y )
         echo "Building distribution"
-        python setup.py clean
-        python setup.py build_ext --inplace
-        python setup.py sdist --formats=zip,gztar
+        poetry build
     ;;
     * )
         echo "Not building distribution"
