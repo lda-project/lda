@@ -51,6 +51,6 @@ class TestLDASparse(oslotest.base.BaseTestCase):
         np.testing.assert_array_almost_equal(model.topic_word_.sum(axis=1), np.ones(K))
 
     def test_lda_sparse_error_float(self):
-        dtm = self.dtm.astype(np.float)
+        dtm = self.dtm.astype(float)
         model = self.model
         self.assertRaises(ValueError, model.transform, dtm)

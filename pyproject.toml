@@ -58,6 +58,13 @@ flake8 = "^5.0.1"
 meson-python = "^0.14.0"
 cython = "^3.0.3"
 ninja = "^1.11.1.1"
+cibuildwheel = "^2.16.2"
+
+[tool.cibuildwheel]
+build = "cp39-* cp310-* cp311-* cp312-*"
+skip = ["pp*", "*i686", "*win32"]
+test-requires = ["oslotest", "scipy", "setuptools"]
+test-command = "python -m unittest discover -s {project}/lda/tests"
 
 [build-system]
 requires = ["poetry-core", "cython", "meson-python", "ninja"]
