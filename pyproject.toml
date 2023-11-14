@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "lda"
-version = "2.0.0"
+version = "3.0.0"
 description = "Topic modeling with latent Dirichlet allocation"
 authors = ["lda developers <lda-users@googlegroups.com>"]
 license = "MPL 2.0"
@@ -27,6 +27,7 @@ classifiers = [
 include = [
     { path = "meson.build", format = "sdist" },
     { path = "lda/*.so", format = "wheel" },
+    { path = "lda/*.pyd", format = "wheel"},
 ]
 
 [tool.poetry.build]

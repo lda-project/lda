@@ -1,7 +1,7 @@
 lda: Topic modeling with latent Dirichlet allocation
 ====================================================
 
-|pypi| |travis| |zenodo|
+|pypi| |actions| |zenodo|
 
 **NOTE: This package is in maintenance mode. Critical bugs will be fixed. No new features will be added.**
 
@@ -89,10 +89,7 @@ The document-topic distributions are available in ``model.doc_topic_``.
 Requirements
 ------------
 
-Python 2.7 or Python 3.5+ is required. The following packages are required
-
-- numpy_
-- pbr_
+Python 3.9+ and NumPy is required.
 
 Caveat
 ------
@@ -144,9 +141,9 @@ lda is licensed under Version 2.0 of the Mozilla Public License.
     :target: https://pypi.python.org/pypi/lda
     :alt: pypi version
 
-.. |travis| image:: https://travis-ci.org/lda-project/lda.png?branch=master
-    :target: https://travis-ci.org/lda-project/lda
-    :alt: travis-ci build status
+.. |actions| image:: https://github.com/lda-project/lda/actions/workflows/release.yml/badge.svg
+    :target: https://github.com/lda-project/lda/actions
+    :alt: github actions build status
 
 .. |zenodo| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.1412135.svg
     :target: https://doi.org/10.5281/zenodo.1412135
