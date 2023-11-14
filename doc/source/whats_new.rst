@@ -6,6 +6,11 @@
  What's New
 ============
 
+v3.0.0 (tba)
+============
+- Drop support for Python 3.6, 3.7 and 3.8
+- Wheels for Python 3.9, 3.10, 3.11 and 3.12
+
 v2.0.0 (17. August 2020)
 ==========================
 - Drop support for Python 2.7
