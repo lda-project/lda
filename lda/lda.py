@@ -276,8 +276,8 @@ class LDA:
         logger.info("n_topics: {}".format(n_topics))
         logger.info("n_iter: {}".format(n_iter))
 
-        self.nzw_ = nzw_ = np.zeros((n_topics, W), dtype=np.intc)
-        self.ndz_ = ndz_ = np.zeros((D, n_topics), dtype=np.intc)
+        self.nzw_ = nzw_ = np.zeros((n_topics, W), dtype=np.intc, order="F")
+        self.ndz_ = ndz_ = np.zeros((D, n_topics), dtype=np.intc, order="C")
         self.nz_ = nz_ = np.zeros(n_topics, dtype=np.intc)
 
         self.WS, self.DS = WS, DS = lda.utils.matrix_to_lists(X)
