@@ -37,7 +37,7 @@ cdef int searchsorted(double* arr, int length, double value) nogil:
     return imin
 
 
-def _sample_topics(int[:] WS, int[:] DS, int[:] ZS, int[:, :] nzw, int[:, :] ndz, int[:] nz,
+def _sample_topics(int[:] WS, int[:] DS, int[:] ZS, int[::1, :] nzw, int[:, ::1] ndz, int[:] nz,
                    double[:] alpha, double[:] eta, double[:] rands):
     cdef int i, k, w, d, z, z_new
     cdef double r, dist_cum
@@ -78,7 +78,7 @@ def _sample_topics(int[:] WS, int[:] DS, int[:] ZS, int[:, :] nzw, int[:, :] ndz
         free(dist_sum)
 
 
-cpdef double _loglikelihood(int[:, :] nzw, int[:, :] ndz, int[:] nz, int[:] nd, double alpha, double eta) nogil:
+cpdef double _loglikelihood(int[::1, :] nzw, int[:, ::1] ndz, int[:] nz, int[:] nd, double alpha, double eta) nogil:
     cdef int k, d
     cdef int D = ndz.shape[0]
     cdef int n_topics = ndz.shape[1]
